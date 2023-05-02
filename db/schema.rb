@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_02_142551) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_02_150135) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,6 +24,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_02_142551) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "items", force: :cascade do |t|
+    t.bigint "artist_id", null: false
+    t.bigint "manufacturer_id", null: false
+    t.boolean "incomplete"
+    t.string "titel"
+    t.string "size"
+    t.string "material"
+    t.string "made_at"
+    t.integer "edition"
+    t.text "provenance", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist_id"], name: "index_items_on_artist_id"
+    t.index ["manufacturer_id"], name: "index_items_on_manufacturer_id"
+  end
+
   create_table "manufacturers", force: :cascade do |t|
     t.string "name"
     t.string "location"
@@ -31,4 +47,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_02_142551) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "items", "artists"
+  add_foreign_key "items", "manufacturers"
 end
