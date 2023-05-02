@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_02_151356) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_02_151507) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_02_151356) do
     t.integer "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "text"
+    t.bigint "item_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_comments_on_item_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -55,6 +63,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_02_151356) do
     t.index ["item_id"], name: "index_references_on_item_id"
   end
 
+  add_foreign_key "comments", "items"
   add_foreign_key "items", "artists"
   add_foreign_key "items", "manufacturers"
   add_foreign_key "references", "items"
