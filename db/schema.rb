@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_02_151507) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_02_152019) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,8 +63,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_02_151507) do
     t.index ["item_id"], name: "index_references_on_item_id"
   end
 
+  create_table "tasks", force: :cascade do |t|
+    t.string "titel"
+    t.text "content"
+    t.boolean "done", default: false
+    t.bigint "item_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_tasks_on_item_id"
+  end
+
   add_foreign_key "comments", "items"
   add_foreign_key "items", "artists"
   add_foreign_key "items", "manufacturers"
   add_foreign_key "references", "items"
+  add_foreign_key "tasks", "items"
 end
