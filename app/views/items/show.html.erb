@@ -1,0 +1,15 @@
+<%= @item.titel %>
+<%= @item.size %>
+<%= link_to "#{@item.artist.first_name} #{@item.artist.last_name}", artist_path(@item.artist) %>
+<%= link_to "#{@item.manufacturer.name}", manufacturer_path(@item.manufacturer) %>
+<%= @item.material %>
+<%= @item.made_at %>
+<%= @item.edition %>
+<%= @item.provenance %>
+<%= @item.category %>
+
+<div>
+  <%= link_to 'Bearbeiten', edit_item_path(@item) %>
+  <%= link_to 'Löschen', item_path(@item), data: {turbo_method: :delete, turbo_confirm: "Bist du sicher?"} %>
+  <%= link_to "Zurück", request.referrer || root_path, class: "btn btn-primary" %>
+</div>

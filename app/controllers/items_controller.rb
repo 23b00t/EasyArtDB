@@ -35,7 +35,10 @@ class ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(
-      :artist_id, :manufacturer_id, :incomplete, :titel, :size, :material, :made_at, :edition, :provenance, :category
+      :artist_id, :manufacturer_id, :incomplete, :titel, :size, :material, :made_at,
+      :edition, :provenance, :category, tasks_attributes: %i[id description completed],
+                                        comments_attributes: %i[id content],
+                                        references_attributes: %i[id url]
     )
   end
 
