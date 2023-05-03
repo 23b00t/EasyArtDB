@@ -1,0 +1,7 @@
+<h1><%= @manufacturer.name %></h1>
+
+<p>Ort: <%= @manufacturer.location %></p>
+
+<%= link_to 'Bearbeiten', edit_manufacturer_path(@manufacturer) %>
+<%= link_to 'Löschen', manufacturer_path(@manufacturer), data: {turbo_method: :delete, turbo_confirm: "Bist du sicher?"} %>
+<%= link_to 'Zurück', manufacturers_path %>

@@ -1,0 +1,6 @@
+<ul>
+  <% @manufacturers.each do |manufacturer| %>
+    <li><%= link_to "#{manufacturer.name}", manufacturer_path(manufacturer) %></li>
+  <% end %>
+</ul>
+<%= link_to 'Hersteller hinzufügen', new_manufacturer_path %>
