@@ -1,0 +1,26 @@
+<%= simple_form_for @item do |f| %>
+  <%= f.input :artist_id, collection: Artist.all, prompt: "Wähle einen Künstler" %>
+  <%= f.input :manufacturer_id, collection: Manufacturer.all, prompt: "Wähle einen Hersteller" %>
+  <%= f.input :incomplete, label: "Datensatz vollständig?" %>
+  <%= f.input :titel, label: 'Titel' %>
+  <%= f.input :size, label: 'Größe' %>
+  <%= f.input :material, label: 'Material' %>
+  <%= f.input :made_at, label: 'Hergestellt am' %>
+  <%= f.input :edition, label: 'Edition' %>
+  <%= f.input :provenance, label: 'Provenienz' %>
+
+  <%= f.simple_fields_for :tasks do |t| %>
+    <%= t.input :titel, label: 'Titel' %>
+    <%= t.input :description, label: 'Inhalt' %>
+  <% end %>
+
+  <%= f.simple_fields_for :comments do |c| %>
+    <%= c.input :content, label: 'Kommentar' %>
+  <% end %>
+
+  <%= f.simple_fields_for :references do |r| %>
+    <%= r.input :text, label: 'Referenz' %>
+  <% end %>
+
+  <%= f.button :submit %>
+<% end %>

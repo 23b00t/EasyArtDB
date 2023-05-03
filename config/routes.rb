@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     resources :tasks
   end
 
+  # To display all tasks (not only the tasks that belongs_to an item)
+  resources :tasks, only: [:index]
+
   resources :artists
   resources :manufacturers
 end
