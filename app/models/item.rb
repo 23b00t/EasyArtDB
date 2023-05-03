@@ -6,5 +6,5 @@ class Item < ApplicationRecord
   has_many :tasks, dependent: :destroy
 
   CATEGORIES = ['Halskette', "Armband-/ reif", 'Fingerring', 'Brosche', 'Anhänger', 'Sonstiges']
-  validates :category, inclusion: { in: CATEGORIES }
+  # validates :category, inclusion: { in: CATEGORIES }
 end
