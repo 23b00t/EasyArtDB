@@ -1,0 +1,17 @@
+<ul>
+  <% @items.each_with_index do |item, index| %>
+    <li>
+      <%= link_to "#{index + 1}", item_path(item) %>
+      <%= item.titel %>
+      <%= item.size %>
+      <%= link_to "#{item.artist.first_name} #{item.artist.last_name}", artist_path(item.artist) %>
+      <%= link_to "#{item.manufacturer.name}", manufacturer_path(item.manufacturer) %>
+      <%= item.material %>
+      <%= item.made_at %>
+      <%= item.edition %>
+      <%= item.provenance %>
+      <%= item.category %>
+    </li>
+  <% end %>
+</ul>
+<%= link_to 'Objekt hinzufügen', new_item_path %>
