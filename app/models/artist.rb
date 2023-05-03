@@ -1,5 +1,5 @@
 class Artist < ApplicationRecord
-  enum category: { artist: 0, craftsman: 1 }
+  enum category: { Künstler: 0, Handwerker: 1 }
   has_many :items
   validates :first_name, uniqueness: { scope: :last_name }
 end

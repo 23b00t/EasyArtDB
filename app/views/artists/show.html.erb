@@ -1,0 +1,8 @@
+<h1><%= "#{@artist.first_name} #{@artist.last_name}" %></h1>
+<p>Geboren am: <%= @artist.birthday %></p>
+<p>Gestorben am: <%= @artist.deathday %></p>
+<p>Kategorie: <%= @artist.category %></p>
+
+<%= link_to 'Bearbeiten', edit_artist_path(@artist) %>
+<%= link_to 'Löschen', artist_path(@artist), data: {turbo_method: :delete, turbo_confirm: "Bist du sicher?"} %>
+<%= link_to 'Zurück', artists_path %>
