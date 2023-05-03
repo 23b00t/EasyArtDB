@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_02_152831) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_03_100451) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -72,6 +72,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_02_152831) do
     t.text "provenance", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "category"
     t.index ["artist_id"], name: "index_items_on_artist_id"
     t.index ["manufacturer_id"], name: "index_items_on_manufacturer_id"
   end
