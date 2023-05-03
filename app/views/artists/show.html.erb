@@ -5,4 +5,4 @@
 
 <%= link_to 'Bearbeiten', edit_artist_path(@artist) %>
 <%= link_to 'Löschen', artist_path(@artist), data: {turbo_method: :delete, turbo_confirm: "Bist du sicher?"} %>
-<%= link_to 'Zurück', artists_path %>
+<%= link_to "Zurück", request.referrer || root_path, class: "btn btn-primary" %>
