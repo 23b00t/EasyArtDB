@@ -1,4 +1,4 @@
-<%= simple_form_for @item do |f| %>
+<%= simple_form_for @item, multipart: true do |f| %>
   <%= f.input :artist_id, collection: Artist.all, prompt: "Wähle einen Künstler" %>
   <%= f.input :manufacturer_id, collection: Manufacturer.all, prompt: "Wähle einen Hersteller" %>
   <%= f.input :incomplete, label: "Datensatz vollständig?" %>
@@ -21,6 +21,8 @@
   <%= f.simple_fields_for :references do |r| %>
     <%= r.input :text, label: 'Referenz' %>
   <% end %>
+
+  <%= f.input :photos, as: :file, input_html: { multiple: true } %>
 
   <%= f.button :submit %>
 <% end %>
