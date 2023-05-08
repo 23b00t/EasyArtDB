@@ -1,3 +1,7 @@
+<% @item.photos.each do |photo| %>
+  <%= image_tag photo.url %>
+<% end %>
+
 <%= @item.titel %>
 <%= @item.size %>
 <%= link_to "#{@item.artist.first_name} #{@item.artist.last_name}", artist_path(@item.artist) %>
