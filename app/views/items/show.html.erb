@@ -8,6 +8,13 @@
 <%= @item.provenance %>
 <%= @item.category %>
 
+<h3>To-Do's</h3>
+<ul>
+  <% @item.tasks.each do |task| %>
+    <li><%= link_to "#{task.titel}", item_task_path(@item, task) %></li>
+  <% end %>
+</ul>
+
 <div>
   <%= link_to 'Bearbeiten', edit_item_path(@item) %>
   <%= link_to 'Löschen', item_path(@item), data: {turbo_method: :delete, turbo_confirm: "Bist du sicher?"} %>
