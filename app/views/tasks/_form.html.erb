@@ -1,0 +1,7 @@
+<%= simple_form_for([@item, @task]) do |form| %>
+  <%= form.input :titel %>
+  <%= form.input :content %>
+  <%= form.input :done %>
+
+  <%= form.button :submit %>
+<% end %>
