@@ -15,4 +15,8 @@ Rails.application.routes.draw do
 
   resources :artists
   resources :manufacturers
+
+  # import data
+  get 'import/new'
+  post 'import', to: 'import#create'
 end
