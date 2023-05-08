@@ -11,6 +11,7 @@
       <%= item.edition %>
       <%= item.provenance %>
       <%= item.category %>
+      <%= link_to "To-Do's", item_tasks_path(item) %>
     </li>
   <% end %>
 </ul>
