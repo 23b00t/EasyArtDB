@@ -1,18 +1,80 @@
-<ul>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Titel</th>
+      <th scope="col">Größe</th>
+      <th scope="col">Künstler</th>
+      <th scope="col">Hersteller</th>
+      <th scope="col">Material</th>
+      <th scope="col">Jahr</th>
+      <th scope="col">Auflage</th>
+      <th scope="col">Provenienz</th>
+      <th scope="col">Kommentare</th>
+      <th scope="col">Literatur</th>
+      <th scope="col">Bezeichnung</th>
+      <th scope="col">To-Do's</th>
+    </tr>
+  </thead>
   <% @items.each_with_index do |item, index| %>
-    <li>
-      <%= link_to "#{index + 1}", item_path(item) %>
-      <%= item.titel %>
-      <%= item.size %>
-      <%= link_to "#{item.artist.first_name} #{item.artist.last_name}", artist_path(item.artist) unless item.artist.nil? %>
-      <%= link_to "#{item.manufacturer.name}", manufacturer_path(item.manufacturer) unless item.manufacturer.nil? %>
-      <%= item.material %>
-      <%= item.made_at %>
-      <%= item.edition %>
-      <%= item.provenance %>
-      <%= item.category %>
-      <%= link_to "To-Do's", item_tasks_path(item) %>
-    </li>
+    <tbody>
+      <tr>
+        <% if item.photos.any? %>
+          <%= link_to item_path(item) do %>
+            <th scope="row"><%= image_tag item.photos.first.url, width: 80, height: 80  %></th>
+          <% end %>
+        <% else %>
+          <%= link_to item_path(item) do %>
+            <th scope="row"><%= image_tag asset_path('ring.jpg'), width: 80, height: 80  %></th>
+          <% end %>
+        <% end %>
+        <td><%= item.titel %></td>
+        <td><%= item.size %></td>
+        <td><%= link_to "#{item.artist.last_name}, #{item.artist.first_name}", artist_path(item.artist) unless item.artist.nil? %></td>
+        <td><%= link_to "#{item.manufacturer.name}", manufacturer_path(item.manufacturer) unless item.manufacturer.nil? %></td>
+        <td><%= item.material %></td>
+        <td><%= item.made_at %></td>
+        <td><%= item.edition %></td>
+        <td><%= item.provenance.join('\n') %></td>
+        <td><%= item.comments.map(&:text).join('\n') %></td>
+        <td><%= item.references.map(&:text).join('\n') %></td>
+        <td><%= item.category %></td>
+        <% item.tasks.each do |task| %>
+          <td><%= link_to task.titel, item_task_path(item, task) %></td>
+        <% end %>
+      </tr>
+    </tbody>
   <% end %>
-</ul>
+</table>
+
 <%= link_to 'Objekt hinzufügen', new_item_path %>
+
+<%# <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td colspan="2">Larry the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table> %>
