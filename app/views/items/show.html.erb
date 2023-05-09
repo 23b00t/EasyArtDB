@@ -22,5 +22,5 @@
 <div>
   <%= link_to 'Bearbeiten', edit_item_path(@item) %>
   <%= link_to 'Löschen', item_path(@item), data: {turbo_method: :delete, turbo_confirm: "Bist du sicher?"} %>
-  <%= link_to "Zurück", request.referrer || root_path, class: "btn btn-primary" %>
+  <%= link_to "Zurück", items_path %>
 </div>
