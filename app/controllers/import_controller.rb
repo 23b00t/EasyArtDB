@@ -65,8 +65,8 @@ class ImportController < ApplicationController
     return artist.id unless artist.nil?
 
     date_string = string.scan(/\d+/)
-    birthday = Date.parse("#{date_string.first}-01-01")
-    deathday = Date.parse("#{date_string.last}-01-01") if date_string.length > 1
+    birthday = date_string.first
+    deathday = date_string.last if date_string.length > 1
 
     artist = Artist.create(first_name:, last_name:, birthday:, deathday:)
     artist.id
