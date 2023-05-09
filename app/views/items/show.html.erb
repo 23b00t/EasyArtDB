@@ -4,8 +4,8 @@
 
 <%= @item.titel %>
 <%= @item.size %>
-<%= link_to "#{@item.artist.first_name} #{@item.artist.last_name}", artist_path(@item.artist) %>
-<%= link_to "#{@item.manufacturer.name}", manufacturer_path(@item.manufacturer) %>
+<%= link_to "#{@item.artist.first_name} #{@item.artist.last_name}", artist_path(@item.artist) unless @item.artist.nil? %>
+<%= link_to "#{@item.manufacturer.name}", manufacturer_path(@item.manufacturer) unless @item.manufacturer.nil? %>
 <%= @item.material %>
 <%= @item.made_at %>
 <%= @item.edition %>

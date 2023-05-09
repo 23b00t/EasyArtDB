@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_08_111021) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_09_100129) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,14 +61,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_08_111021) do
   end
 
   create_table "items", force: :cascade do |t|
-    t.bigint "artist_id", null: false
-    t.bigint "manufacturer_id", null: false
+    t.bigint "artist_id"
+    t.bigint "manufacturer_id"
     t.boolean "incomplete"
     t.string "titel"
     t.string "size"
     t.string "material"
     t.string "made_at"
-    t.integer "edition"
+    t.string "edition"
     t.text "provenance", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
