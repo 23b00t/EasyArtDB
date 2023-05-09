@@ -3,8 +3,6 @@ require 'base64'
 require 'stringio'
 
 class ImportController < ApplicationController
-  def new; end
-
   def create
     file = params[:import_file]
     doc = Nokogiri::XML(file.read)
@@ -12,7 +10,7 @@ class ImportController < ApplicationController
     rows = doc.css('tr')
     items = parse_rows(rows)
     create_records(items)
-    redirect_to items_path
+    redirect_to items_path, notice: 'Erfolgreich Daten importiert'
   end
 
   private
@@ -42,35 +40,19 @@ class ImportController < ApplicationController
   def create_records(items)
     items.each do |item|
       artist_id = create_artits(item[:artist])
+      # Manufacturer? Search for manufacturer in DB, add if exists otherwise nil
 
-      # Manufacturer?
-      new_item = Item.create(
-        artist_id:,
-        category: item[:category],
-        titel: item[:titel],
-        made_at: item[:made_at],
-        material: item[:material],
-        size: item[:size],
-        edition: item[:edition],
-        provenance: [item[:provenance]]
-      )
+      new_item = create_item(item, artist_id)
 
       # comments, references, tasks
-      Comment.create(text: item[:comments], item_id: new_item.id)
-      Reference.create(text: item[:references], item_id: new_item.id)
-      Task.create(titel: item[:tasks], item_id: new_item.id)
+      Comment.create(text: item[:comments], item_id: new_item.id) unless item[:comments].blank?
+      Reference.create(text: item[:references], item_id: new_item.id) unless item[:references].blank?
+      Task.create(titel: item[:tasks], item_id: new_item.id) unless item[:tasks].blank?
 
       # photo
       next unless item[:image_url]
 
-      # decode the base64-encoded string to a binary string
-      binary_string = Base64.decode64(item[:image_url].split(',')[1])
-
-      # create an IO object from the binary string
-      io = StringIO.new(binary_string)
-
-      # attach the IO object to the item's photos
-      new_item.photos.attach(io:, filename: "photo.jpg", content_type: "image/jpeg")
+      add_image(item[:image_url], new_item)
     end
   end
 
@@ -88,5 +70,27 @@ class ImportController < ApplicationController
 
     artist = Artist.create(first_name:, last_name:, birthday:, deathday:)
     artist.id
+  end
+
+  def create_item(item, artist_id)
+    Item.create(
+      artist_id:,
+      category: item[:category],
+      titel: item[:titel],
+      made_at: item[:made_at],
+      material: item[:material],
+      size: item[:size],
+      edition: item[:edition],
+      provenance: [item[:provenance]]
+    )
+  end
+
+  def add_image(image_url, new_item)
+    # decode the base64-encoded string to a binary string
+    binary_string = Base64.decode64(image_url.split(',')[1])
+    # create an IO object from the binary string
+    io = StringIO.new(binary_string)
+    # attach the IO object to the item's photos
+    new_item.photos.attach(io:, filename: "photo.jpg", content_type: "image/jpeg")
   end
 end
