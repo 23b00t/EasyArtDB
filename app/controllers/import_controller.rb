@@ -1,4 +1,6 @@
 require 'nokogiri'
+require 'base64'
+require 'stringio'
 
 class ImportController < ApplicationController
   def new; end
@@ -10,6 +12,7 @@ class ImportController < ApplicationController
     rows = doc.css('tr')
     items = parse_rows(rows)
     create_records(items)
+    redirect_to items_path
   end
 
   private
@@ -28,7 +31,7 @@ class ImportController < ApplicationController
         size: columns[6].text,
         provenance: columns[7].text,
         manufacturer: columns[8].text,
-        edition: columns[9].text.to_i,
+        edition: columns[9].text,
         comments: columns[10].text,
         references: columns[11].text,
         tasks: columns[12].text
@@ -43,35 +46,41 @@ class ImportController < ApplicationController
       # Manufacturer?
       new_item = Item.create(
         artist_id:,
-        categroy: item[:category],
+        category: item[:category],
         titel: item[:titel],
         made_at: item[:made_at],
         material: item[:material],
         size: item[:size],
-        # edition?
+        edition: item[:edition],
         provenance: [item[:provenance]]
       )
 
       # comments, references, tasks
-      Comment.create(text: item[:comments], item: new_item)
-      Reference.create(text: item[:references], item: new_item)
-      Task.create(titel: item[:tasks], item: new_item)
+      Comment.create(text: item[:comments], item_id: new_item.id)
+      Reference.create(text: item[:references], item_id: new_item.id)
+      Task.create(titel: item[:tasks], item_id: new_item.id)
 
       # photo
-      # download the photo from the URL and create an ActiveStorage blob
-      blob = ActiveStorage::Downloader.download(item[:image_url])
-      # attach the blob to the item's photos
-      new_item.photos.create_after_upload!(io: blob.download, filename: "photo.jpg", content_type: "image/jpeg")
+      next unless item[:image_url]
+
+      # decode the base64-encoded string to a binary string
+      binary_string = Base64.decode64(item[:image_url].split(',')[1])
+
+      # create an IO object from the binary string
+      io = StringIO.new(binary_string)
+
+      # attach the IO object to the item's photos
+      new_item.photos.attach(io:, filename: "photo.jpg", content_type: "image/jpeg")
     end
   end
 
   def create_artits(string)
     last_name = string.scan(/^\w+/).first
-    first_name = string.scan(/,\s*.*(?=\()/).first.gsub(/[^a-zA-ZöäüÖÄÜ\s]/, '').strip
+    first_name = string.scan(/,\s*.*(?=\()/).first&.gsub(/[^a-zA-ZöäüÖÄÜ\s]/, '')&.strip
 
     # check if artist exists in DB and return id, otherwise extract lifedates, create it and return id
     artist = Artist.find_by(first_name:, last_name:)
-    return artist.id unless artits.nil?
+    return artist.id unless artist.nil?
 
     date_string = string.scan(/\d+/)
     birthday = Date.parse("#{date_string.first}-01-01")
