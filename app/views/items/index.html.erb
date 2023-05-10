@@ -1,51 +1,69 @@
-<div class="table-responsive-lg">
-  <table class="table table-hover table-bordered align-middle">
-  <thead class="table-head">
-    <tr>
-      <th scope="col">Foto</th>
-      <th scope="col">Bezeichnung</th>
-      <th scope="col">Titel</th>
-      <th scope="col">Größe</th>
-      <th scope="col">Künstler</th>
-      <th scope="col">Hersteller</th>
-      <th scope="col">Material</th>
-      <th scope="col">Jahr</th>
-      <th scope="col">Auflage</th>
-      <th scope="col">Provenienz</th>
-      <th scope="col">Kommentare</th>
-      <th scope="col">Literatur</th>
-      <th scope="col">To-Do's</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @items.each_with_index do |item, index| %>
+<div data-controller="columns-filter">
+  <div class="columns-filter container" data-columns-filter-target="checkboxes">
+    <label><input type="checkbox" name="foto" checked> Foto</label>
+    <label><input type="checkbox" name="category" checked> Bezeichnung</label>
+    <label><input type="checkbox" name="titel"> Titel</label>
+    <label><input type="checkbox" name="size"> Größe</label>
+    <label><input type="checkbox" name="artist" checked> Künstler</label>
+    <label><input type="checkbox" name="manufacturer"> Hersteller</label>
+    <label><input type="checkbox" name="material"> Material</label>
+    <label><input type="checkbox" name="year" checked> Jahr</label>
+    <label><input type="checkbox" name="edition" checked> Auflage</label>
+    <label><input type="checkbox" name="provenance"> Provenienz</label>
+    <label><input type="checkbox" name="comments"> Kommentare</label>
+    <label><input type="checkbox" name="references"> Literatur</label>
+    <label><input type="checkbox" name="tasks" checked> To-Do's</label>
+  </div>
+
+  <div class="table-responsive-lg">
+    <table class="table table-hover table-bordered align-middle">
+    <thead class="table-head">
       <tr>
-        <% if item.photos.any? %>
-          <td><%= link_to item_path(item) do %>
-            <%= image_tag item.photos.first.url, width: 80, height: 80  %>
-          <% end %></td>
-        <% else %>
-          <td><%= link_to item_path(item) do %>
-            <%= image_tag asset_path('ring.jpg'), width: 80, height: 80  %>
-          <% end %></td>
-        <% end %>
-        <td><%= item.category %></td>
-        <td><%= item.titel %></td>
-        <td><%= item.size %></td>
-        <td><%= link_to "#{item.artist.last_name}, #{item.artist.first_name}", artist_path(item.artist) unless item.artist.nil? %></td>
-        <td><%= link_to "#{item.manufacturer.name}", manufacturer_path(item.manufacturer) unless item.manufacturer.nil? %></td>
-        <td><%= item.material %></td>
-        <td><%= item.made_at %></td>
-        <td><%= item.edition %></td>
-        <td><%= item.provenance.join('\n') %></td>
-        <td><%= item.comments.map(&:text).join('\n') %></td>
-        <td><%= item.references.map(&:text).join('\n') %></td>
-        <% item.tasks.each do |task| %>
-          <td><%= link_to task.titel, item_task_path(item, task) %></td>
-        <% end %>
+        <th scope="col" data-columns-filter-target="foto">Foto</th>
+        <th scope="col" data-columns-filter-target="category">Bezeichnung</th>
+        <th scope="col" class="d-none" data-columns-filter-target="titel">Titel</th>
+        <th scope="col" class="d-none" data-columns-filter-target="size">Größe</th>
+        <th scope="col" data-columns-filter-target="artist">Künstler</th>
+        <th scope="col" class="d-none" data-columns-filter-target="manufacturer">Hersteller</th>
+        <th scope="col" class="d-none" data-columns-filter-target="material">Material</th>
+        <th scope="col" data-columns-filter-target="year">Jahr</th>
+        <th scope="col" data-columns-filter-target="edition">Auflage</th>
+        <th scope="col" class="d-none" data-columns-filter-target="provenance">Provenienz</th>
+        <th scope="col" class="d-none" data-columns-filter-target="comments">Kommentare</th>
+        <th scope="col" class="d-none" data-columns-filter-target="references">Literatur</th>
+        <th scope="col" data-columns-filter-target="tasks">To-Do's</th>
       </tr>
-    <% end %>
-  </tbody>
-  </table>
+    </thead>
+    <tbody>
+      <% @items.each_with_index do |item, index| %>
+        <tr>
+          <% if item.photos.any? %>
+            <td data-columns-filter-target="foto"><%= link_to item_path(item) do %>
+              <%= image_tag item.photos.first.url, width: 80, height: 80  %>
+            <% end %></td>
+          <% else %>
+            <td data-columns-filter-target="foto"><%= link_to item_path(item) do %>
+              <%= image_tag asset_path('ring.jpg'), width: 80, height: 80  %>
+            <% end %></td>
+          <% end %>
+          <td data-columns-filter-target="category"><%= item.category %></td>
+          <td class="d-none" data-columns-filter-target="titel"><%= item.titel %></td>
+          <td class="d-none" data-columns-filter-target="size"><%= item.size %></td>
+          <td data-columns-filter-target="artist"><%= link_to "#{item.artist.last_name}, #{item.artist.first_name}", artist_path(item.artist) unless item.artist.nil? %></td>
+          <td class="d-none" data-columns-filter-target="manufacturer"><%= link_to "#{item.manufacturer.name}", manufacturer_path(item.manufacturer) unless item.manufacturer.nil? %></td>
+          <td class="d-none" data-columns-filter-target="material"><%= item.material %></td>
+          <td data-columns-filter-target="year"><%= item.made_at %></td>
+          <td data-columns-filter-target="edition"><%= item.edition %></td>
+          <td class="d-none" data-columns-filter-target="provenance"><%= item.provenance.join('\n') %></td>
+          <td class="d-none" data-columns-filter-target="comments"><%= item.comments.map(&:text).join('\n') %></td>
+          <td class="d-none" data-columns-filter-target="references"><%= item.references.map(&:text).join('\n') %></td>
+          <% item.tasks.each do |task| %>
+            <td data-columns-filter-target="tasks"><%= link_to task.titel, item_task_path(item, task) %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+    </table>
+  </div>
+  <%= link_to 'Objekt hinzufügen', new_item_path %>
 </div>
-<%= link_to 'Objekt hinzufügen', new_item_path %>
