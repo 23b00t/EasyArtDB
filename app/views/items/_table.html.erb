@@ -32,7 +32,7 @@
           <td data-columns-filter-target="category"><%= item.category %></td>
           <td class="d-none" data-columns-filter-target="titel"><%= item.titel %></td>
           <td class="d-none" data-columns-filter-target="size"><%= item.size %></td>
-          <td data-columns-filter-target="artist"><%= link_to "#{item.artist.last_name}, #{item.artist.first_name}", artist_path(item.artist) unless item.artist.nil? %></td>
+          <td data-columns-filter-target="artist"><%= link_to "#{artist.last_name}, #{artist.first_name} (#{artist.birthday} - #{artist.deathday unless artist.deathday.nil?})", artist_path(item.artist) unless item.artist.nil? %></td>
           <td class="d-none" data-columns-filter-target="manufacturer"><%= link_to "#{item.manufacturer.name}", manufacturer_path(item.manufacturer) unless item.manufacturer.nil? %></td>
           <td class="d-none" data-columns-filter-target="material"><%= item.material %></td>
           <td data-columns-filter-target="year"><%= item.made_at %></td>
