@@ -5,6 +5,10 @@ class Artist < ApplicationRecord
 
   before_destroy :clear_artist_id
 
+  def full_name
+    "#{last_name}, #{first_name}"
+  end
+
   private
 
   def clear_artist_id

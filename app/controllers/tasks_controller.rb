@@ -44,7 +44,7 @@ class TasksController < ApplicationController
 
   def set_item
     # find_by_id to not raise an error if params[:item_id] is nil (as it happens with find)
-    @item = Item.find_by_id(params[:item_id]) || @task.item if @task
+    @item = Item.find_by_id(params[:item_id]) || @task&.item
   end
 
   def set_task
