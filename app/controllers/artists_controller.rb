@@ -2,7 +2,7 @@ class ArtistsController < ApplicationController
   before_action :set_artist, only: %i[show edit update destroy]
 
   def index
-    @artists = Artist.all
+    @artists = Artist.all.sort_by { |artist| artist.last_name.to_s }
   end
 
   def show; end
