@@ -1,8 +1,10 @@
-<h1><%= "#{@artist.first_name} #{@artist.last_name}" %></h1>
-<p>Geboren am: <%= @artist.birthday %></p>
-<p>Gestorben am: <%= @artist.deathday %></p>
-<p>Kategorie: <%= @artist.category %></p>
+<div class="container">
+  <h1><%= "#{@artist.first_name} #{@artist.last_name}" %></h1>
+  <p>Geboren: <%= @artist.birthday %></p>
+  <p>Gestorben: <%= @artist.deathday %></p>
+  <p>Kategorie: <%= @artist.category %></p>
 
-<%= link_to 'Bearbeiten', edit_artist_path(@artist) %>
-<%= link_to 'Löschen', artist_path(@artist), data: {turbo_method: :delete, turbo_confirm: "Bist du sicher?"} %>
-<%= link_to "Zurück", request.referrer || root_path, class: "btn btn-primary" %>
+  <%= link_to 'Bearbeiten', edit_artist_path(@artist), class: "btn btn-warning" %>
+  <%= link_to 'Löschen', artist_path(@artist), data: {turbo_method: :delete, turbo_confirm: "Bist du sicher?"}, class: "btn btn-danger"  %>
+  <%= link_to "Zurück", request.referrer || root_path, class: "btn btn-primary" %>
+</div>
