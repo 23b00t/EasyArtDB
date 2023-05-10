@@ -57,16 +57,16 @@ class ImportController < ApplicationController
   end
 
   def create_artits(string)
-    last_name = string.scan(/^\w+/).first
-    first_name = string.scan(/,\s*.*(?=\()/).first&.gsub(/[^a-zA-ZöäüÖÄÜ\s]/, '')&.strip
+    last_name = string.scan(/^[a-zA-ZäöüÄÖÜß]+/).first
+    first_name = string.scan(/,\s*.*(?=\()/).first&.gsub(/[^a-zA-ZöäüÖÄÜß\s]/, '')&.strip
 
     # check if artist exists in DB and return id, otherwise extract lifedates, create it and return id
     artist = Artist.find_by(first_name:, last_name:)
     return artist.id unless artist.nil?
 
     date_string = string.scan(/\d+/)
-    birthday = Date.parse("#{date_string.first}-01-01")
-    deathday = Date.parse("#{date_string.last}-01-01") if date_string.length > 1
+    birthday = date_string.first
+    deathday = date_string.last if date_string.length > 1
 
     artist = Artist.create(first_name:, last_name:, birthday:, deathday:)
     artist.id
