@@ -1,26 +1,39 @@
-<% @item.photos.each do |photo| %>
-  <%= image_tag photo.url %>
-<% end %>
+<div class="container">
+  <h3>To-Do's</h3>
+  <ul>
+    <% @item.tasks.each do |task| %>
+      <li><%= link_to "#{task.titel}", item_task_path(@item, task) %></li>
+    <% end %>
+  </ul>
 
-<%= @item.titel %>
-<%= @item.size %>
-<%= link_to "#{@item.artist.first_name} #{@item.artist.last_name}", artist_path(@item.artist) unless @item.artist.nil? %>
-<%= link_to "#{@item.manufacturer.name}", manufacturer_path(@item.manufacturer) unless @item.manufacturer.nil? %>
-<%= @item.material %>
-<%= @item.made_at %>
-<%= @item.edition %>
-<%= @item.provenance %>
-<%= @item.category %>
+<div class="card mb-4" style="width: 100%;">
+  <div class="row g-0">
+    <div class="col-md-6">
+      <%= render partial: 'photos', locals: { class: "card-img-top" } unless @item.photos.first.nil? %>
+    </div>
+    <div class="col-md-6">
+      <div class="card-body">
+        <h5 class="card-title"><%= link_to "#{@item.artist.first_name} #{@item.artist.last_name}", artist_path(@item.artist) unless @item.artist.nil? %></h5>
+        <ul class="list-group">
+          <li class="list-group-item">Titel: <%= @item.titel %></li>
+          <li class="list-group-item">Größe: <%= @item.size %></li>
+          <li class="list-group-item">Hersteller: <%= link_to "#{@item.manufacturer.name}", manufacturer_path(@item.manufacturer) unless @item.manufacturer.nil? %></li>
+          <li class="list-group-item">Material: <%= @item.material %></li>
+          <li class="list-group-item">Auflage: <%= @item.edition %></li>
+          <li class="list-group-item">Provenienz: <%= @item.provenance.join('\n') %></li>
+          <li class="list-group-item">Bezeichnung: <%= @item.category %></li>
+          <li class="list-group-item">Jahr: <%= @item.made_at %></li>
+        </ul>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+  </div>
+</div>
 
-<h3>To-Do's</h3>
-<ul>
-  <% @item.tasks.each do |task| %>
-    <li><%= link_to "#{task.titel}", item_task_path(@item, task) %></li>
-  <% end %>
-</ul>
 
-<div>
-  <%= link_to 'Bearbeiten', edit_item_path(@item) %>
-  <%= link_to 'Löschen', item_path(@item), data: {turbo_method: :delete, turbo_confirm: "Bist du sicher?"} %>
-  <%= link_to "Zurück", items_path %>
+  <div>
+    <%= link_to 'Bearbeiten', edit_item_path(@item), class:"btn btn-warning" %>
+    <%= link_to 'Löschen', item_path(@item), data: {turbo_method: :delete, turbo_confirm: "Bist du sicher?"}, class:"btn btn-danger" %>
+    <%= link_to "Zurück", items_path, class:"btn btn-primary" %>
+  </div>
 </div>
