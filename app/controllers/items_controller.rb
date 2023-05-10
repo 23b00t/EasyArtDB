@@ -3,8 +3,13 @@ class ItemsController < ApplicationController
   before_action :set_active_storage_base_url, only: %i[index show]
 
   def index
-    # @items = Item.all
-    @items = Item.paginate(page: params[:page], per_page: 20)
+    @items = Item.includes(photos_attachments: :blob)
+                 .includes(:artist)
+                 .includes(:manufacturer)
+                 .includes(:comments)
+                 .includes(:references)
+                 .includes(:tasks)
+                 .paginate(page: params[:page], per_page: 20)
   end
 
   def show; end
