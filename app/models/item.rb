@@ -9,5 +9,4 @@ class Item < ApplicationRecord
   has_many_attached :photos, dependent: :destroy
 
   CATEGORIES = ['Halskette', "Armband-/ reif", 'Fingerring', 'Brosche', 'Anhänger', 'Sonstiges']
-  # validates :category, inclusion: { in: CATEGORIES }
 end
