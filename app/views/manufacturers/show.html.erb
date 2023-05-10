@@ -1,7 +1,9 @@
-<h1><%= @manufacturer.name %></h1>
+<div class="container">
+  <h1><%= @manufacturer.name %></h1>
 
-<p>Ort: <%= @manufacturer.location %></p>
+  <p>Ort: <%= @manufacturer.location %></p>
 
-<%= link_to 'Bearbeiten', edit_manufacturer_path(@manufacturer) %>
-<%= link_to 'Löschen', manufacturer_path(@manufacturer), data: {turbo_method: :delete, turbo_confirm: "Bist du sicher?"} %>
-<%= link_to "Zurück", request.referrer || root_path, class: "btn btn-primary" %>
+  <%= link_to 'Bearbeiten', edit_manufacturer_path(@manufacturer), class: "btn btn-warning" %>
+  <%= link_to 'Löschen', manufacturer_path(@manufacturer), data: {turbo_method: :delete, turbo_confirm: "Bist du sicher?"}, class: "btn btn-danger" %>
+  <%= link_to "Zurück", request.referrer || root_path, class: "btn btn-primary" %>
+</div>
