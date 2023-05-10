@@ -1,0 +1,32 @@
+<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+  <div class="container-fluid">
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <i class="fa-solid fa-table-list"></i>
+    <% end %>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto">
+        <%#<li class="nav-item active">
+          <%= link_to "Home", "#", class: "nav-link" %>
+        <%#</li>
+        <li class="nav-item">
+          <%= link_to "Messages", "#", class: "nav-link" %>
+        <%#</li>%>
+        <li class="nav-item dropdown">
+          <i class="fa-solid fa-barsavatar dropdown-toggle pt-2" style="font-size: 20px" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <%= link_to "Objektübersicht", items_path, class: "dropdown-item" %>
+            <%= link_to "To-Do's", tasks_path, class: "dropdown-item" %>
+            <%= link_to "Künstler", artists_path, class: "dropdown-item" %>
+            <%= link_to "Hersteller", manufacturers_path, class: "dropdown-item" %>
+            <%= link_to "Importieren", import_new_path, class: "dropdown-item" %>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,18 +1,11 @@
-<ul>
-  <% @items.each_with_index do |item, index| %>
-    <li>
-      <%= link_to "#{index + 1}", item_path(item) %>
-      <%= item.titel %>
-      <%= item.size %>
-      <%= link_to "#{item.artist.first_name} #{item.artist.last_name}", artist_path(item.artist) unless item.artist.nil? %>
-      <%= link_to "#{item.manufacturer.name}", manufacturer_path(item.manufacturer) unless item.manufacturer.nil? %>
-      <%= item.material %>
-      <%= item.made_at %>
-      <%= item.edition %>
-      <%= item.provenance %>
-      <%= item.category %>
-      <%= link_to "To-Do's", item_tasks_path(item) %>
-    </li>
-  <% end %>
-</ul>
-<%= link_to 'Objekt hinzufügen', new_item_path %>
+<div data-controller="columns-filter">
+  <div class="columns-filter container" data-columns-filter-target="checkboxes">
+    <%= render partial: 'checkboxes' %>
+  </div>
+
+  <%= render partial: 'table' %>
+
+  <%= render partial: 'pagination' %>
+
+  <%= link_to 'Objekt hinzufügen', new_item_path %>
+</div>
