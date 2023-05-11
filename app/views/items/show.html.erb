@@ -1,84 +1,13 @@
 <div class="container">
-  <div class="card mb-4 mt-4" style="width: 100%;">
-    <div class="row g-0">
-      <div class="col-md-6">
-        <%= render partial: 'photos', locals: { class: "card-img-top" } unless @item.photos.first.nil? %>
-      </div>
-      <div class="col-md-6">
-        <div class="card-body">
-          <h5 class="card-title"><%= link_to "#{@item.artist.first_name} #{@item.artist.last_name}", artist_path(@item.artist) unless @item.artist.nil? %></h5>
-          <ul class="list-group">
-            <li class="list-group-item">Titel: <%= @item.titel %></li>
-            <li class="list-group-item">Größe: <%= @item.size %></li>
-            <li class="list-group-item">Hersteller: <%= link_to "#{@item.manufacturer.name}", manufacturer_path(@item.manufacturer) unless @item.manufacturer.nil? %></li>
-            <li class="list-group-item">Material: <%= @item.material %></li>
-            <li class="list-group-item">Auflage: <%= @item.edition %></li>
-            <li class="list-group-item">Bezeichnung: <%= @item.category %></li>
-            <li class="list-group-item">Jahr: <%= @item.made_at %></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+  <%= render partial: 'main_card' %>
 
-  <div class="card mb-4">
-    <div class="card-body">
-      <h3>To-Do's</h3>
-      <ul class="list-group">
-        <% @item.tasks.each do |task| %>
-          <li class="list-group-item"><%= link_to "#{task.titel}", item_task_path(@item, task) %></li>
-        <% end %>
-      </ul>
-      <%= link_to 'To-Do hinzufügen', new_item_task_path(@item), class:"btn btn-primary mt-3" %>
-    </div>
-  </div>
+  <%= render partial: 'tasks/card' %>
 
-  <div class="card mb-4">
-    <div class="card-body">
-      <h3>Kommentare</h3>
-      <ul class="list-group">
-        <% @item.comments.each do |comment| %>
-          <li class="list-group-item">
-            <%= comment.text %>
-            <%= link_to 'Edit', edit_item_comment_path(@item, comment), class: "btn btn-warning btn-sm float-end" %>
-            <%= link_to 'Delete', item_comment_path(@item, comment), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger btn-sm float-end me-2" %>
-          </li>
-        <% end %>
-      </ul>
-      <%= render partial: 'comments/form', locals: { item: @item, comment: Comment.new} %>
-    </div>
-  </div>
+  <%= render partial: 'comments/card' %>
 
-  <div class="card mb-4">
-    <div class="card-body">
-      <h3>Literatur</h3>
-      <ul class="list-group">
-        <% @item.references.each do |reference| %>
-          <li class="list-group-item"><%= reference.text %></li>
-        <% end %>
-      </ul>
-      <%= simple_form_for [@item, Reference.new], multipart: true do |f| %>
-        <%= f.input :text, label: 'Literatur' %>
-        <%= f.button :submit, class: "btn btn-primary" %>
-      <% end %>
-    </div>
-  </div>
+  <%= render partial: 'references/card' %>
 
-  <div class="card mb-4">
-    <div class="card-body">
-      <h3>Provenienz</h3>
-      <ul class="list-group">
-        <% @item.provenances.each do |provenance| %>
-          <li class="list-group-item"><%= "#{provenance.text}: #{provenance.source}" %></li>
-        <% end %>
-      </ul>
-      <%= simple_form_for [@item, Provenance.new], multipart: true do |f| %>
-        <%= f.input :text, label: 'Provenienz' %>
-        <%= f.input :source, label: 'Quelle' %>
-        <%= f.button :submit, class: "btn btn-primary" %>
-      <% end %>
-    </div>
-  </div>
+  <%= render partial: 'provenances/card' %>
 
   <div class="mb-4">
     <%= link_to 'Bearbeiten', edit_item_path(@item), class:"btn btn-warning" %>
