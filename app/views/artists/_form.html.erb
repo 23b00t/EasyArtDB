@@ -1,11 +1,8 @@
-<div class="container">
-  <%= simple_form_for @artist do |f| %>
-    <%= f.input :first_name, label: 'Vorname' %>
-    <%= f.input :last_name, label: 'Nachname' %>
-    <%= f.input :birthday, label: 'Geburtsdatum' %>
-    <%= f.input :deathday, label: 'Todesdatum' %>
-    <%= f.input :category, label: 'Kategorie', as: :select, collection: Artist.categories.keys  %>
-
-    <%= f.submit class: "btn btn-primary" %>
-  <% end %>
-</div>
+<%= simple_form_for [artist], url: artists_path, method: :post, remote: true do |f| %>
+  <%= f.input :first_name, label: 'Vorname' %>
+  <%= f.input :last_name, label: 'Nachname' %>
+  <%= f.input :birthday, label: 'Geburtsdatum' %>
+  <%= f.input :deathday, label: 'Todesdatum' %>
+  <%= f.input :category, label: 'Kategorie', as: :select, collection: Artist.categories.keys  %>
+  <%= f.button :submit, 'Create Artist', class: "btn btn-primary" %>
+<% end %>
