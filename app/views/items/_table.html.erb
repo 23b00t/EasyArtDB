@@ -35,7 +35,7 @@
           <td data-columns-filter-target="year"><%= item.made_at %></td>
           <td class="d-none" data-columns-filter-target="material"><%= item.material %></td>
           <td class="d-none" data-columns-filter-target="size"><%= item.size %></td>
-          <td class="d-none" data-columns-filter-target="provenance"><%= item.provenance.join('\n') %></td>
+          <td class="d-none" data-columns-filter-target="provenance"><%= item.provenances.map { |e| "#{e.text}: #{e.source}" }.join('\n') %></td>
           <td class="d-none" data-columns-filter-target="manufacturer"><%= link_to "#{item.manufacturer.name}", manufacturer_path(item.manufacturer) unless item.manufacturer.nil? %></td>
           <td data-columns-filter-target="edition"><%= item.edition %></td>
           <td class="d-none" data-columns-filter-target="comments"><%= item.comments.map(&:text).join('\n') %></td>

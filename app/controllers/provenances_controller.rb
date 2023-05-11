@@ -1,4 +1,4 @@
-class ProvenanceController < ApplicationController
+class ProvenancesController < ApplicationController
   before_action :set_item
   before_action :set_provenance, only: %i[update destroy]
 
@@ -35,6 +35,6 @@ class ProvenanceController < ApplicationController
   end
 
   def provenance_params
-    params.require(:provenance).permit(:text)
+    params.require(:provenance).permit(:text, :source)
   end
 end
