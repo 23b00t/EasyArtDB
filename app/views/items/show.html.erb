@@ -13,7 +13,6 @@
             <li class="list-group-item">Hersteller: <%= link_to "#{@item.manufacturer.name}", manufacturer_path(@item.manufacturer) unless @item.manufacturer.nil? %></li>
             <li class="list-group-item">Material: <%= @item.material %></li>
             <li class="list-group-item">Auflage: <%= @item.edition %></li>
-            <li class="list-group-item">Provenienz: <%= @item.provenance.join('\n') %></li>
             <li class="list-group-item">Bezeichnung: <%= @item.category %></li>
             <li class="list-group-item">Jahr: <%= @item.made_at %></li>
           </ul>
@@ -39,13 +38,14 @@
       <h3>Kommentare</h3>
       <ul class="list-group">
         <% @item.comments.each do |comment| %>
-          <li class="list-group-item"><%= comment.text %></li>
+          <li class="list-group-item">
+            <%= comment.text %>
+            <%= link_to 'Edit', edit_item_comment_path(@item, comment), class: "btn btn-warning btn-sm float-end" %>
+            <%= link_to 'Delete', item_comment_path(@item, comment), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger btn-sm float-end me-2" %>
+          </li>
         <% end %>
       </ul>
-      <%= simple_form_for [@item, Comment.new], multipart: true do |f| %>
-        <%= f.input :text, label: 'Kommentar' %>
-        <%= f.button :submit, class: "btn btn-primary" %>
-      <% end %>
+      <%= render partial: 'comments/form', locals: { item: @item, comment: Comment.new} %>
     </div>
   </div>
 
@@ -59,6 +59,22 @@
       </ul>
       <%= simple_form_for [@item, Reference.new], multipart: true do |f| %>
         <%= f.input :text, label: 'Literatur' %>
+        <%= f.button :submit, class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h3>Provenienz</h3>
+      <ul class="list-group">
+        <% @item.provenances.each do |provenance| %>
+          <li class="list-group-item"><%= "#{provenance.text}: #{provenance.source}" %></li>
+        <% end %>
+      </ul>
+      <%= simple_form_for [@item, Provenance.new], multipart: true do |f| %>
+        <%= f.input :text, label: 'Provenienz' %>
+        <%= f.input :source, label: 'Quelle' %>
         <%= f.button :submit, class: "btn btn-primary" %>
       <% end %>
     </div>
