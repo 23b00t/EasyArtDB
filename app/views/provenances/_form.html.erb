@@ -1,0 +1,5 @@
+<%= simple_form_for [item, provenance], multipart: true do |f| %>
+  <%= f.input :text, label: 'Provenienz' %>
+  <%= f.input :source, label: 'Quelle' %>
+  <%= f.button :submit, class: "btn btn-primary", value: "Speichern" %>
+<% end %>

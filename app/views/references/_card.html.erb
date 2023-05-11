@@ -1,0 +1,15 @@
+<div class="card mb-4">
+  <div class="card-body">
+    <h3>Literatur</h3>
+    <ul class="list-group">
+      <% @item.references.each do |reference| %>
+        <li class="list-group-item">
+          <%= reference.text %>
+          <%= link_to 'Edit', edit_item_reference_path(@item, reference), class: "btn btn-warning btn-sm float-end" %>
+          <%= link_to 'Delete', item_reference_path(@item, reference), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger btn-sm float-end me-2" %>
+        </li>
+      <% end %>
+    </ul>
+    <%= render partial: 'references/form', locals: { item: @item, reference: Reference.new } %>
+  </div>
+</div>
