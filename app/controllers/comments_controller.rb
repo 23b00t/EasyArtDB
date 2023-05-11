@@ -1,28 +1,27 @@
 class CommentsController < ApplicationController
   before_action :set_item
-  before_action :set_comment, only: [:update, :destroy]
+  before_action :set_comment, only: %i[update destroy]
 
   def create
     @comment = @item.comments.build(comment_params)
-
     if @comment.save
-      redirect_to @item, notice: 'Comment was successfully created.'
+      redirect_to @item, notice: 'Kommentar erfolgreich angelegt'
     else
-      render :new
+      render :new, alert: 'Es ist etwas schief gelaufen'
     end
   end
 
   def update
     if @comment.update(comment_params)
-      redirect_to @item, notice: 'Comment was successfully updated.'
+      redirect_to @item, notice: 'Kommentar erfolgreich aktuallisiert'
     else
-      render :edit
+      render :edit, alert: 'Es ist etwas schief gelaufen'
     end
   end
 
   def destroy
     @comment.destroy
-    redirect_to @item, notice: 'Comment was successfully deleted.'
+    redirect_to @item, notice: 'Kommentar erfolgreich gelöscht'
   end
 
   private

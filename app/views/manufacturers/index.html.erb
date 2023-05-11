@@ -1,6 +1,10 @@
-<ul>
-  <% @manufacturers.each do |manufacturer| %>
-    <li><%= link_to "#{manufacturer.name}", manufacturer_path(manufacturer) %></li>
-  <% end %>
-</ul>
-<%= link_to 'Hersteller hinzufügen', new_manufacturer_path %>
+<div class="container">
+  <ul class="list-unstyled d-flex flex-wrap justify-content-between">
+    <% @manufacturers.each do |manufacturer| %>
+      <li class="border rounded p-2 m-2">
+        <%= link_to link_to "#{manufacturer.name}", manufacturer_path(manufacturer), class: "text-decoration-none" %>
+      </li>
+    <% end %>
+  </ul>
+  <%= link_to 'Hersteller hinzufügen', new_manufacturer_path, class: "btn btn-primary m-2" %>
+</div>
