@@ -1,0 +1,4 @@
+<%= simple_form_for [item, comment], multipart: true do |f| %>
+  <%= f.input :text, label: false %>
+  <%= f.button :submit, class: "btn btn-primary", value: "Speichern" %>
+<% end %>

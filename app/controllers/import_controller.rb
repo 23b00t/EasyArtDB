@@ -48,6 +48,7 @@ class ImportController < ApplicationController
       Comment.create(text: item[:comments], item_id: new_item.id) unless item[:comments].blank?
       Reference.create(text: item[:references], item_id: new_item.id) unless item[:references].blank?
       Task.create(titel: item[:tasks], item_id: new_item.id) unless item[:tasks].blank?
+      Provenance.create(text: item[:provenance], item_id: new_item.id) unless item[:provenance].blank?
 
       # photo
       next unless item[:image_url]
@@ -80,8 +81,7 @@ class ImportController < ApplicationController
       made_at: item[:made_at],
       material: item[:material],
       size: item[:size],
-      edition: item[:edition],
-      provenance: [item[:provenance]]
+      edition: item[:edition]
     )
   end
 

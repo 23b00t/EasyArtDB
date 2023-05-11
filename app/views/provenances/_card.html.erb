@@ -1,0 +1,15 @@
+<div class="card mb-4">
+  <div class="card-body">
+    <h3>Provenienz</h3>
+    <ul class="list-group">
+      <% @item.provenances.each do |provenance| %>
+        <li class="list-group-item">
+          <%= "#{provenance.text}: #{provenance.source}" %>
+          <%= link_to 'Edit', edit_item_provenance_path(@item, provenance), class: "btn btn-warning btn-sm float-end" %>
+          <%= link_to 'Delete', item_provenance_path(@item, provenance), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger btn-sm float-end me-2" %>
+        </li>
+      <% end %>
+    </ul>
+    <%= render partial: 'provenances/form', locals: { item: @item, provenance: Provenance.new } %>
+  </div>
+</div>

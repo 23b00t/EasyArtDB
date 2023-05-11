@@ -1,0 +1,21 @@
+<div class="card mb-4 mt-4" style="width: 100%;">
+  <div class="row g-0">
+    <div class="col-md-6">
+      <%= render partial: 'photos', locals: { class: "card-img-top" } unless @item.photos.first.nil? %>
+    </div>
+    <div class="col-md-6">
+      <div class="card-body">
+        <h5 class="card-title"><%= link_to "#{@item.artist.first_name} #{@item.artist.last_name}", artist_path(@item.artist) unless @item.artist.nil? %></h5>
+        <ul class="list-group">
+          <li class="list-group-item">Titel: <%= @item.titel %></li>
+          <li class="list-group-item">Größe: <%= @item.size %></li>
+          <li class="list-group-item">Hersteller: <%= link_to "#{@item.manufacturer.name}", manufacturer_path(@item.manufacturer) unless @item.manufacturer.nil? %></li>
+          <li class="list-group-item">Material: <%= @item.material %></li>
+          <li class="list-group-item">Auflage: <%= @item.edition %></li>
+          <li class="list-group-item">Bezeichnung: <%= @item.category %></li>
+          <li class="list-group-item">Jahr: <%= @item.made_at %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
