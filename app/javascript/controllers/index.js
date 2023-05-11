@@ -15,3 +15,6 @@ application.register("hello", HelloController)
 
 import PaginationController from "./pagination_controller"
 application.register("pagination", PaginationController)
+
+import TomSelectController from "./tom_select_controller"
+application.register("tom-select", TomSelectController)
