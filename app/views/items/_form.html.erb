@@ -1,13 +1,16 @@
 <%= simple_form_for @item, multipart: true do |f| %>
-  <%= f.input :artist_id, collection: Artist.all, label_method: :full_name, prompt: "Wähle einen Künstler" %>
-  <%= f.input :manufacturer_id, collection: Manufacturer.all, label_method: :name, prompt: "Wähle einen Hersteller" %>
+  <%= f.label :artist_id, "Wähle einen Künstler" %>
+  <%= f.select :artist_id, options_for_select(Artist.all.map { |a| [a.full_name, a.id] }.unshift(''), selected: @item.artist_id), { }, { data: { controller: "tom-select" } } %>
+
+  <%= f.label :artist_id, "Wähle einen Hersteller" %>
+  <%= f.select :manufacturer_id, options_for_select(Manufacturer.all.map { |a| [a.name, a.id] }.unshift(''), selected: @item.manufacturer_id), {}, { data: { controller: "tom-select" } } %>
+
   <%= f.input :incomplete, label: "Datensatz vollständig?" %>
   <%= f.input :titel, label: 'Titel' %>
   <%= f.input :size, label: 'Größe' %>
   <%= f.input :material, label: 'Material' %>
   <%= f.input :made_at, label: 'Hergestellt am' %>
   <%= f.input :edition, label: 'Edition' %>
-  <%= f.input :provenance, label: 'Provenienz' %>
 
   <%= f.input :photos, as: :file, input_html: { multiple: true } %>
 
