@@ -1,11 +1,11 @@
 <div data-controller="columns-filter">
-  <div class="columns-filter container" data-columns-filter-target="checkboxes">
-    <%= render partial: 'checkboxes' %>
-  </div>
+
+  <%= render partial: 'checkboxes' %>
+
 
   <%= render partial: 'table' %>
 
   <%= render partial: 'pagination' %>
 
-  <%= link_to 'Objekt hinzufügen', new_item_path %>
+  <%= link_to 'Objekt hinzufügen', new_item_path, class: "btn btn-primary" %>
 </div>

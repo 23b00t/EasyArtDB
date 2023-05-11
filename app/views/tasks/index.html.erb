@@ -1,10 +1,18 @@
-<h1>Tasks <%= "for #{@item.titel}" if @item %></h1>
+<div class="container">
+  <h1>To-Do's <%= "for #{@item.titel}" if @item %></h1>
 
-<% @tasks.each do |task| %>
-  <h3><%= task.titel %></h3>
-  <p><%= task.content %></p>
-<% end %>
+  <% @tasks.each do |task| %>
+    <div class="card mb-4">
+      <div class="card-header card-title">
+        <%= link_to task.titel, item_task_path(task.item, task), class: "text-decoration-none" %>
+      </div>
+      <div class="card-body">
+        <p class="card-text"><%= task.content %></p>
+      </div>
+    </div>
+  <% end %>
 
-<% if @item %>
-  <%= link_to 'To-Do hizufügen', new_item_task_path %>
-<% end %>
+  <% if @item %>
+    <%= link_to 'To-Do hizufügen', new_item_task_path, class: "btn btn-primary" %>
+  <% end %>
+</div>
