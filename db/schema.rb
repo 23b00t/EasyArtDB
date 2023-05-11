@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_09_131754) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_11_065613) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -69,7 +69,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_09_131754) do
     t.string "material"
     t.string "made_at"
     t.string "edition"
-    t.text "provenance", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "category"
@@ -91,6 +90,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_09_131754) do
     t.datetime "updated_at", null: false
     t.string "image"
     t.index ["item_id"], name: "index_photos_on_item_id"
+  end
+
+  create_table "provenances", force: :cascade do |t|
+    t.string "text"
+    t.string "source"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "references", force: :cascade do |t|

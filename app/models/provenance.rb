@@ -1,0 +1,2 @@
+class Provenance < ApplicationRecord
+end
