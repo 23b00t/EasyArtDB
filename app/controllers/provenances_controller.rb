@@ -1,6 +1,6 @@
 class ProvenancesController < ApplicationController
   before_action :set_item
-  before_action :set_provenance, only: %i[update destroy]
+  before_action :set_provenance, only: %i[edit update destroy]
 
   def create
     @provenance = @item.provenances.build(provenance_params)
@@ -9,6 +9,10 @@ class ProvenancesController < ApplicationController
     else
       render :new, alert: 'Es ist etwas schief gelaufen'
     end
+  end
+
+  def edit
+    render partial: 'provenances/form', locals: { item: @item, provenance: @provenance }
   end
 
   def update

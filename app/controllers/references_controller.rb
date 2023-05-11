@@ -1,6 +1,6 @@
 class ReferencesController < ApplicationController
   before_action :set_item
-  before_action :set_reference, only: [:edit, :update, :destroy]
+  before_action :set_reference, only: %i[edit update destroy]
 
   def create
     @reference = @item.references.build(reference_params)
@@ -13,6 +13,7 @@ class ReferencesController < ApplicationController
   end
 
   def edit
+    render partial: 'references/form', locals: { item: @item, reference: @reference }
   end
 
   def update
