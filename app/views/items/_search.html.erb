@@ -1,0 +1,9 @@
+<%= form_with url: items_path, method: :get, html: {data: {search_items_target: "form"}} do |f| %>
+
+  <div class='d-none search-box' data-show-filters-target="button">
+    <%#= f.select :cooked, options_for_select([['➡ Cooked?', ''], ['Yes', 'true'], ['No', 'false']], selected: params[:cooked])%>
+    <button type="button" data-action="click->search-items#resetForm" class="button button-tertiary" style="border:0px;">× Reset filters</button>
+  </div>
+
+  <%= text_field_tag :query, params[:query], data: {search_items_target: "input", action: "keyup->search-items#update"}, class: 'input search-box', placeholder: "Volltextsuche", style: "width: 100%" %>
+<% end %>
