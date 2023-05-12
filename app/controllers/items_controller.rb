@@ -3,13 +3,12 @@ class ItemsController < ApplicationController
   before_action :set_active_storage_base_url, only: %i[index show]
 
   def index
-    @items = Item.includes(photos_attachments: :blob)
-                 .includes(:artist)
-                 .includes(:manufacturer)
-                 .includes(:comments)
-                 .includes(:references)
-                 .includes(:tasks)
+    @items = Item.with_attached_photos
+                 .joins('INNER JOIN artists AS artist_alias ON artist_alias.id = items.artist_id')
+                 .includes(:manufacturer, :comments, :references, :tasks)
+                 .order('artist_alias.last_name ASC, made_at ASC NULLS LAST')
                  .paginate(page: params[:page], per_page: 20)
+    @items = @items.global_search(params[:query]) if params[:query].present?
   end
 
   def show; end
