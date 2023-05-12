@@ -8,6 +8,7 @@ class ItemsController < ApplicationController
                  .includes(:manufacturer, :comments, :references, :tasks)
                  .order('artist_alias.last_name ASC, made_at ASC NULLS LAST')
                  .paginate(page: params[:page], per_page: 20)
+    @items = @items.where(artist_id: params[:artist_id]) if params[:artist_id].present?
     @items = @items.global_search(params[:query]) if params[:query].present?
   end
 
