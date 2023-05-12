@@ -15,7 +15,6 @@ class Item < ApplicationRecord
   pg_search_scope :global_search,
                   against: %i[titel size material made_at edition category],
                   associated_against: {
-                    artist: %i[first_name last_name],
                     manufacturer: %i[name location],
                     comments: :text,
                     references: :text,

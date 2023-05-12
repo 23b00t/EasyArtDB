@@ -10,6 +10,11 @@ class ItemsController < ApplicationController
                  .paginate(page: params[:page], per_page: 20)
     @items = @items.where(artist_id: params[:artist_id]) if params[:artist_id].present?
     @items = @items.global_search(params[:query]) if params[:query].present?
+
+    respond_to do |format|
+      format.html
+      format.text { render partial: "items/table", formats: [:html] }
+    end
   end
 
   def show; end
