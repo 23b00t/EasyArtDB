@@ -78,3 +78,6 @@ end
 
 # pagination helper
 gem 'will_paginate-bootstrap'
+
+# pg_search
+gem "pg_search"
