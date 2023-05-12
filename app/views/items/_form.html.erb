@@ -1,18 +1,30 @@
-<%= simple_form_for @item, multipart: true do |f| %>
-  <%= f.label :artist_id, "Wähle einen Künstler" %>
-  <%= f.select :artist_id, options_for_select(Artist.all.map { |a| [a.full_name, a.id] }.unshift(''), selected: @item.artist_id), { }, { data: { controller: "tom-select" } } %>
+<div class="container">
+  <%= simple_form_for @item, multipart: true do |f| %>
+  <div class="row mt-3">
+      <div class="col-6">
+        <%= f.label :artist_id, "Wähle einen Künstler" %>
+        <%= f.select :artist_id, options_for_select(Artist.all.map { |a| [a.full_name, a.id] }.unshift(''), selected: @item.artist_id), { }, { data: { controller: "tom-select" } } %>
+        <button type="button" class="btn btn-primary mt-2 mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Künstler hinzufügen
+        </button>
+      </div>
+      <div class="col-6">
+        <%= f.label :manufacturer_id, "Wähle einen Hersteller" %>
+        <%= f.select :manufacturer_id, options_for_select(Manufacturer.all.map { |a| [a.name, a.id] }.unshift(''), selected: @item.manufacturer_id), {}, { data: { controller: "tom-select" } } %>
+      </div>
+    </div>
 
-  <%= f.label :artist_id, "Wähle einen Hersteller" %>
-  <%= f.select :manufacturer_id, options_for_select(Manufacturer.all.map { |a| [a.name, a.id] }.unshift(''), selected: @item.manufacturer_id), {}, { data: { controller: "tom-select" } } %>
+    <%= f.input :incomplete, label: "Datensatz vollständig?" %>
+    <%= f.input :titel, label: 'Titel' %>
+    <%= f.input :size, label: 'Größe' %>
+    <%= f.input :material, label: 'Material' %>
+    <%= f.input :made_at, label: 'Hergestellt am' %>
+    <%= f.input :edition, label: 'Edition' %>
 
-  <%= f.input :incomplete, label: "Datensatz vollständig?" %>
-  <%= f.input :titel, label: 'Titel' %>
-  <%= f.input :size, label: 'Größe' %>
-  <%= f.input :material, label: 'Material' %>
-  <%= f.input :made_at, label: 'Hergestellt am' %>
-  <%= f.input :edition, label: 'Edition' %>
+    <%= f.input :photos, as: :file, input_html: { multiple: true } %>
 
-  <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+    <%= f.button :submit, class: "btn btn-primary" %>
+  <% end %>
+</div>
 
-  <%= f.button :submit, class: "btn btn-primary" %>
-<% end %>
+<%= render partial: 'artists/modal' %>
