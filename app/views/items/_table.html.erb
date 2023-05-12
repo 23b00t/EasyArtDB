@@ -41,7 +41,8 @@
           <td class="d-none" data-columns-filter-target="comments"><%= item.comments.map(&:text).join('\n') %></td>
           <td class="d-none" data-columns-filter-target="references"><%= item.references.map(&:text).join('\n') %></td>
           <% item.tasks.each do |task| %>
-            <td data-columns-filter-target="tasks"><%= link_to task.titel, item_task_path(item, task) %></td>
+            <% next if task.done %>
+            <td data-columns-filter-target="tasks"><%= link_to task.titel, item_task_path(item, task) %> </td>
           <% end %>
         </tr>
       <% end %>
