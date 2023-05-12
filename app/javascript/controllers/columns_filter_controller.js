@@ -21,7 +21,9 @@ export default class extends Controller {
   }
 
   update() {
-    const url = `${this.formTarget.action}?query=${this.inputTarget.value}${window.location.search.replace(/[^&]+(?=&)/, '')}`
+    const artistId = document.querySelector("#artist_id").value;
+    const url = `${this.formTarget.action}?artist_id=${artistId}&query=${this.inputTarget.value}&commit=Filter`;
+
     fetch(url, {headers: {"Accept": "text/plain"}})
       .then(response => response.text())
       .then((data) => {
