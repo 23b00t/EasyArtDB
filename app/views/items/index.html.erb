@@ -1,7 +1,8 @@
 <div data-controller="columns-filter">
-
-  <%= render partial: 'checkboxes' %>
-
+  <div class="d-flex justify-content-around mt-2 mb-2">
+    <%= render partial: 'search' %>
+    <%= render partial: 'checkboxes' %>
+  </div>
 
   <%= render partial: 'table' %>
 

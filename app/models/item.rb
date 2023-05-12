@@ -10,4 +10,18 @@ class Item < ApplicationRecord
   has_many_attached :photos, dependent: :destroy
 
   CATEGORIES = ['Halskette', "Armband-/ reif", 'Fingerring', 'Brosche', 'Anhänger', 'Sonstiges']
+
+  include PgSearch::Model
+  pg_search_scope :global_search,
+                  against: %i[titel size material made_at edition category],
+                  associated_against: {
+                    manufacturer: %i[name location],
+                    comments: :text,
+                    references: :text,
+                    provenances: %i[text source],
+                    tasks: %i[titel content]
+                  },
+                  using: {
+                    tsearch: { prefix: true }
+                  }
 end
