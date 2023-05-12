@@ -1,6 +1,7 @@
-<%= form_with url: items_path, method: :get, html: {data: {search_items_target: "form"}} do |f| %>
-  <%= f.select :artist_id, options_for_select([["Nach Künstler filtern", ""]] + Artist.all.map { |a| [a.full_name, a.id] }.unshift(''), selected: params[:artist_id]), { }, { data: { controller: "tom-select" } } %>
+<%= form_with url: items_path, method: :get, html: {data: {columns_filter_target: "form"}} do |f| %>
+  <%= f.select :artist_id, options_for_select([["Nach Künstler filtern", ""]] + Artist.all.map { |a| [a.full_name, a.id] }.unshift(''), selected: params[:artist_id]), { }, { data: { controller: "tom-select", action: "change->columns-filter#submitForm" } } %>
 
-  <%= text_field_tag :query, params[:query], data: {search_items_target: "input", action: "keyup->search-items#update"}, class: 'input search-box', placeholder: "Volltextsuche", style: "width: 100%" %>
-  <%= f.submit "Filter", class: 'button d-none' %>
+  <%= text_field_tag :query, params[:query], data: {columns_filter_target: "input", action: "keyup->columns-filter#update"}, class: 'input search-box', placeholder: "Volltextsuche", style: "width: 100%" %>
+  <button type="button" data-action="click->columns-filter#resetForm" class="btn btn-primary" style="border:0px;"> Zurücksetzten </button>
+  <%= f.submit "Filter", class: 'btn d-none' %>
 <% end %>
