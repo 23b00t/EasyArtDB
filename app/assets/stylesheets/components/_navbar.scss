@@ -1,4 +1,4 @@
-.navbar-lewagon {
+.navbar-main {
   justify-content: space-between;
   background: rgba(240, 237, 237, 1);
   position: sticky;
@@ -7,10 +7,10 @@
   border-bottom: 1px solid black;
 }
 
-.navbar-lewagon .navbar-collapse {
+.navbar-main .navbar-collapse {
   flex-grow: 0;
 }
 
-.navbar-lewagon .navbar-brand img {
+.navbar-main .navbar-brand img {
   width: 40px;
 }
