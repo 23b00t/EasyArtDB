@@ -2,6 +2,12 @@
   <%= f.select :artist_id, options_for_select([["Nach Künstler filtern", ""]] + Artist.all.map { |a| [a.full_name, a.id] }.unshift(''), selected: params[:artist_id]), { }, { data: { controller: "tom-select", action: "change->columns-filter#submitForm" } } %>
 
   <%= text_field_tag :query, params[:query], data: {columns_filter_target: "input", action: "keyup->columns-filter#update"}, class: 'input search-box', placeholder: "Volltextsuche", style: "width: 100%" %>
-  <button type="button" data-action="click->columns-filter#resetForm" class="btn btn-primary" style="border:0px;"> Zurücksetzten </button>
-  <%= f.submit "Filter", class: 'btn d-none' %>
+
+  <%= f.select :open_tasks, options_for_select([['Nur offene Aufgaben', ''], ['Ja', 'false']], selected: params[:open_tasks]), {} %>
+  <%= f.select :incomplete, options_for_select([['Nur unvollständig Datensätze', ''], ['Ja', 'true']], selected: params[:incomplete]), {} %>
+
+  <div class="form-group">
+    <%= f.button "Filter anwenden", type: "button", class: 'btn btn-primary', data: { action: "click->columns-filter#submitForm" } %>
+    <button type="button" data-action="click->columns-filter#resetForm" class="btn btn-primary" style="border:0px;"> Zurücksetzten </button>
+  </div>
 <% end %>
