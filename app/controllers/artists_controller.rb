@@ -1,5 +1,6 @@
 class ArtistsController < ApplicationController
   before_action :set_artist, only: %i[show edit update destroy]
+  before_action :set_active_storage_base_url, only: %i[index show]
 
   def index
     @artists = Artist.all.sort_by { |artist| artist.last_name.to_s }
@@ -43,5 +44,9 @@ class ArtistsController < ApplicationController
 
   def set_artist
     @artist = Artist.find(params[:id])
+  end
+
+  def set_active_storage_base_url
+    ActiveStorage::Current.host = request.base_url
   end
 end
