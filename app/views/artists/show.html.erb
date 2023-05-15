@@ -4,6 +4,27 @@
   <p>Gestorben: <%= @artist.deathday %></p>
   <p>Kategorie: <%= @artist.category %></p>
 
+  <ul class="list-group">
+    <% @artist.items.each do |item| %>
+      <li class="list-group-item">
+        <%= link_to item_path(item) do %>
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <% if item.photos.first %>
+                <%= image_tag item.photos.first.url, width: 40, height: 40, class: "mr-3"  %>
+              <% else %>
+                <%= image_tag "ring.jpg", width: 40, height: 40, class: "mr-3" %>
+              <% end %>
+              <span class="font-weight-bold"><%= item.titel %></span>
+              <span class=""><%= item.category %></span>
+            </div>
+          </div>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+
+
   <%= link_to 'Bearbeiten', edit_artist_path(@artist), class: "btn btn-warning" %>
   <%= link_to 'Löschen', artist_path(@artist), data: {turbo_method: :delete, turbo_confirm: "Bist du sicher?"}, class: "btn btn-danger"  %>
   <%= link_to "Zurück", request.referrer || root_path, class: "btn btn-primary" %>
