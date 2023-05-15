@@ -13,7 +13,11 @@ class ArtistsController < ApplicationController
 
   def create
     @artist = Artist.new(artist_params)
-    @artist.save ? (redirect_to artist_path(@artist)) : (render :new, status: :unprocessable_entity)
+    if @artist.save
+      redirect_to request.referer.match?(%r{/items/new$}) ? new_item_path : artist_path(@artist)
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def edit; end

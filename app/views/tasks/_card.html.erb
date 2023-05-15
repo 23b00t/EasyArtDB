@@ -3,7 +3,10 @@
     <h3>To-Do's</h3>
     <ul class="list-group">
       <% @item.tasks.each do |task| %>
-        <li class="list-group-item"><%= link_to "#{task.titel}", item_task_path(@item, task) %></li>
+        <li class="list-group-item">
+          <%= link_to "#{task.titel}", item_task_path(@item, task) %>
+          <i class="fa-regular <%= task.done ? 'fa-square-check' : 'fa-square' %>"></i>
+        </li>
       <% end %>
     </ul>
     <%= link_to 'To-Do hinzufügen', new_item_task_path(@item), class:"btn btn-primary mt-3" %>
