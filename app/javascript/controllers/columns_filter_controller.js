@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="columns-filter"
 export default class extends Controller {
-  static targets = ["form", "input", "list", "checkboxes", "foto", "category", "titel", "size", "artist", "manufacturer", "material", "year", "edition", "provenance", "comments", "references", "tasks"]
+  static targets = ["toggle", "form", "input", "list", "checkboxes", "foto", "category", "titel", "size", "artist", "manufacturer", "material", "year", "edition", "provenance", "comments", "references", "tasks"]
 
   initialize() {
     // Add event listener to all checkboxes
@@ -22,7 +22,10 @@ export default class extends Controller {
 
   update() {
     const artistId = document.querySelector("#artist_id").value;
-    const url = `${this.formTarget.action}?artist_id=${artistId}&query=${this.inputTarget.value}&commit=Filter`;
+    const openTasks = document.querySelector("#open_tasks").value;
+    const incomplete = document.querySelector("#incomplete").value;
+
+    const url = `${this.formTarget.action}?artist_id=${artistId}&query=${this.inputTarget.value}&open_tasks=${openTasks}&incomplete=${incomplete}&commit=Filter`;
 
     fetch(url, {headers: {"Accept": "text/plain"}})
       .then(response => response.text())
@@ -32,19 +35,14 @@ export default class extends Controller {
   }
 
   resetForm() {
-    const form = this.formTarget;
-    form.querySelectorAll("input, select, textarea").forEach(input => {
-      input.value = "";
-    });
-    const url = `${this.formTarget.action}`
-    fetch(url, {headers: {"Accept": "text/plain"}})
-      .then(response => response.text())
-      .then((data) => {
-        this.listTarget.outerHTML = data
-    })
+    window.location.href = '/';
   }
 
   submitForm() {
     this.formTarget.submit();
+  }
+
+  displayForm() {
+    this.toggleTarget.classList.toggle("d-none")
   }
 }
