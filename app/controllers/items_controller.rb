@@ -7,9 +7,13 @@ class ItemsController < ApplicationController
                  .joins('INNER JOIN artists AS artist_alias ON artist_alias.id = items.artist_id')
                  .includes(:manufacturer, :comments, :references, :tasks)
                  .order('artist_alias.last_name ASC, made_at ASC NULLS LAST')
-                 .paginate(page: params[:page], per_page: 20)
+
     @items = @items.where(artist_id: params[:artist_id]) if params[:artist_id].present?
+    @items = @items.open_tasks(params[:open_tasks]) if params[:open_tasks] == "false"
+    @items = @items.incomplete_data(params[:incomplete]) if params[:incomplete] == 'true'
     @items = @items.global_search(params[:query]) if params[:query].present?
+
+    @items = @items.paginate(page: params[:page], per_page: 20)
 
     respond_to do |format|
       format.html

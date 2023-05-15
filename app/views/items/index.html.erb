@@ -1,5 +1,6 @@
 <div data-controller="columns-filter">
-  <div class="d-flex justify-content-around mt-2 mb-2">
+  <i class="fa-solid fa-filter icon" data-action="click->columns-filter#displayForm"></i>
+  <div class="d-flex justify-content-around mt-2 mb-2 d-none" data-columns-filter-target="toggle">
     <%= render partial: 'search' %>
     <%= render partial: 'checkboxes' %>
   </div>
