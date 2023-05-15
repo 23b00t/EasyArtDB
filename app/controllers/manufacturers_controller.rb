@@ -13,7 +13,11 @@ class ManufacturersController < ApplicationController
 
   def create
     @manufacturer = Manufacturer.new(manufacturer_params)
-    @manufacturer.save ? (redirect_to manufacturer_path(@manufacturer)) : (render :new, status: :unprocessable_entity)
+    if @manufacturer.save
+      redirect_to request.referer.match?(%r{/items/new$}) ? new_item_path : manufacturer_path(@manufacturer)
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def edit; end

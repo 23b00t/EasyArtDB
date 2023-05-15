@@ -1,4 +1,4 @@
-<%= simple_form_for [artist], url: artists_path, method: :post, remote: true do |f| %>
+<%= simple_form_for artist do |f| %>
   <%= f.input :first_name, label: 'Vorname' %>
   <%= f.input :last_name, label: 'Nachname' %>
   <%= f.input :birthday, label: 'Geburtsdatum' %>
