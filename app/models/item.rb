@@ -24,4 +24,12 @@ class Item < ApplicationRecord
                   using: {
                     tsearch: { prefix: true }
                   }
+
+  pg_search_scope :open_tasks,
+                  associated_against: {
+                    tasks: :done
+                  }
+
+  pg_search_scope :incomplete_data,
+                  against: :incomplete
 end
