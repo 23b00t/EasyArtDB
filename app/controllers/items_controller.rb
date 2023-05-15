@@ -40,7 +40,14 @@ class ItemsController < ApplicationController
   def edit; end
 
   def update
+
     if @item.update(item_params)
+      if params[:item][:photos].present?
+        params[:item][:photos].each do |photo|
+          @item.photos.attach(photo)
+        end
+      end
+
       redirect_to item_path(@item)
     else
       render :edit, status: :unprocessable_entity
@@ -59,8 +66,7 @@ class ItemsController < ApplicationController
       :artist_id, :manufacturer_id, :incomplete, :titel, :size, :material, :made_at,
       :edition, :provenance, :category, tasks_attributes: %i[id description completed],
                                         comments_attributes: %i[id content],
-                                        references_attributes: %i[id url],
-                                        photos: []
+                                        references_attributes: %i[id url]
     )
   end
 
