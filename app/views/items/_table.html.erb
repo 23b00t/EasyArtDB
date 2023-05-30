@@ -18,7 +18,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @items.each_with_index do |item, index| %>
+      <% items.each_with_index do |item, index| %>
         <tr>
           <% if item.photos.any? %>
             <td data-columns-filter-target="foto"><%= link_to item_path(item) do %>
