@@ -1,0 +1,15 @@
+<div class="container">
+  <h1><%= @list.name %></h1>
+
+  <div data-controller="columns-filter">
+    <i class="fa-solid fa-filter icon" data-action="click->columns-filter#displayForm"></i>
+    <div class="d-flex justify-content-around mt-2 mb-2 d-none" data-columns-filter-target="toggle">
+      <%= render partial: 'items/search' %>
+      <%= render partial: 'items/checkboxes' %>
+    </div>
+
+    <%= render partial: 'items/table', locals: { items: @list.items } %>
+
+    <%#= link_to 'Objekt hinzufügen', new_item_path, class: "btn btn-primary" %>
+  </div>
+</div>

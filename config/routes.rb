@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :artists
   resources :manufacturers
 
-  resources :lists, only: %i[show new create destroy] do
+  resources :lists, except: %i[edit update] do
     resources :bookmarks, only: :create
   end
   resources :bookmarks, only: :destroy
