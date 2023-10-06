@@ -5,10 +5,9 @@ class BookmarksController < ApplicationController
     @bookmark.list_id = @list.id
 
     if @bookmark.save
-      redirect_to list_path(@bookmark.list)
+      render json: { success: true, bookmark_id: @bookmark.id }
     else
-      # @show_modal = true
-      # render 'lists/show', status: :unprocessable_entity
+      render json: { success: false, errors: @bookmark.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -21,6 +20,6 @@ class BookmarksController < ApplicationController
   private
 
   def bookmark_params
-    params.require(:bookmark).permit(:list_id, :movie_id)
+    params.require(:bookmark).permit(:list_id, :item_id)
   end
 end
