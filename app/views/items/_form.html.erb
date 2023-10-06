@@ -1,5 +1,5 @@
 <%= simple_form_for @item, multipart: true do |f| %>
-<div class="row mt-3">
+  <div class="row mt-3">
     <div class="col-6">
       <%= f.label :artist_id, "Wähle einen Künstler" %>
       <%= f.select :artist_id, options_for_select(Artist.all.map { |a| [a.full_name, a.id] }.unshift(''), selected: @item.artist_id), { }, { data: { controller: "tom-select" } } %>

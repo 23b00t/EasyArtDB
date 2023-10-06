@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
   before_action :set_active_storage_base_url, only: %i[index show]
 
   def index
+    @list = List.all
     @items = Item.with_attached_photos
                  .joins('INNER JOIN artists AS artist_alias ON artist_alias.id = items.artist_id')
                  .includes(:manufacturer, :comments, :references, :tasks)
