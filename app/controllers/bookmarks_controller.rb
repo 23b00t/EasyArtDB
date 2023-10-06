@@ -3,8 +3,6 @@ require "pry-byebug"
 class BookmarksController < ApplicationController
   def create
     @list = List.find(params[:list_id])
-    # @bookmark = Bookmark.new(bookmark_params)
-    # @bookmark.list_id = @list.id
     @item_ids = params[:item_ids].map(&:to_i)
     # binding.pry
 
