@@ -1,8 +1,12 @@
+require "pry-byebug"
+
 class BookmarksController < ApplicationController
   def create
     @list = List.find(params[:list_id])
     @bookmark = Bookmark.new(bookmark_params)
     @bookmark.list_id = @list.id
+
+    binding.pry
 
     if @bookmark.save
       render json: { success: true, bookmark_id: @bookmark.id }
