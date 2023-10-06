@@ -11,7 +11,8 @@ export default class extends Controller {
     console.log(selectedListId)
 
     if (selectedItems.length > 0 && selectedListId) {
-      const itemIds = selectedItems.map(checkbox => checkbox.value);
+      const itemIds = selectedItems.map(checkbox => checkbox.name);
+      console.log(itemIds)
       const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
       fetch('/lists/' + selectedListId + '/bookmarks', {
