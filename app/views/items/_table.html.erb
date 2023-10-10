@@ -29,7 +29,7 @@
           <td><label><input type="checkbox" name="<%= item.id %>" data-bookmark-target="checkboxes"> </label></td>
           <% if item.photos.any? %>
             <td data-columns-filter-target="foto"><%= link_to item_path(item) do %>
-              <%= image_tag item.photos.first.url, width: 80, height: 80  %>
+              <%= image_tag Rails.application.routes.url_helpers.url_for(item), width: 80, height: 80  %>
             <% end %></td>
           <% else %>
             <td data-columns-filter-target="foto"><%= link_to item_path(item) do %>
