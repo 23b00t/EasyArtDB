@@ -6,14 +6,23 @@ class BookmarksController < ApplicationController
     @item_ids = params[:item_ids].map(&:to_i)
     # binding.pry
 
+    success_responses = []
+    error_responses = []
+
     @item_ids.each do |item|
       @bookmark = Bookmark.new(item_id: item, list_id: @list.id)
 
       if @bookmark.save
-        render json: { success: true, bookmark_id: @bookmark.id }
+        success_responses << { success: true, bookmark_id: @bookmark.id }
       else
-        render json: { success: false, errors: @bookmark.errors.full_messages }, status: :unprocessable_entity
+        error_responses << { success: false, errors: @bookmark.errors.full_messages }
       end
+    end
+
+    if error_responses.empty?
+      render json: { success: true, bookmarks: success_responses }
+    else
+      render json: { success: false, errors: error_responses.flatten }, status: :unprocessable_entity
     end
   end
 

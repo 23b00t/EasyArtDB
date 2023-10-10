@@ -3,6 +3,12 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["checkboxes", "listSelect"]
 
+  uncheckAllCheckboxes() {
+    this.checkboxesTargets.forEach((checkbox) => {
+      checkbox.checked = false;
+    });
+  }
+
   createBookmark() {
     const selectedItems = this.checkboxesTargets.filter(checkbox => checkbox.checked);
     const selectedListId = this.listSelectTarget.value;
@@ -29,11 +35,17 @@ export default class extends Controller {
       .then(response => response.json())
       .then(data => {
         console.log("Bookmark erstellt", data);
-        // Hier kannst du auf die Antwort des Servers reagieren, wenn das Bookmark erfolgreich erstellt wurde.
+        alert("Bookmarks erfolgreich erstellt");
+        setTimeout(() => {
+          this.uncheckAllCheckboxes();
+        }, 100);
       })
       .catch(error => {
         console.error("Fehler beim Erstellen des Bookmarks", error);
-        // Hier kannst du auf einen Fehler reagieren, wenn das Bookmark nicht erstellt werden konnte.
+        alert("Es konnten nicht alle Items hinzugefügt werden!")
+        setTimeout(() => {
+          this.uncheckAllCheckboxes();
+        }, 100);
       });
     }
   }
