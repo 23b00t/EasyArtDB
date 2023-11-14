@@ -8,6 +8,9 @@
       <%= render partial: 'items/checkboxes' %>
     </div>
 
-    <%= render partial: 'items/table', locals: { items: @list.items } %>
+    <div data-controller="bookmark">
+      <%= render partial: 'items/table', locals: { items: @list.items } %>
+      <button data-action="click->bookmark#deleteBookmarks">Delete Selected Bookmarks</button>
+    </div>
   </div>
 </div>

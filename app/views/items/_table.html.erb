@@ -1,4 +1,4 @@
-<div class="table-responsive-lg" data-columns-filter-target="list" data-controller="bookmark">
+<div class="table-responsive-lg" data-columns-filter-target="list">
   <table class="table table-hover table-bordered align-middle">
     <thead class="table-head">
       <tr>
@@ -18,15 +18,17 @@
         <th scope="col" data-columns-filter-target="tasks">To-Do's</th>
       </tr>
     </thead>
+
     <tbody>
       <%= simple_form_for Item.new, multipart: true do |f| %>
         <%= f.collection_select :list_ids, List.all, :id, :name, {}, { data: { target: 'bookmark.listSelect' } } %>
       <% end %>
 
       <button data-action="click->bookmark#createBookmark">Bookmark erstellen</button>
+
       <% items.each_with_index do |item, index| %>
         <tr>
-          <td><label><input type="checkbox" name="<%= item.id %>" data-bookmark-target="checkboxes"> </label></td>
+          <td><label><input type="checkbox" name="<%= item.id %>" data-bookmark-target="checkboxes"></label></td>
           <% if item.photos.any? %>
             <td data-columns-filter-target="foto"><%= link_to item_path(item) do %>
               <%= image_tag Rails.application.routes.url_helpers.url_for(item.photos.first), width: 80, height: 80  %>

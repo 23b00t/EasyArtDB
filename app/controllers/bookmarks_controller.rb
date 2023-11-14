@@ -27,9 +27,29 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
-    @bookmark = Bookmark.find(params[:id])
-    @bookmark.destroy
-    redirect_to list_path(@bookmark.list_id), status: :see_other
+    @list = List.find(params[:list_id])
+
+    # use #uniq because bookmarks of the same item can exist multiple times on list at the moment (should be fixed later on)
+    @item_ids = params[:item_ids].map(&:to_i).uniq
+
+    success_responses = []
+    error_responses = []
+
+    @item_ids.each do |item|
+      @bookmark = Bookmark.where(item_id: item, list_id: @list.id)
+
+      if @bookmark.destroy(@bookmark.ids)
+        success_responses << { success: true, bookmark_id: @bookmark.ids }
+      else
+        error_responses << { success: false, errors: @bookmark.errors.full_messages }
+      end
+    end
+
+    if error_responses.empty?
+      render json: { success: true, bookmarks: success_responses }
+    else
+      render json: { success: false, errors: error_responses.flatten }, status: :unprocessable_entity
+    end
   end
 
   private
