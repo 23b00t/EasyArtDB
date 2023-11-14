@@ -16,6 +16,14 @@ Rails.application.routes.draw do
   resources :artists
   resources :manufacturers
 
+  resources :lists, except: %i[edit update] do
+    resources :bookmarks, only: :create
+    member do
+      delete 'bookmarks', to: 'bookmarks#destroy'
+    end
+  end
+  # resources :bookmarks, only: :destroy
+
   # import data
   get 'import/new'
   post 'import', to: 'import#create'

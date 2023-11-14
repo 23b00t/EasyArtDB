@@ -5,7 +5,9 @@
     <%= render partial: 'checkboxes' %>
   </div>
 
-  <%= render partial: 'table' %>
+  <div data-controller="bookmark">
+    <%= render partial: 'table', locals: { items: @items } %>
+  </div>
 
   <%= render partial: 'pagination' %>
 

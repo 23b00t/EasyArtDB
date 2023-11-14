@@ -1,0 +1,17 @@
+<div class="container">
+  <h1>Listen</h1>
+
+  <% @lists.each do |list| %>
+    <div class="card mb-4">
+      <div class="card-header card-title">
+        <%= link_to list.name, list_path(list), class: "text-decoration-none" %>
+        <%= link_to list_path(list),
+            data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}  do %>
+              <i class="fa-regular fa-trash-can"></i>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= link_to 'Liste erstellen', new_list_path %>
+</div>
