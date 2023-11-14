@@ -7,7 +7,7 @@ class Item < ApplicationRecord
   has_many :tasks, dependent: :destroy
   has_many :provenances, dependent: :destroy
 
-  has_many :bookmarks
+  has_many :bookmarks, dependent: :destroy
   has_many :lists, through: :bookmarks
 
   has_many_attached :photos, dependent: :destroy

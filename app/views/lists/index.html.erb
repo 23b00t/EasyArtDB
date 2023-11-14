@@ -5,6 +5,10 @@
     <div class="card mb-4">
       <div class="card-header card-title">
         <%= link_to list.name, list_path(list), class: "text-decoration-none" %>
+        <%= link_to list_path(list),
+            data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}  do %>
+              <i class="fa-regular fa-trash-can"></i>
+        <% end %>
       </div>
     </div>
   <% end %>
