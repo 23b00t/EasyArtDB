@@ -4,7 +4,6 @@ class BookmarksController < ApplicationController
   def create
     @list = List.find(params[:list_id])
     @item_ids = params[:item_ids].map(&:to_i)
-    # binding.pry
 
     success_responses = []
     error_responses = []
