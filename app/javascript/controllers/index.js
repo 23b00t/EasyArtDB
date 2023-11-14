@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import BookmarkController from "./bookmark_controller"
+application.register("bookmark", BookmarkController)
+
 import CheckboxController from "./checkbox_controller"
 application.register("checkbox", CheckboxController)
 

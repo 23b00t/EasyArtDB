@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_11_070740) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_30_134634) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_11_070740) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "bookmarks", force: :cascade do |t|
+    t.bigint "list_id", null: false
+    t.bigint "item_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_bookmarks_on_item_id"
+    t.index ["list_id"], name: "index_bookmarks_on_list_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text "text"
     t.bigint "item_id", null: false
@@ -74,6 +83,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_11_070740) do
     t.string "category"
     t.index ["artist_id"], name: "index_items_on_artist_id"
     t.index ["manufacturer_id"], name: "index_items_on_manufacturer_id"
+  end
+
+  create_table "lists", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "manufacturers", force: :cascade do |t|
@@ -121,6 +136,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_11_070740) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bookmarks", "items"
+  add_foreign_key "bookmarks", "lists"
   add_foreign_key "comments", "items"
   add_foreign_key "items", "artists"
   add_foreign_key "items", "manufacturers"
