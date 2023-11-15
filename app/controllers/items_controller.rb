@@ -13,7 +13,7 @@ class ItemsController < ApplicationController
     @items = @items.incomplete_data(params[:incomplete]) if params[:incomplete] == 'true'
     @items = @items.global_search(params[:query]) if params[:query].present?
 
-    @items = @items.paginate(page: params[:page], per_page: 20)
+    @items = @items.paginate(page: params[:page], per_page: 20) unless params[:show_all]
 
     respond_to do |format|
       format.html
