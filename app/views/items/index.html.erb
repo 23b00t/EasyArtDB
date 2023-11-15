@@ -9,7 +9,7 @@
     <%= render partial: 'table', locals: { items: @items } %>
   </div>
 
-  <%= render partial: 'pagination' %>
+  <%= render partial: 'pagination' unless params[:show_all]%>
 
   <%= link_to 'Objekt hinzufügen', new_item_path, class: "btn btn-primary" %>
 </div>
