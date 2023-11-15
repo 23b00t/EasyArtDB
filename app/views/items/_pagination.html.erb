@@ -51,6 +51,13 @@
         <span class="page-link">Next</span>
       </li>
     <% end %>
+
+    <% if @items.total_pages > 1 %>
+      <li class="page-item">
+        <%= link_to 'Show All', url_for(request.params.merge(show_all: true)), class: 'btn btn-warning', remote: true, data: { controller: 'pagination', action: 'click->pagination#link' } %>
+      </li>
+    <% end %>
+
   </ul>
   <% if @items.total_pages > 1 %>
     <p class="text-center">Page <%= @items.current_page %> of <%= @items.total_pages %></p>
