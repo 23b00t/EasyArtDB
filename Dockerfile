@@ -1,16 +1,17 @@
-# Use the official Ruby image with the specified version
-FROM ruby:3.1.2
-
-# Set the working directory in the container
+# Pre-Build Dependencies Stage
+FROM ruby:3.1.2 AS dependencies
 WORKDIR /app
-
-# Copy Gemfile and Gemfile.lock to the container
 COPY Gemfile Gemfile.lock ./
-
-# Install dependencies
 RUN bundle install
 
-# Copy the rest of the application code to the container
+# Final Stage
+FROM ruby:3.1.2
+WORKDIR /app
+
+# Copy dependencies from the pre-build stage
+COPY --from=dependencies /usr/local/bundle /usr/local/bundle
+
+# Copy the rest of the application code
 COPY . .
 
 # Expose the port your Rails app will run on
