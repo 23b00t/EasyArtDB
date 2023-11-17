@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
       target: dependencies  # Specify the build target for dependencies
-    platform: linux/arm64  # Adjust the platform accordingly
+    platform: linux/amd64  # Adjust the platform accordingly
     command: bash -c "rm -f tmp/pids/server.pid && rails s -b '0.0.0.0'"
     volumes:
       - .:/app
