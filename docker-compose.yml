@@ -15,9 +15,10 @@ services:
     depends_on:
       - db
     environment:
+      RAILS_ENV: production
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: EasyArtDB_development
+      POSTGRES_PASSWORD: h0mew0rk
+      POSTGRES_DB: EasyArtDB_production
 
   db:
     image: postgres:latest
@@ -25,8 +26,8 @@ services:
       - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: EasyArtDB_development
+      POSTGRES_PASSWORD: h0mew0rk
+      POSTGRES_DB: EasyArtDB_production
 
 volumes:
   postgres_data:

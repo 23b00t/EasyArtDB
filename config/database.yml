@@ -85,5 +85,7 @@ test:
 production:
   <<: *default
   database: EasyArtDB_production
-  username: EasyArtDB
-  password: <%= ENV["EASYARTDB_DATABASE_PASSWORD"] %>
+  username: postgres
+  password: password
+  host: db
+  port: 5432
