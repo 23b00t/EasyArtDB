@@ -5,8 +5,26 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle config --global frozen 1
 RUN bundle install
 
-# Install Node.js and Yarn
-RUN apt-get update && apt-get install -y nodejs yarn --no-install-recommends && rm -rf /var/lib/apt/lists/*
+# Install required dependencies
+RUN apt-get update && apt-get install -y \
+    apt-utils \
+    ca-certificates \
+    curl \
+    gnupg \
+  && rm -rf /var/lib/apt/lists/*
+
+# Download and import the Nodesource GPG key
+RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /usr/share/keyrings/nodesource.gpg
+
+# Set the Node.js version you want to install (adjust as needed)
+ARG NODE_MAJOR=20
+
+# Create the deb repository
+RUN echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list > /dev/null
+
+# Install Node.js
+RUN apt-get update && apt-get install -y nodejs
+RUN npm install -g yarn@1.22.19
 
 ENV RAILS_ENV production
 ENV RAILS_SERVE_STATIC_FILES true
