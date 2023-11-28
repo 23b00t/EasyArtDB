@@ -14,8 +14,6 @@ services:
       - "3000:3000"
     depends_on:
       - db
-    env_file:
-      - .env.production
     environment:
       RAILS_ENV: production
 
@@ -23,8 +21,6 @@ services:
     image: postgres:13
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    env_file:
-      - .env.production
 
 volumes:
   postgres_data:
