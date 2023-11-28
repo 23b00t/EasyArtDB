@@ -86,6 +86,6 @@ production:
   <<: *default
   database: EasyArtDB_production
   username: postgres
-  password: password
+  password: h0mew0rk
   host: db
   port: 5432

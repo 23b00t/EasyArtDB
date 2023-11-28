@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \
     curl \
     gnupg \
+    postgresql-client\
   && rm -rf /var/lib/apt/lists/*
 
 # Download and import the Nodesource GPG key
