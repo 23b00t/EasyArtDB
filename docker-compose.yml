@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: dependencies  # Specify the build target for dependencies
-    platform: linux/amd64  # Adjust the platform accordingly
+      target: dependencies
+    platform: linux/amd64
     command: bash -c "rm -f tmp/pids/server.pid && rails s -b '0.0.0.0'"
     volumes:
       - .:/app
@@ -14,20 +14,17 @@ services:
       - "3000:3000"
     depends_on:
       - db
+    env_file:
+      - .env.production
     environment:
       RAILS_ENV: production
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: h0mew0rk
-      POSTGRES_DB: EasyArtDB_production
 
   db:
-    image: postgres:latest
+    image: postgres:13
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: h0mew0rk
-      POSTGRES_DB: EasyArtDB_production
+    env_file:
+      - .env.production
 
 volumes:
   postgres_data:
