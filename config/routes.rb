@@ -28,8 +28,9 @@ Rails.application.routes.draw do
   post 'import', to: 'import#create'
 
   # backup db
-  resource :backup, only: [] do
-    post 'save'
-    post 'restore'
+  resources :backups, only: [:new] do
+    get 'load', on: :collection
+    post 'save', on: :collection
+    post 'restore', on: :collection
   end
 end

@@ -1,4 +1,4 @@
-class BackupController < ApplicationController
+class BackupsController < ApplicationController
   def save
     BackupService.backup_db
     BackupService.backup_activestorage

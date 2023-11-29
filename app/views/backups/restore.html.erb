@@ -1,5 +1,5 @@
 <h1>Von Sicherungskopie wiederherstellen</h1>
-<%= form_with(url: restore_database_path, method: :post, local: true, multipart: true) do |form| %>
+<%= form_with(url: restore_backups_path, method: :post, local: true, multipart: true) do |form| %>
   <%= form.file_field :backup_file %>
   <%= form.file_field :activestorage_backup %>
   <%= form.submit "Datenbank wiederherstellen" %>
