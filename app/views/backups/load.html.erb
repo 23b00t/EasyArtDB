@@ -1,0 +1,10 @@
+<h1>Von Sicherungskopie wiederherstellen</h1>
+<%= form_with(url: restore_backups_path, method: :post, local: true, multipart: true) do |form| %>
+  <label for="backup_file">Wähle eine .sql Datei zum Wiederherstellen:</label>
+  <%= form.text_field :backup_file %>
+
+  <label for="activestorage_backup">Wähle einen ActiveStorage Ordner:</label>
+  <%= form.text_field :activestorage_backup, placeholder: "z.B. activestorage_backups/20231129115057_backup" %>
+
+  <%= form.submit "Datenbank wiederherstellen" %>
+<% end %>
