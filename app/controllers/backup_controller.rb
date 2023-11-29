@@ -1,27 +1,29 @@
 class BackupController < ApplicationController
   def save
-    backup_location = params[:backup_location] || Rails.root.join("db", "backups")
-    timestamp = Time.now.strftime("%Y%m%d%H%M%S")
-    backup_file = File.join(backup_location, "backup_#{timestamp}.sql")
+    BackupService.backup_db
+    BackupService.backup_activestorage
 
-    # Perform the database dump
-    system("pg_dump -U your_username -h your_host -d your_database > #{backup_file}")
-
-    # Handle errors and flash messages as needed
-
-    redirect_to root_path, notice: "Database backup completed successfully."
+    flash[:notice] = "Database and Active Storage restoration completed successfully."
+  rescue StandardError => e
+    flash[:alert] = "Error: #{e.message}"
+  ensure
+    redirect_to root_path
   end
 
   def restore
-    # Assuming the uploaded file is named 'backup_file'
-    uploaded_file = params[:backup_file]
-    restore_command = "pg_restore -U your_username -h your_host -d your_database < #{uploaded_file.path}"
+    backup_file = params[:backup_file]
+    activestorage_backup = params[:activestorage_backup]
 
-    # Perform the database restoration
-    system(restore_command)
+    begin
+      BackupService.restore_db(backup_file)
 
-    # Handle errors and flash messages as needed
+      BackupService.restore_activestorage(activestorage_backup)
 
-    redirect_to root_path, notice: "Database restoration completed successfully."
+      flash[:notice] = "Database and Active Storage restoration completed successfully."
+    rescue StandardError => e
+      flash[:alert] = "Error: #{e.message}"
+    ensure
+      redirect_to root_path
+    end
   end
 end
