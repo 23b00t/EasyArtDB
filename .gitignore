@@ -46,3 +46,5 @@
 # Ignore backup folders
 /db_backups/*
 /activestorage_backups/*
+
+/config/credentials/developement.key
