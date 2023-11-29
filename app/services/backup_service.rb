@@ -44,11 +44,11 @@ class BackupService
   end
 
   def self.restore_db(filename)
-    execute_command("docker-compose run --rm db psql -h db -U postgres -d EasyArtDB_production < #{filename}", "Database restoration")
+    execute_command("pg_restore -U postgres -h db -d EasyArtDB_production < #{filename}", "Database restoration")
   end
 
   def self.restore_activestorage(source_dir)
-    execute_command("docker-compose run --rm app cp -R #{source_dir}/* storage/", "Active Storage restoration")
+    execute_command("cp -R #{source_dir}/* storage/", "Active Storage restoration")
   end
 
   private
