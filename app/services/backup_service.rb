@@ -1,32 +1,11 @@
-class BackupService
-  def self.backup_db
-    backup_dir = 'db_backups'
-    FileUtils.mkdir_p(backup_dir) unless File.directory?(backup_dir)
-
-    filename = "#{backup_dir}/#{Time.now.strftime('%Y%m%d%H%M%S')}_backup.sql"
-    system("pg_dump -h db -U postgres EasyArtDB_production > #{filename}")
-  end
-
-  def self.backup_activestorage
-    backup_dir = 'activestorage_backups'
-    FileUtils.mkdir_p(backup_dir) unless File.directory?(backup_dir)
-
-    source_dir = 'storage'
-    backup_dir = "#{backup_dir}/#{Time.now.strftime('%Y%m%d%H%M%S')}_backup"
-    system("cp -R #{source_dir} #{backup_dir}")
-  end
-
-  def self.restore_db(filename)
-    system("docker-compose run --rm db psql -h db -U postgres -d EasyArtDB_production < #{filename}")
-  end
-
-  def self.restore_activestorage(source_dir)
-    system("docker-compose run --rm app cp -R #{source_dir}/* storage/")
-  end
-end
+require 'dotenv'
 
 class BackupService
   def self.backup_db
+    Dotenv.load('.env.production')
+    # Set PGPASSWORD
+    ENV['PGPASSWORD'] = ENV['POSTGRES_PASSWORD']
+
     backup_dir = 'db_backups'
     FileUtils.mkdir_p(backup_dir) unless File.directory?(backup_dir)
 
