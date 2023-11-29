@@ -1,11 +1,9 @@
 require 'dotenv'
 
 class BackupService
-  def self.backup_db
-    Dotenv.load('.env.production')
-    # Set PGPASSWORD
-    ENV['PGPASSWORD'] = ENV['POSTGRES_PASSWORD']
+  ENV['PGPASSWORD'] = Rails.application.credentials.production[:database][:password]
 
+  def self.backup_db
     backup_dir = 'db_backups'
     FileUtils.mkdir_p(backup_dir) unless File.directory?(backup_dir)
 
@@ -23,17 +21,20 @@ class BackupService
   end
 
   def self.restore_db(filename)
-    execute_command("pg_restore -U postgres -h db -d EasyArtDB_production < #{filename}", "Database restoration")
+    backup_path = File.join(Rails.root, 'db_backups', filename)
+    command = "psql -h db -U postgres -d EasyArtDB_production < #{backup_path}"
+    execute_command(command, "Database restoration")
   end
 
   def self.restore_activestorage(source_dir)
-    execute_command("cp -R #{source_dir}/* storage/", "Active Storage restoration")
+    command = "cp -R activestorage_backups/#{source_dir}/* storage/"
+    execute_command(command, "Active Storage restoration")
   end
 
   private
 
   def self.execute_command(command, operation)
-    system(command)
+    system(command, exception: true)
 
     if $?.success?
       Rails.logger.info("#{operation} completed successfully.")
