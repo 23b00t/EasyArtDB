@@ -19,6 +19,9 @@ class BackupsController < ApplicationController
 
       BackupService.restore_activestorage(activestorage_backup)
 
+      # workaround for migration problems
+      BackupService.restore_db(backup_file)
+
       flash[:notice] = "Database and Active Storage restoration completed successfully."
     rescue StandardError => e
       flash[:alert] = "Error: #{e.message}"
