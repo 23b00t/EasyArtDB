@@ -81,3 +81,6 @@ gem 'will_paginate-bootstrap'
 
 # pg_search
 gem "pg_search"
+
+# JS runtime
+gem 'mini_racer'

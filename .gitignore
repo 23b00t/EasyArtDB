@@ -40,3 +40,11 @@
 # Ignore Mac and Linux file system files
 *.swp
 .DS_Store
+
+/config/credentials/production.key
+
+# Ignore backup folders
+/db_backups/*
+/activestorage_backups/*
+
+/config/credentials/developement.key
