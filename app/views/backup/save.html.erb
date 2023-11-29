@@ -1,7 +1,4 @@
-<h1>Save Database</h1>
+<h1>Sicherungskopie der Datenbank erstellen</h1>
 <%= form_tag save_database_path, method: :post do %>
-  <%= label_tag :backup_location, "Backup Location:" %>
-  <%= text_field_tag :backup_location, Rails.root.join("db", "backups") %>
-
-  <%= submit_tag "Save Database" %>
+  <%= submit_tag "Jetzt speichern" %>
 <% end %>
