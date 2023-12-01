@@ -9,9 +9,20 @@
 
   <%= render partial: 'provenances/card' %>
 
-  <div class="mb-4">
+  <div class="d-flex justify-content-between mb-4">
+    <div class="mr-4">
     <%= link_to 'Bearbeiten', edit_item_path(@item), class:"btn btn-warning" %>
     <%= link_to 'Löschen', item_path(@item), data: {turbo_method: :delete, turbo_confirm: "Bist du sicher?"}, class:"btn btn-danger" %>
     <%= link_to "Zurück", items_path, class:"btn btn-primary" %>
+    </div>
+    <div class="ml-4" >
+    <% if @previous_item_id.present? %>
+      <%= link_to "Vorheriges Objekt", item_path(@previous_item_id), class: "btn btn-primary" %>
+    <% end %>
+
+    <% if @next_item_id.present? %>
+      <%= link_to "Nächstes Objekt", item_path(@next_item_id), class: "btn btn-primary" %>
+    <% end %>
+    </div>
   </div>
 </div>
