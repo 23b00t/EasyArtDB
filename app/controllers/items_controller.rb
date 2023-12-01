@@ -17,7 +17,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.text { render partial: "items/table", formats: [:html] }
+      format.text { render partial: "items/table", locals: { items: @items }, formats: [:html] }
     end
   end
 
