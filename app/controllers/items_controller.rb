@@ -13,6 +13,8 @@ class ItemsController < ApplicationController
     @items = @items.incomplete_data(params[:incomplete]) if params[:incomplete] == 'true'
     @items = @items.global_search(params[:query]) if params[:query].present?
 
+    session[:item_ids] = @items.pluck(:id)
+
     @items = @items.paginate(page: params[:page], per_page: 20) unless params[:show_all]
 
     respond_to do |format|
@@ -21,7 +23,19 @@ class ItemsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @item_ids = session[:item_ids]
+    # Find the index of the current item in the array
+    current_index = @item_ids.index(@item.id)
+
+    # Determine the previous and next item IDs
+    previous_item_id = @item_ids[current_index - 1] if current_index > 0
+    next_item_id = @item_ids[current_index + 1] if current_index < @item_ids.length - 1
+
+    # Pass these values to the view
+    @previous_item_id = previous_item_id
+    @next_item_id = next_item_id
+  end
 
   def new
     @item = Item.new
