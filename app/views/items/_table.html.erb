@@ -20,12 +20,6 @@
     </thead>
 
     <tbody>
-      <%= simple_form_for Item.new, multipart: true do |f| %>
-        <%= f.collection_select :list_ids, List.all, :id, :name, {}, { data: { target: 'bookmark.listSelect' } } %>
-      <% end %>
-
-      <button data-action="click->bookmark#createBookmark">Bookmark erstellen</button>
-
       <% items.each_with_index do |item, index| %>
         <tr>
           <td><label><input type="checkbox" name="<%= item.id %>" data-bookmark-target="checkboxes"></label></td>

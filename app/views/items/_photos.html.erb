@@ -1,10 +1,14 @@
 <!-- _photos.html.erb -->
-<div id="carouselControls" class="carousel slide">
+<div id="carouselControls" class="carousel carousel-dark slide">
   <div class="carousel-inner">
     <% @item.photos.each_with_index do |photo, index| %>
       <div class="carousel-item <%= 'active' if index.zero? %>">
         <div class="d-flex flex-column">
-          <%= image_tag(photo, class: "d-block w-100") %>
+          <div class="row">
+            <div class="col-12">
+              <%= image_tag(photo, class: "img-fluid mx-auto d-block", style: "height: 480px;") %>
+            </div>
+          </div>
           <div class="photo-actions mx-auto">
             <%= link_to item_photo_path(@item, photo), data: { turbo_method: :delete, turbo_confirm: "Bist du sicher?" }, class: "delete-photo" do %>
               <i class="fa-regular fa-trash-can text-danger"></i>
