@@ -1,5 +1,5 @@
 <div data-controller="columns-filter">
-  <i class="fa-solid fa-filter icon" data-action="click->columns-filter#displayForm"></i>
+  <i class="fa-solid fa-filter icon m-2" data-action="click->columns-filter#displayForm"></i>
   <div class="d-flex justify-content-around mt-2 mb-2 d-none" data-columns-filter-target="toggle">
     <%= render partial: 'search' %>
     <%= render partial: 'checkboxes' %>
@@ -7,9 +7,14 @@
 
   <div data-controller="bookmark">
     <%= render partial: 'table', locals: { items: @items } %>
+    <div class="d-flex m-2">
+      <%= simple_form_for Item.new, multipart: true do |f| %>
+        <%= f.collection_select :list_ids, List.all, :id, :name, {}, { data: { target: 'bookmark.listSelect' } } %>
+      <% end %>
+
+      <button class="ms-2 btn btn-success" data-action="click->bookmark#createBookmark">Bookmark erstellen</button>
+    </div>
   </div>
 
   <%= render partial: 'pagination' unless params[:show_all]%>
-
-  <%= link_to 'Objekt hinzufügen', new_item_path, class: "btn btn-primary" %>
 </div>
