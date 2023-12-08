@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["toggle", "form", "input", "list", "listSelect", "itemCheckboxes", "bookmarkForm", "checkboxes", "foto", "category", "titel", "size", "artist", "manufacturer", "material", "year", "edition", "provenance", "comments", "references", "tasks"];
+  static targets = ["toggle", "form", "input", "list", "listSelect", "itemCheckboxes", "bookmarkForm", "checkboxes", "foto", "category", "titel", "size", "artist", "manufacturer", "material", "year", "edition", "provenance", "comments", "references", "tasks", "select"];
 
   initialize() {
     this.checkboxesTargets.forEach((checkbox) => {
@@ -58,6 +58,13 @@ export default class extends Controller {
 
   toggleBookmarkForm() {
     this.bookmarkFormTarget.classList.toggle("d-none");
+    // Get all elements with data-columns-filter-target="select"
+    const selectTargets = this.selectTargets;
+
+    // Toggle the visibility of each select target
+    selectTargets.forEach((target) => {
+      target.classList.toggle("d-none");
+    });
   }
 
   createBookmark() {
