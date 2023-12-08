@@ -1,20 +1,31 @@
 <div data-controller="columns-filter">
   <i class="fa-solid fa-filter icon m-2" data-action="click->columns-filter#displayForm"></i>
-  <div class="d-flex justify-content-around mt-2 mb-2 d-none" data-columns-filter-target="toggle">
-    <%= render partial: 'search' %>
-    <%= render partial: 'checkboxes' %>
-  </div>
-
-  <div data-controller="bookmark">
-    <%= render partial: 'table', locals: { items: @items } %>
-    <div class="d-flex m-2">
-      <%= simple_form_for Item.new, multipart: true do |f| %>
-        <%= f.collection_select :list_ids, List.all, :id, :name, {}, { data: { target: 'bookmark.listSelect' } } %>
-      <% end %>
-
-      <button class="ms-2 btn btn-success" data-action="click->bookmark#createBookmark">Bookmark erstellen</button>
+  <div class="d-flex m-4 d-none icon" data-columns-filter-target="toggle">
+    <div class="col-6">
+      <%= render partial: 'search' %>
+    </div>
+    <div class="col-6">
+      <%= render partial: 'checkboxes' %>
     </div>
   </div>
+
+  <!-- Toggle button for the bookmark functionality -->
+  <i class="fa-solid fa-plus m-2" data-action="click->columns-filter#toggleBookmarkForm"></i>
+
+  <!-- Form for creating bookmarks -->
+  <div class="d-flex m-4 d-none" data-columns-filter-target="bookmarkForm" style="align-items: center;">
+    <%= simple_form_for Item.new, multipart: true do |f| %>
+      <div class="me-2 mb-2">
+        <b> <%= f.label :list_ids, "Wähle eine Liste:" %> </b>
+      </div>
+      <%= f.collection_select :list_ids, List.all, :id, :name, {}, { data: { target: 'columns-filter.listSelect' } } %>
+    <% end %>
+
+    <i class="fa-solid fa-check icon ms-3 fa-3x" style="color: green;" data-action="click->columns-filter#createBookmark"></i>
+  </div>
+
+
+  <%= render partial: 'table', locals: { items: @items } %>
 
   <%= render partial: 'pagination' unless params[:show_all]%>
 </div>

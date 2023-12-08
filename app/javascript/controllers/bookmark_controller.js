@@ -1,21 +1,21 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["checkboxes", "listSelect"]
+  static targets = ["itemCheckboxes", "listSelect"];
 
   uncheckAllCheckboxes() {
-    this.checkboxesTargets.forEach((checkbox) => {
+    this.itemCheckboxesTargets.forEach((checkbox) => {
       checkbox.checked = false;
     });
   }
 
   createBookmark() {
-    const selectedItems = this.checkboxesTargets.filter(checkbox => checkbox.checked);
+    const selectedItems = this.itemCheckboxesTargets.filter(checkbox => checkbox.checked);
     const selectedListId = this.listSelectTarget.value;
 
     if (selectedItems.length > 0 && selectedListId) {
       const itemIds = selectedItems.map(checkbox => checkbox.name);
-      console.log(itemIds)
+      console.log(itemIds);
       const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
       fetch('/lists/' + selectedListId + '/bookmarks', {
@@ -48,11 +48,11 @@ export default class extends Controller {
   }
 
   deleteBookmarks() {
-    const selectedItems = this.checkboxesTargets.filter(checkbox => checkbox.checked);
+    const selectedItems = this.itemCheckboxesTargets.filter(checkbox => checkbox.checked);
     const selectedListId = this.extractListIdFromUrl();
 
-    console.log(selectedListId)
-    console.log(selectedItems)
+    console.log(selectedListId);
+    console.log(selectedItems);
 
     if (selectedItems.length > 0 && selectedListId) {
       const itemIds = selectedItems.map(checkbox => checkbox.name);
@@ -104,7 +104,7 @@ export default class extends Controller {
   removeDeletedElements(deletedItemIds) {
     // Iterate over deletedItemIds and remove corresponding elements from the page
     deletedItemIds.forEach(itemId => {
-      const elementToRemove = document.querySelector(`[data-bookmark-target="checkboxes"][name="${itemId}"]`);
+      const elementToRemove = document.querySelector(`[data-bookmark-target="itemCheckboxes"][name="${itemId}"]`);
       if (elementToRemove) {
         // If the checkbox is in a row, remove the entire row
         const row = elementToRemove.closest('tr');
