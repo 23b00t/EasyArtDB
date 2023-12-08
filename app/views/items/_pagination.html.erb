@@ -2,11 +2,11 @@
   <ul class="pagination justify-content-center">
     <% if @items.previous_page %>
       <li class="page-item">
-        <%= link_to "Previous", url_for(request.params.merge(page: @items.previous_page)), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link", rel: "prev" %>
+        <%= link_to "Vorherige", url_for(request.params.merge(page: @items.previous_page)), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link", rel: "prev" %>
       </li>
     <% else %>
       <li class="page-item disabled">
-        <span class="page-link">Previous</span>
+        <span class="page-link">Vorherige</span>
       </li>
     <% end %>
 
@@ -44,11 +44,11 @@
 
     <% if @items.next_page %>
       <li class="page-item">
-        <%= link_to "Next", url_for(request.params.merge(page: @items.next_page)), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link", rel: "next" %>
+        <%= link_to "Nächste", url_for(request.params.merge(page: @items.next_page)), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link", rel: "next" %>
       </li>
     <% else %>
       <li class="page-item disabled">
-        <span class="page-link">Next</span>
+        <span class="page-link">Nächste</span>
       </li>
     <% end %>
 
@@ -60,6 +60,6 @@
 
   </ul>
   <% if @items.total_pages > 1 %>
-    <p class="text-center">Page <%= @items.current_page %> of <%= @items.total_pages %></p>
+    <p class="text-center">Seite <%= @items.current_page %> von <%= @items.total_pages %></p>
   <% end %>
 </nav>
