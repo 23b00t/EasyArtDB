@@ -1,8 +1,8 @@
 <nav aria-label="...">
   <ul class="pagination justify-content-center">
-    <% if @items.previous_page %>
+    <% if @items.prev_page %>
       <li class="page-item">
-        <%= link_to "Vorherige", url_for(request.params.merge(page: @items.previous_page)), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link", rel: "prev" %>
+        <%= link_to "Vorherige", items_path(page: @items.prev_page), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link", rel: "prev" %>
       </li>
     <% else %>
       <li class="page-item disabled">
@@ -15,7 +15,7 @@
       <% end_page = [start_page + 9, @items.total_pages].min %>
       <% if start_page > 1 %>
         <li class="page-item">
-          <%= link_to "1", url_for(request.params.merge(page: 1)), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link" %>
+          <%= link_to "1", items_path(page: 1), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link" %>
         </li>
         <li class="page-item disabled">
           <span class="page-link">...</span>
@@ -28,7 +28,7 @@
           </li>
         <% else %>
           <li class="page-item">
-            <%= link_to page, url_for(request.params.merge(page: page)), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link" %>
+            <%= link_to page, items_path(page: page), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link" %>
           </li>
         <% end %>
       <% end %>
@@ -37,14 +37,14 @@
           <span class="page-link">...</span>
         </li>
         <li class="page-item">
-          <%= link_to @items.total_pages, url_for(request.params.merge(page: @items.total_pages)), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link" %>
+          <%= link_to @items.total_pages, items_path(page: @items.total_pages), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link" %>
         </li>
       <% end %>
     <% end %>
 
     <% if @items.next_page %>
       <li class="page-item">
-        <%= link_to "Nächste", url_for(request.params.merge(page: @items.next_page)), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link", rel: "next" %>
+        <%= link_to "Nächste", items_path(page: @items.next_page), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link", rel: "next" %>
       </li>
     <% else %>
       <li class="page-item disabled">
@@ -54,10 +54,9 @@
 
     <% if @items.total_pages > 1 %>
       <li class="page-item">
-        <%= link_to 'Druckansicht', url_for(request.params.merge(show_all: true)), class: 'btn btn-warning', remote: true, data: { controller: 'pagination', action: 'click->pagination#link' } %>
+        <%= link_to 'Druckansicht', items_path(show_all: true), class: 'btn btn-warning', remote: true, data: { controller: 'pagination', action: 'click->pagination#link' } %>
       </li>
     <% end %>
-
   </ul>
   <% if @items.total_pages > 1 %>
     <p class="text-center">Seite <%= @items.current_page %> von <%= @items.total_pages %></p>
