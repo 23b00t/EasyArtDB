@@ -13,9 +13,10 @@ class ItemsController < ApplicationController
     @items = @items.incomplete_data(params[:incomplete]) if params[:incomplete] == 'true'
     @items = @items.global_search(params[:query]) if params[:query].present?
 
-    session[:item_ids] = @items.pluck(:id)
+    session[:item_ids] = @items.map(&:id)
 
-    @items = @items.paginate(page: params[:page], per_page: 20) unless params[:show_all]
+    # Paginate without changing the order
+    @items = Kaminari.paginate_array(@items).page(params[:page]).per(20) unless params[:show_all]
 
     respond_to do |format|
       format.html
@@ -54,7 +55,6 @@ class ItemsController < ApplicationController
   def edit; end
 
   def update
-
     if @item.update(item_params)
       if params[:item][:photos].present?
         params[:item][:photos].each do |photo|
