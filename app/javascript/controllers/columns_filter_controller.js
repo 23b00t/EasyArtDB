@@ -6,7 +6,15 @@ export default class extends Controller {
   initialize() {
     this.checkboxesTargets.forEach((checkbox) => {
       checkbox.addEventListener("change", this.checkboxChanged.bind(this))
-    })
+    });
+
+    if (window.location.pathname.includes("/lists/")) {
+      const selectTargets = this.selectTargets;
+
+      selectTargets.forEach((target) => {
+        target.classList.toggle("d-none");
+      });
+    }
   }
 
   checkboxChanged(event) {
@@ -67,13 +75,51 @@ export default class extends Controller {
     });
   }
 
+  async handleBookmarkAction(url, method, itemIds, listId) {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+    try {
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken
+        },
+        body: JSON.stringify({
+          item_ids: itemIds,
+          list_id: listId
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      // console.log("Bookmarks action completed", data);
+
+      if (method === 'DELETE') {
+        this.removeDeletedElements(itemIds);
+        alert("Erfolgreich von Liste entfernt!");
+      } else {
+        alert("Erfolgreich zur Liste hinzugefügt");
+      }
+
+      this.uncheckAllCheckboxes();
+    } catch (error) {
+      // console.error("Error in Bookmarks action", error);
+      alert("Ups, etwas ist schief gelaufen:");
+      this.uncheckAllCheckboxes();
+    }
+  }
+
   createBookmark() {
     const selectedItems = this.itemCheckboxesTargets.filter(checkbox => checkbox.checked);
     const selectedListId = this.listSelectTarget.value;
 
     if (selectedItems.length > 0 && selectedListId) {
       const itemIds = selectedItems.map(checkbox => checkbox.name);
-      this.handleBookmarkAction('/lists/' + selectedListId + '/bookmarks', itemIds);
+      const url = '/lists/' + selectedListId + '/bookmarks';
+      this.handleBookmarkAction(url, 'POST', itemIds, selectedListId);
     }
   }
 
@@ -83,37 +129,9 @@ export default class extends Controller {
 
     if (selectedItems.length > 0 && selectedListId) {
       const itemIds = selectedItems.map(checkbox => checkbox.name);
-      this.handleBookmarkAction('/lists/' + selectedListId + '/bookmarks', itemIds);
+      const url = '/lists/' + selectedListId + '/bookmarks';
+      this.handleBookmarkAction(url, 'DELETE', itemIds, selectedListId);
     }
-  }
-
-  handleBookmarkAction(url, itemIds) {
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': csrfToken
-      },
-      body: JSON.stringify({
-        item_ids: itemIds,
-        list_id: this.listSelectTarget.value
-      })
-    })
-      .then(response => response.json())
-      .then(data => {
-        alert("Erfolgreich zur Liste hinzugefügt");
-        setTimeout(() => {
-          this.uncheckAllCheckboxes();
-        }, 100);
-      })
-      .catch(error => {
-        // console.error("Error in Bookmarks action", error);
-        alert("Ups, etwas ist schief gelaufen:", error);
-        setTimeout(() => {
-          this.uncheckAllCheckboxes();
-        }, 100);
-      });
   }
 
   extractListIdFromUrl() {
@@ -122,13 +140,16 @@ export default class extends Controller {
   }
 
   removeDeletedElements(deletedItemIds) {
+    // Iterate over deletedItemIds and remove corresponding elements from the page
     deletedItemIds.forEach(itemId => {
-      const elementToRemove = document.querySelector(`[data-bookmark-target="itemCheckboxes"][name="${itemId}"]`);
+      const elementToRemove = document.querySelector(`[data-columns-filter-target="itemCheckboxes"][name="${itemId}"]`);
       if (elementToRemove) {
+        // If the checkbox is in a row, remove the entire row
         const row = elementToRemove.closest('tr');
         if (row) {
           row.remove();
         } else {
+          // If not, remove only the checkbox
           elementToRemove.remove();
         }
       }
