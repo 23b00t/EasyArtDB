@@ -18,7 +18,7 @@
       <div class="me-2 mb-2">
         <b> <%= f.label :list_ids, "Wähle eine Liste:" %> </b>
       </div>
-      <%= f.collection_select :list_ids, List.all, :id, :name, {}, { data: { target: 'columns-filter.listSelect' } } %>
+      <%= f.collection_select :list_ids, List.all, :id, :name, {}, { data: { "columns-filter-target" => 'listSelect' } } %>
     <% end %>
 
     <i class="fa-solid fa-check icon ms-3 fa-3x" style="color: green;" data-action="click->columns-filter#createBookmark"></i>
