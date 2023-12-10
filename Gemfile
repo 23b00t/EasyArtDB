@@ -77,7 +77,8 @@ group :test do
 end
 
 # pagination helper
-gem 'will_paginate-bootstrap'
+# gem 'will_paginate-bootstrap'
+gem 'kaminari'
 
 # pg_search
 gem "pg_search"
