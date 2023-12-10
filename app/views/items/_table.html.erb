@@ -2,7 +2,7 @@
   <table class="table table-hover table-bordered align-middle">
     <thead class="table-head">
       <tr>
-        <th></th>
+        <th scope="col" class="d-none" data-columns-filter-target="select"></th>
         <th scope="col" data-columns-filter-target="foto">Foto</th>
         <th scope="col" data-columns-filter-target="artist">Künstler</th>
         <th scope="col" data-columns-filter-target="category">Bezeichnung</th>
@@ -22,7 +22,7 @@
     <tbody>
       <% items.each_with_index do |item, index| %>
         <tr>
-          <td><label><input type="checkbox" name="<%= item.id %>" data-bookmark-target="checkboxes"></label></td>
+          <td class="d-none" data-columns-filter-target="select"><label><input type="checkbox" name="<%= item.id %>" data-columns-filter-target="itemCheckboxes"></label></td>
           <% if item.photos.any? %>
             <td data-columns-filter-target="foto"><%= link_to item_path(item) do %>
               <%= image_tag Rails.application.routes.url_helpers.url_for(item.photos.first), width: 80, height: 80  %>
