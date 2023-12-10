@@ -9,6 +9,8 @@ class BookmarksController < ApplicationController
     error_responses = []
 
     @item_ids.each do |item|
+      next if Bookmark.find_by(item_id: item, list_id: @list.id)
+
       @bookmark = Bookmark.new(item_id: item, list_id: @list.id)
 
       if @bookmark.save
@@ -28,8 +30,7 @@ class BookmarksController < ApplicationController
   def destroy
     @list = List.find(params[:list_id])
 
-    # use #uniq because bookmarks of the same item can exist multiple times on list at the moment (should be fixed later on)
-    @item_ids = params[:item_ids].map(&:to_i).uniq
+    @item_ids = params[:item_ids].map(&:to_i)
 
     success_responses = []
     error_responses = []
