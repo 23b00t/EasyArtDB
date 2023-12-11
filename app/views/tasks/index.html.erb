@@ -3,9 +3,13 @@
 
   <% @tasks.each do |task| %>
     <div class="card mb-4">
-      <div class="card-header card-title">
-        <%= link_to task.titel, item_task_path(task.item, task), class: "text-decoration-none" %>
-      </div>
+<div class="card-header card-title">
+  <%= link_to task.titel, item_task_path(task.item, task), class: "text-decoration-none" %>
+  <!-- Conditionally add a green checkmark icon if task.done is true -->
+  <% if task.done %>
+    <i class="fas fa-check text-success"></i>
+  <% end %>
+</div>
       <div class="card-body">
         <p class="card-text"><%= task.content %></p>
       </div>
@@ -13,6 +17,9 @@
   <% end %>
 
   <% if @item %>
-    <%= link_to 'To-Do hizufügen', new_item_task_path, class: "btn btn-primary" %>
+    <%= link_to new_item_task_path, class: "btn btn-primary" do %>
+      <!-- Add an icon for the "To-Do hinzufügen" button (e.g., plus) -->
+      <i class="fas fa-plus"></i> To-Do hinzufügen
+    <% end %>
   <% end %>
 </div>

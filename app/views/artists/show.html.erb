@@ -25,7 +25,15 @@
   </ul>
 
 
-  <%= link_to 'Bearbeiten', edit_artist_path(@artist), class: "btn btn-warning" %>
-  <%= link_to 'Löschen', artist_path(@artist), data: {turbo_method: :delete, turbo_confirm: "Bist du sicher?"}, class: "btn btn-danger"  %>
-  <%= link_to "Zurück", request.referrer || root_path, class: "btn btn-primary" %>
+  <%= link_to edit_artist_path(@artist), class: "btn btn-warning" do %>
+    <i class="fas fa-edit"></i> Bearbeiten
+  <% end %>
+
+  <%= link_to artist_path(@artist), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Bist du sicher?" }, class: "btn btn-danger" do %>
+    <i class="fas fa-trash-alt"></i> Löschen
+  <% end %>
+
+  <%= link_to request.referrer || root_path, class: "btn btn-primary" do %>
+    <i class="fas fa-arrow-left"></i> Zurück
+  <% end %>
 </div>
