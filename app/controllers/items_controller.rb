@@ -6,7 +6,13 @@ class ItemsController < ApplicationController
     @items = Item.with_attached_photos
                  .joins('INNER JOIN artists AS artist_alias ON artist_alias.id = items.artist_id')
                  .includes(:manufacturer, :comments, :references, :tasks)
-                 .order('artist_alias.last_name ASC, made_at ASC NULLS LAST')
+
+    # Check if the user wants to sort by last_name first or made_at first
+    if params[:sort_order] == 'made_at_first'
+      @items = @items.order('made_at ASC NULLS LAST, artist_alias.last_name ASC')
+    else
+      @items = @items.order('artist_alias.last_name ASC, made_at ASC NULLS LAST')
+    end
 
     @items = @items.where(artist_id: params[:artist_id]) if params[:artist_id].present?
     @items = @items.open_tasks(params[:open_tasks]) if params[:open_tasks] == "false"
