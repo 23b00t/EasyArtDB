@@ -29,8 +29,9 @@ export default class extends Controller {
   update() {
     const artistId = this.getInputElementValue("#artist_id");
     const openTasks = this.getInputElementValue("#open_tasks");
-    const incomplete = this.getInputElementValue("#incomplete");
-    const url = `${this.formTarget.action}?artist_id=${artistId}&query=${this.inputTarget.value}&open_tasks=${openTasks}&incomplete=${incomplete}&commit=Filter`;
+    // const incomplete = this.getInputElementValue("#incomplete");
+    const sort = this.getInputElementValue('input[name="sort_order"]:checked')
+    const url = `${this.formTarget.action}?artist_id=${artistId}&query=${this.inputTarget.value}&open_tasks=${openTasks}&sort_order=${sort}`;
     this.fetchAndUpdateList(url);
   }
 
