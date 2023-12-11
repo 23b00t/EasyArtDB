@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["toggle", "form", "input", "list", "listSelect", "itemCheckboxes", "bookmarkForm", "checkboxes", "foto", "category", "titel", "size", "artist", "manufacturer", "material", "year", "edition", "provenance", "comments", "references", "tasks", "select"];
+  static targets = ["toggle", "form", "input", "paginationTable", "listSelect", "itemCheckboxes", "bookmarkForm", "checkboxes", "foto", "category", "titel", "size", "artist", "manufacturer", "material", "year", "edition", "provenance", "comments", "references", "tasks", "select"];
 
   initialize() {
     this.checkboxesTargets.forEach((checkbox) => {
@@ -28,9 +28,10 @@ export default class extends Controller {
 
   update() {
     const artistId = this.getInputElementValue("#artist_id");
-    const openTasks = this.getInputElementValue("#open_tasks");
-    const incomplete = this.getInputElementValue("#incomplete");
-    const url = `${this.formTarget.action}?artist_id=${artistId}&query=${this.inputTarget.value}&open_tasks=${openTasks}&incomplete=${incomplete}&commit=Filter`;
+    const openTasks = this.getInputElementValue("open_tasks");
+    // const incomplete = this.getInputElementValue("#incomplete");
+    const sort = this.getInputElementValue('input[name="sort_order"]:checked');
+    const url = `${this.formTarget.action}?artist_id=${artistId}&query=${this.inputTarget.value}&open_tasks=${openTasks}&sort_order=${sort}`;
     this.fetchAndUpdateList(url);
   }
 
@@ -38,12 +39,13 @@ export default class extends Controller {
     fetch(url, { headers: { "Accept": "text/plain" } })
       .then(response => response.text())
       .then((data) => {
-        this.listTarget.outerHTML = data;
+        this.paginationTableTarget.innerHTML = data;
       });
   }
 
   getInputElementValue(selector) {
-    return document.querySelector(selector).value;
+    const input = this.element.querySelector(selector);
+    return input ? input.value : '';
   }
 
   resetForm() {

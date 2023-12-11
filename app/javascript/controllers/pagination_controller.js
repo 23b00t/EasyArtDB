@@ -2,19 +2,23 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="pagination"
 export default class extends Controller {
-  static targets = ["link"]
+  static targets = ["pagination"]
 
   connect() {
-    this.linkTargets.forEach(link => {
-      link.addEventListener("click", () => {
+    this.paginationTargets.forEach(link => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        const url = link.getAttribute("href");
+
         Rails.ajax({
-          url: link.href,
+          url: url,
           type: "get",
           success: (data) => {
-            this.element.outerHTML = data
+            this.element.outerHTML = data;
           }
-        })
-      })
-    })
+        });
+      });
+    });
   }
 }
