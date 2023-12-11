@@ -5,8 +5,12 @@
       <% @item.references.each do |reference| %>
         <li class="list-group-item">
           <%= reference.text %>
-          <%= link_to 'Edit', edit_item_reference_path(@item, reference), class: "btn btn-warning btn-sm float-end" %>
-          <%= link_to 'Delete', item_reference_path(@item, reference), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger btn-sm float-end me-2" %>
+          <%= link_to edit_item_reference_path(@item, reference), class: "btn btn-warning btn-sm float-end" do %>
+            <i class="fas fa-pencil-alt"></i> Ändern
+          <% end %>
+          <%= link_to item_reference_path(@item, reference), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger btn-sm float-end me-2" do %>
+            <i class="fas fa-trash-alt"></i> Löschen
+          <% end %>
         </li>
       <% end %>
     </ul>

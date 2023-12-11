@@ -4,5 +4,7 @@
   <%= f.input :birthday, label: 'Geburtsdatum' %>
   <%= f.input :deathday, label: 'Todesdatum' %>
   <%= f.input :category, label: 'Kategorie', as: :select, collection: Artist.categories.keys  %>
-  <%= f.button :submit, 'Create Artist', class: "btn btn-primary" %>
+  <%= content_tag :button, class: "btn btn-primary", type: "submit" do %>
+    <i class="fas fa-save"></i> Speichern
+  <% end %>
 <% end %>
