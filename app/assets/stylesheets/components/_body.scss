@@ -6,3 +6,23 @@ a {
   text-decoration: none;
   color: blue;
 }
+
+.btn {
+  background-color: rgba(230, 230, 230, 0.2);
+  border: 2px solid; /* Add an outline */
+  border-radius: 8px; /* Make corners rounder */
+}
+
+/* Add specific colors for different button types (optional) */
+.btn-primary {
+  border-color: #007bff; /* Blue border for primary buttons */
+  color: black;
+}
+
+.btn-danger {
+  border-color: #dc3545; /* Red border for danger buttons */
+}
+
+.btn-warning {
+  border-color: #ffc107; /* Red border for danger buttons */
+}

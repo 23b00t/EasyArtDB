@@ -12,9 +12,7 @@ class ReferencesController < ApplicationController
     end
   end
 
-  def edit
-    render partial: 'references/form', locals: { item: @item, reference: @reference }
-  end
+  def edit; end
 
   def update
     if @reference.update(reference_params)

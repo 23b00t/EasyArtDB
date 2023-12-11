@@ -11,9 +11,7 @@ class ProvenancesController < ApplicationController
     end
   end
 
-  def edit
-    render partial: 'provenances/form', locals: { item: @item, provenance: @provenance }
-  end
+  def edit; end
 
   def update
     if @provenance.update(provenance_params)
