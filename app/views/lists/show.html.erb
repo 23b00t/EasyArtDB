@@ -14,7 +14,9 @@
 
     <div>
       <%= render partial: 'items/table', locals: { items: @list.items } %>
-      <button class="btn btn-danger m-2" data-action="click->columns-filter#deleteBookmarks">Von Liste entfernen</button>
+      <button class="btn btn-danger m-2" data-action="click->columns-filter#deleteBookmarks">
+        <i class="fas fa-trash-alt"></i> Von Liste entfernen
+      </button>
     </div>
   </div>
 </div>
