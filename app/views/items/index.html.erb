@@ -21,15 +21,12 @@
       <%= f.collection_select :list_ids, List.all, :id, :name, {}, { data: { "columns-filter-target" => 'listSelect' } } %>
     <% end %>
 
-<button class="btn btn-success rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;" data-action="click->columns-filter#createBookmark">
-  <i class="fas fa-check fa-lg"></i>
-</button>
-
-
+    <button class="btn btn-success rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;" data-action="click->columns-filter#createBookmark">
+      <i class="fas fa-check fa-lg"></i>
+    </button>
   </div>
 
-
-  <%= render partial: 'table', locals: { items: @items } %>
-
-  <%= render partial: 'pagination' unless params[:show_all]%>
+  <div data-columns-filter-target="paginationTable">
+    <%= render partial: 'pagination_table', locals: { items: @items } %>
+  </div>
 </div>

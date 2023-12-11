@@ -1,0 +1,3 @@
+<%= render partial: 'table', locals: { items: @items } %>
+
+<%= render partial: 'pagination' unless params[:show_all]%>
