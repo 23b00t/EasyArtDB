@@ -2,7 +2,7 @@
   <ul class="pagination justify-content-center">
     <% if @items.prev_page %>
       <li class="page-item">
-        <%= link_to "Vorherige", items_path(page: @items.prev_page), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link", rel: "prev" %>
+        <%= link_to "Vorherige", items_path(page: @items.prev_page, artist_id: params[:artist_id], query: params[:query], open_tasks: params[:open_tasks], sort_order: params[:sort_order]), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link", rel: "prev" %>
       </li>
     <% else %>
       <li class="page-item disabled">
@@ -15,7 +15,7 @@
       <% end_page = [start_page + 9, @items.total_pages].min %>
       <% if start_page > 1 %>
         <li class="page-item">
-          <%= link_to "1", items_path(page: 1), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link" %>
+          <%= link_to "1", items_path(page: 1, artist_id: params[:artist_id], query: params[:query], open_tasks: params[:open_tasks], sort_order: params[:sort_order]), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link" %>
         </li>
         <li class="page-item disabled">
           <span class="page-link">...</span>
@@ -28,7 +28,7 @@
           </li>
         <% else %>
           <li class="page-item">
-            <%= link_to page, items_path(page: page), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link" %>
+            <%= link_to page, items_path(page: page, artist_id: params[:artist_id], query: params[:query], open_tasks: params[:open_tasks], sort_order: params[:sort_order]), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link" %>
           </li>
         <% end %>
       <% end %>
@@ -37,14 +37,14 @@
           <span class="page-link">...</span>
         </li>
         <li class="page-item">
-          <%= link_to @items.total_pages, items_path(page: @items.total_pages), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link" %>
+          <%= link_to @items.total_pages, items_path(page: @items.total_pages, artist_id: params[:artist_id], query: params[:query], open_tasks: params[:open_tasks], sort_order: params[:sort_order]), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link" %>
         </li>
       <% end %>
     <% end %>
 
     <% if @items.next_page %>
       <li class="page-item">
-        <%= link_to "Nächste", items_path(page: @items.next_page), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link", rel: "next" %>
+        <%= link_to "Nächste", items_path(page: @items.next_page, artist_id: params[:artist_id], query: params[:query], open_tasks: params[:open_tasks], sort_order: params[:sort_order]), remote: true, data: { controller: "pagination", action: "click->pagination#link" }, class: "page-link", rel: "next" %>
       </li>
     <% else %>
       <li class="page-item disabled">
@@ -54,7 +54,7 @@
 
     <% if @items.total_pages > 1 %>
       <li class="page-item">
-        <%= link_to 'Druckansicht', items_path(show_all: true), class: 'btn btn-warning', remote: true, data: { controller: 'pagination', action: 'click->pagination#link' } %>
+        <%= link_to 'Druckansicht', items_path(show_all: true, artist_id: params[:artist_id], query: params[:query], open_tasks: params[:open_tasks], sort_order: params[:sort_order]), class: 'btn btn-warning', remote: true, data: { controller: 'pagination', action: 'click->pagination#link' } %>
       </li>
     <% end %>
   </ul>
