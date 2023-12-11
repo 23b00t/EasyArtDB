@@ -28,16 +28,13 @@ export default class extends Controller {
 
   update() {
     const artistId = this.getInputElementValue("#artist_id");
-    const openTasks = this.checkboxChecked("#open_tasks") ? 'true' : 'false';
+    const openTasks = this.getInputElementValue("open_tasks");
     // const incomplete = this.getInputElementValue("#incomplete");
     const sort = this.getInputElementValue('input[name="sort_order"]:checked');
     const url = `${this.formTarget.action}?artist_id=${artistId}&query=${this.inputTarget.value}&open_tasks=${openTasks}&sort_order=${sort}`;
+    console.log(url)
+    console.log(this.getInputElementValue("open_tasks"))
     this.fetchAndUpdateList(url);
-  }
-
-  checkboxChecked(selector) {
-    const checkbox = this.formTarget.querySelector(selector);
-    return checkbox ? checkbox.checked : false;
   }
 
   fetchAndUpdateList(url) {
@@ -49,7 +46,8 @@ export default class extends Controller {
   }
 
   getInputElementValue(selector) {
-    return document.querySelector(selector).value;
+    const input = this.element.querySelector(selector);
+    return input ? input.value : '';
   }
 
   resetForm() {
