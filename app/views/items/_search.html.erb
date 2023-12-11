@@ -11,9 +11,11 @@
     <%= f.select :open_tasks, options_for_select([['Nur offene Aufgaben', ''], ['Ja', 'false']], selected: params[:open_tasks]), {} %>
   </div>
 
+  <!-- Deactivated function
   <div class="mb-3">
     <%= f.select :incomplete, options_for_select([['Nur unvollständig Datensätze', ''], ['Ja', 'true']], selected: params[:incomplete]), {} %>
   </div>
+  -->
 
   <div class="form-group">
     <%= f.button "<i class='fas fa-filter'></i> Filter anwenden".html_safe, type: "button", class: 'btn btn-primary', data: { action: "click->columns-filter#submitForm" } %>
