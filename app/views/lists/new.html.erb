@@ -1,6 +1,8 @@
 <div class="container">
   <%= simple_form_for @list do |f| %>
     <%= f.input :name %>
-    <%= f.submit "Submit", class: "btn btn-success" %>
+    <%= content_tag :button, class: "btn btn-primary", type: "submit" do %>
+      <i class="fas fa-save"></i> Speichern
+    <% end %>
   <% end %>
 </div>

@@ -10,7 +10,10 @@ class ItemsController < ApplicationController
 
     @items = @items.where(artist_id: params[:artist_id]) if params[:artist_id].present?
     @items = @items.open_tasks(params[:open_tasks]) if params[:open_tasks] == "false"
-    @items = @items.incomplete_data(params[:incomplete]) if params[:incomplete] == 'true'
+
+    # Deactivated function
+    # @items = @items.incomplete_data(params[:incomplete]) if params[:incomplete] == 'true'
+
     @items = @items.global_search(params[:query]) if params[:query].present?
 
     session[:item_ids] = @items.map(&:id)

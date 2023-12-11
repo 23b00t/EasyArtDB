@@ -9,6 +9,8 @@
         </li>
       <% end %>
     </ul>
-    <%= link_to 'To-Do hinzufügen', new_item_task_path(@item), class:"btn btn-primary mt-3" %>
+    <%= link_to new_item_task_path(@item), class: "btn btn-primary mt-3" do %>
+      <i class="fas fa-plus"></i> To-Do hinzufügen
+    <% end %>
   </div>
 </div>

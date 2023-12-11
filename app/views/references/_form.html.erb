@@ -1,4 +1,6 @@
 <%= simple_form_for [item, reference], multipart: true do |f| %>
   <%= f.input :text, label: false %>
-  <%= f.button :submit, class: "btn btn-primary", value: "Speichern" %>
+  <%= content_tag :button, class: "btn btn-primary", type: "submit" do %>
+    <i class="fas fa-save"></i> Speichern
+  <% end %>
 <% end %>

@@ -21,7 +21,11 @@
       <%= f.collection_select :list_ids, List.all, :id, :name, {}, { data: { "columns-filter-target" => 'listSelect' } } %>
     <% end %>
 
-    <i class="fa-solid fa-check icon ms-3 fa-3x" style="color: green;" data-action="click->columns-filter#createBookmark"></i>
+<button class="btn btn-success rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;" data-action="click->columns-filter#createBookmark">
+  <i class="fas fa-check fa-lg"></i>
+</button>
+
+
   </div>
 
 

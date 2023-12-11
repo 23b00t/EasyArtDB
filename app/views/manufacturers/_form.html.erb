@@ -2,5 +2,7 @@
   <%= f.input :name, label: 'Name' %>
   <%= f.input :location, label: 'Ort' %>
 
-  <%= f.submit class: "btn btn-primary" %>
+  <%= content_tag :button, class: "btn btn-primary", type: "submit" do %>
+    <i class="fas fa-save"></i> Speichern
+  <% end %>
 <% end %>
