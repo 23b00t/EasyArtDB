@@ -11,9 +11,7 @@ class CommentsController < ApplicationController
     end
   end
 
-  def edit
-    render partial: 'comments/form', locals: { item: @item, comment: @comment }
-  end
+  def edit; end
 
   def update
     if @comment.update(comment_params)
