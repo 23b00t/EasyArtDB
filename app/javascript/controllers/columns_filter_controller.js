@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["toggle", "form", "input", "list", "listSelect", "itemCheckboxes", "bookmarkForm", "checkboxes", "foto", "category", "titel", "size", "artist", "manufacturer", "material", "year", "edition", "provenance", "comments", "references", "tasks", "select"];
+  static targets = ["toggle", "form", "input", "paginationTable", "listSelect", "itemCheckboxes", "bookmarkForm", "checkboxes", "foto", "category", "titel", "size", "artist", "manufacturer", "material", "year", "edition", "provenance", "comments", "references", "tasks", "select"];
 
   initialize() {
     this.checkboxesTargets.forEach((checkbox) => {
@@ -32,8 +32,6 @@ export default class extends Controller {
     // const incomplete = this.getInputElementValue("#incomplete");
     const sort = this.getInputElementValue('input[name="sort_order"]:checked');
     const url = `${this.formTarget.action}?artist_id=${artistId}&query=${this.inputTarget.value}&open_tasks=${openTasks}&sort_order=${sort}`;
-    console.log(url)
-    console.log(this.getInputElementValue("open_tasks"))
     this.fetchAndUpdateList(url);
   }
 
@@ -41,7 +39,7 @@ export default class extends Controller {
     fetch(url, { headers: { "Accept": "text/plain" } })
       .then(response => response.text())
       .then((data) => {
-        this.listTarget.outerHTML = data;
+        this.paginationTableTarget.innerHTML = data;
       });
   }
 

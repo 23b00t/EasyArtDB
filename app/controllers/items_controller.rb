@@ -29,7 +29,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.text { render partial: "items/table", locals: { items: @items }, formats: [:html] }
+      format.text { render "items/_pagination_table", formats: [:html], locals: { items: @items } }
     end
   end
 
