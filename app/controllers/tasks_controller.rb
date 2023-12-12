@@ -7,10 +7,17 @@ class TasksController < ApplicationController
       @tasks = @item.tasks
     else
       @tasks = Task.all
+      session[:all_tasks] = true
     end
   end
 
-  def show; end
+  def show
+    if session[:all_tasks]
+      @index_url = tasks_path
+    else
+      @index_url = item_path(@task.item)
+    end
+  end
 
   def new
     @task = @item.tasks.build

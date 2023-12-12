@@ -22,7 +22,8 @@ class ItemsController < ApplicationController
 
     @items = @items.global_search(params[:query]) if params[:query].present?
 
-    session[:item_ids] = @items.map(&:id)
+    item_storage = ItemStorage.first_or_create
+    item_storage.update(item_ids: @items.map(&:id), url: request.original_url)
 
     # Paginate without changing the order
     @items = Kaminari.paginate_array(@items).page(params[:page]).per(20) unless params[:show_all]
@@ -34,11 +35,15 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item_ids = session[:item_ids]
+    item_storage = ItemStorage.all.first
+    @item_ids = item_storage.item_ids
+    @index_url = item_storage.url
     # Find the index of the current item in the array
     current_index = @item_ids.index(@item.id)
 
     # Determine the previous and next item IDs
+    return unless @item_ids.include? current_index
+
     previous_item_id = @item_ids[current_index - 1] if current_index > 0
     next_item_id = @item_ids[current_index + 1] if current_index < @item_ids.length - 1
 
