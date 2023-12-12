@@ -15,15 +15,17 @@
   <!-- Form for creating bookmarks -->
   <div class="d-flex m-4 d-none" data-columns-filter-target="bookmarkForm" style="align-items: center;">
     <%= simple_form_for Item.new, multipart: true do |f| %>
-      <div class="me-2 mb-2">
-        <b> <%= f.label :list_ids, "Wähle eine Liste:" %> </b>
+      <div class="mb-3">
+        <label for="listDropdown" class="form-label">Wähle eine Liste:</label>
+        <div class="dropdown">
+          <%= f.collection_select :list_ids, List.all, :id, :name, {}, { class: 'form-control', id: 'listDropdown' } %>
+        </div>
       </div>
-      <%= f.collection_select :list_ids, List.all, :id, :name, {}, { data: { "columns-filter-target" => 'listSelect' } } %>
-    <% end %>
 
-    <button class="btn btn-success rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;" data-action="click->columns-filter#createBookmark">
-      <i class="fas fa-check fa-lg"></i>
-    </button>
+      <button type="submit" class="btn btn-primary me-2">
+        <i class="fas fa-plus"></i> Lesezeichen hinzufügen
+      </button>
+    <% end %>
   </div>
 
   <div data-columns-filter-target="paginationTable">
