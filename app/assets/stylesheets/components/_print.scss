@@ -1,0 +1,17 @@
+/* app/assets/stylesheets/print.css */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .table-to-print,
+  .table-to-print * {
+    visibility: visible !important;
+  }
+
+  .table-to-print {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
