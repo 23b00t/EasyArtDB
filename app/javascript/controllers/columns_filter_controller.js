@@ -4,10 +4,12 @@ export default class extends Controller {
   static targets = ["toggle", "form", "input", "paginationTable", "listSelect", "itemCheckboxes", "bookmarkForm", "checkboxes", "foto", "category", "titel", "size", "artist", "manufacturer", "material", "year", "edition", "provenance", "comments", "references", "tasks", "select"];
 
   initialize() {
+    // Event listener for checkboxes to show/hide columns
     this.checkboxesTargets.forEach((checkbox) => {
       checkbox.addEventListener("change", this.checkboxChanged.bind(this))
     });
 
+    // Show checkboxes to select and delete items from a list if user is in lists/show
     if (window.location.pathname.includes("/lists/")) {
       const selectTargets = this.selectTargets;
 
@@ -26,6 +28,7 @@ export default class extends Controller {
     });
   }
 
+  // update DOM based on user input in the global search field
   update() {
     const artistId = this.getInputElementValue("#artist_id");
     const openTasks = this.getInputElementValue("open_tasks");
@@ -71,7 +74,7 @@ export default class extends Controller {
     // Get all elements with data-columns-filter-target="select"
     const selectTargets = this.selectTargets;
 
-    // Toggle the visibility of each select target
+    // Toggle the visibility of each select target - could be refactored with the func in init
     selectTargets.forEach((target) => {
       target.classList.toggle("d-none");
     });
