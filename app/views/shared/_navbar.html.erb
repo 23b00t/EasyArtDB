@@ -13,15 +13,22 @@
         <li class="nav-item dropdown">
           <i class="fa-solid fa-bars avatar pt-2" style="font-size: 20px" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <%= link_to "Objektübersicht", items_path, class: "dropdown-item" %>
-            <%= link_to "Objekt hinzufügen", new_item_path, class: "dropdown-item" %>
+            <%#= link_to "Objektübersicht", items_path, class: "dropdown-item" %>
+            <%= link_to new_item_path, class: "dropdown-item" do %>
+              <i class="fa-solid fa-square-plus"></i>
+              <span>Objekt hinzufügen</span>
+            <% end %>
+            <div class="dropdown-divider"></div>
+            <%= link_to 'Listen', lists_path, class: "dropdown-item" %>
+            <div class="dropdown-divider"></div>
             <%= link_to "To-Do's", tasks_path, class: "dropdown-item" %>
             <%= link_to "Künstler", artists_path, class: "dropdown-item" %>
             <%= link_to "Hersteller", manufacturers_path, class: "dropdown-item" %>
-            <%= link_to 'Listen', lists_path, class: "dropdown-item" %>
+            <div class="dropdown-divider"></div>
             <%= link_to "Importieren", import_new_path, class: "dropdown-item" %>
             <%= link_to "Datenbank sichern", new_backup_path, class: "dropdown-item" %>
             <%= link_to "Datenbank wiederherstellen", load_backups_path, class: "dropdown-item" %>
+            <div class="dropdown-divider"></div>
             <%= link_to "#", class: "dropdown-item", data: { action: "click->print#print" } do %>
               <i class="fa-solid fa-print"></i>
               <span>Drucken</span>
