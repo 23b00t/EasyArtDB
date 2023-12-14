@@ -13,8 +13,8 @@ application.register("columns-filter", ColumnsFilterController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
-import PaginationController from "./pagination_controller"
-application.register("pagination", PaginationController)
+// import PaginationController from "./pagination_controller"
+// application.register("pagination", PaginationController)
 
 import PrintController from "./print_controller"
 application.register("print", PrintController)
