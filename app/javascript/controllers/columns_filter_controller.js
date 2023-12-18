@@ -17,16 +17,46 @@ export default class extends Controller {
         target.classList.toggle("d-none");
       });
     }
+
+    // Retrieve checkbox state from localStorage
+    const storedCheckboxState = localStorage.getItem("checkboxState");
+    if (storedCheckboxState) {
+      const checkboxState = JSON.parse(storedCheckboxState);
+      Object.keys(checkboxState).forEach((name) => {
+        const isChecked = checkboxState[name];
+
+        // Update checkboxes
+        const checkboxes = document.querySelectorAll(`[name="${name}"]`);
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = isChecked;
+        });
+
+        const filteredTargets = this[`${name}Targets`];
+        if (filteredTargets) {
+          filteredTargets.forEach((target) => {
+            target.classList.toggle("d-none", !checkboxState[name]);
+          });
+        }
+      });
+    }
   }
 
   checkboxChanged(event) {
     const name = event.target.name;
-    const filteredTargets = this[`${name}Targets`]
+    const filteredTargets = this[`${name}Targets`];
 
+    // Toggle the visibility of checkboxes
     filteredTargets.forEach((target) => {
       target.classList.toggle("d-none");
     });
+
+    // Update localStorage with the current state of checkboxes
+    const checkboxState = JSON.parse(localStorage.getItem("checkboxState")) || {};
+    checkboxState[name] = !filteredTargets[0].classList.contains("d-none");
+
+    localStorage.setItem("checkboxState", JSON.stringify(checkboxState));
   }
+
 
   // update DOM based on user input in the global search field
   update() {
@@ -52,6 +82,9 @@ export default class extends Controller {
   }
 
   resetForm() {
+    // Clear the localStorage
+    localStorage.removeItem("checkboxState");
+
     const baseUrl = window.location.pathname; // Get the base URL without query parameters
     window.location.href = baseUrl; // Reload the page with the base URL
   }
