@@ -52,7 +52,8 @@ export default class extends Controller {
   }
 
   resetForm() {
-    window.location.href = '/';
+    const baseUrl = window.location.pathname; // Get the base URL without query parameters
+    window.location.href = baseUrl; // Reload the page with the base URL
   }
 
   submitForm() {
