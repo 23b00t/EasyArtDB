@@ -3,24 +3,9 @@ class ItemsController < ApplicationController
   before_action :set_active_storage_base_url, only: %i[index show]
 
   def index
-    @items = Item.with_attached_photos
+    @items = ItemsFilterService.new(Item.with_attached_photos
                  .joins('INNER JOIN artists AS artist_alias ON artist_alias.id = items.artist_id')
-                 .includes(:manufacturer, :comments, :references, :tasks)
-
-    # Check if the user wants to sort by last_name first or made_at first
-    if params[:sort_order] == 'made_at_first'
-      @items = @items.order('made_at ASC NULLS LAST, artist_alias.last_name ASC')
-    else
-      @items = @items.order('artist_alias.last_name ASC, made_at ASC NULLS LAST')
-    end
-
-    @items = @items.where(artist_id: params[:artist_id]) if params[:artist_id].present?
-    @items = @items.open_tasks(params[:open_tasks]) if params[:open_tasks] == "false"
-
-    # Deactivated function
-    # @items = @items.incomplete_data(params[:incomplete]) if params[:incomplete] == 'true'
-
-    @items = @items.global_search(params[:query]) if params[:query].present?
+                 .includes(:manufacturer, :comments, :references, :tasks), params).filter_and_sort
 
     item_storage = ItemStorage.first_or_create
     item_storage.update(item_ids: @items.map(&:id), url: request.original_url)

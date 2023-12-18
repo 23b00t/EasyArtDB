@@ -5,7 +5,9 @@ class ListsController < ApplicationController
     @lists = List.all
   end
 
-  def show; end
+  def show
+    @list_items = ItemsFilterService.new(@list.items, params).filter_and_sort
+  end
 
   def new
     @list = List.new

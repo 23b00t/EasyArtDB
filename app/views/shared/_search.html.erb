@@ -1,4 +1,4 @@
-<%= form_with url: items_path, method: :get, html: { data: { columns_filter_target: "form" } } do |f| %>
+<%= form_with url: search_path, method: :get, html: { data: { columns_filter_target: "form" } } do |f| %>
   <div class="mb-3">
     <%= f.select :artist_id, options_for_select([["Nach Künstler filtern", ""]] + Artist.all.map { |a| [a.full_name, a.id] }.unshift(''), selected: params[:artist_id]), { }, { data: { controller: "tom-select", action: "change->columns-filter#submitForm" } } %>
   </div>
