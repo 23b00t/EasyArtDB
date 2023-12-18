@@ -11,12 +11,9 @@ class ListsController < ApplicationController
     item_storage = ItemStorage.first_or_create
     item_storage.update(item_ids: @list_items.map(&:id), url: request.original_url)
 
-    # Paginate without changing the order
-    @items = Kaminari.paginate_array(@list_items).page(params[:page]).per(20) unless params[:show_all]
-
     respond_to do |format|
       format.html
-      format.text { render "items/_pagination_table", formats: [:html], locals: { items: @items } }
+      format.text { render "items/_pagination_table", formats: [:html], locals: { items: @list_items } }
     end
   end
 

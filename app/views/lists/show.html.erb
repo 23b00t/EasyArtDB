@@ -13,10 +13,8 @@
     </div>
 
     <div>
-      <div data-columns-filter-target="paginationTable">
-        <%= render partial: 'items/pagination_table', locals: { items: @list_items } %>
-      </div>
-      
+      <%= render partial: 'items/table', locals: { items: @list_items } %>
+
       <button class="btn btn-danger m-2" data-action="click->columns-filter#deleteBookmarks">
         <i class="fas fa-trash-alt"></i> Von Liste entfernen
       </button>
