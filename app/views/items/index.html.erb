@@ -2,7 +2,7 @@
   <i class="fa-solid fa-filter icon m-2" data-action="click->columns-filter#displayForm"></i>
   <div class="d-flex m-4 d-none icon" data-columns-filter-target="toggle">
     <div class="col-6">
-      <%= render partial: 'search' %>
+      <%= render partial: 'shared/search', locals: { search_path: items_path } %>
     </div>
     <div class="col-6">
       <%= render partial: 'checkboxes' %>

@@ -1,16 +1,20 @@
-<div class="container" data-controller="columns-filter">
-  <h1><%= @list.name %></h1>
+<div data-controller="columns-filter">
+  <h1 class="ms-4"><%= @list.name %></h1>
 
   <div>
     <i class="fa-solid fa-filter icon m-2" data-action="click->columns-filter#displayForm"></i>
     <div class="d-flex m-4 d-none icon" data-columns-filter-target="toggle">
+      <div class="col-6">
+        <%= render partial: 'shared/search', locals: { search_path: list_path(@list) } %>
+      </div>
       <div class="col-6">
         <%= render partial: 'items/checkboxes' %>
       </div>
     </div>
 
     <div>
-      <%= render partial: 'items/table', locals: { items: @list.items } %>
+      <%= render partial: 'items/table', locals: { items: @list_items } %>
+
       <button class="btn btn-danger m-2" data-action="click->columns-filter#deleteBookmarks">
         <i class="fas fa-trash-alt"></i> Von Liste entfernen
       </button>

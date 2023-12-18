@@ -33,6 +33,7 @@ class Item < ApplicationRecord
                     tasks: :done
                   }
 
-  pg_search_scope :incomplete_data,
-                  against: :incomplete
+  # deactivated feature
+  # pg_search_scope :incomplete_data,
+                  # against: :incomplete
 end
