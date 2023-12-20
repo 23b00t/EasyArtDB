@@ -15,7 +15,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.text { render "items/_pagination_table", formats: [:html], locals: { items: @items } }
+      format.text { render "shared/_pagination_table", formats: [:html], locals: { items: @items } }
     end
   end
 

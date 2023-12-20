@@ -1,0 +1,64 @@
+<nav aria-label="...">
+  <ul class="pagination justify-content-center">
+    <% if items.prev_page %>
+      <li class="page-item page-link">
+        <%= link_to_prev_page items, "Vorherige", params: { artist_id: params[:artist_id], query: params[:query], open_tasks: params[:open_tasks], sort_order: params[:sort_order]}, remote: true %>
+      </li>
+    <% else %>
+      <li class="page-item disabled">
+        <span class="page-link">Vorherige</span>
+      </li>
+    <% end %>
+
+    <% if items.total_pages > 1 %>
+      <% start_page = [items.current_page - 5, 1].max %>
+      <% end_page = [start_page + 9, items.total_pages].min %>
+      <% if start_page > 1 %>
+        <li class="page-item page-link">
+          <%= link_to "1", params: { page: 1, artist_id: params[:artist_id], query: params[:query], open_tasks: params[:open_tasks], sort_order: params[:sort_order] }, remote: true %>
+        </li>
+        <li class="page-item disabled">
+          <span class="page-link">...</span>
+        </li>
+      <% end %>
+      <% (start_page..end_page).each do |page| %>
+        <% if page == items.current_page %>
+          <li class="page-item active" aria-current="page">
+            <span class="page-link"><%= page %></span>
+          </li>
+        <% else %>
+          <li class="page-item page-link">
+            <%= link_to page, params: { page: page, artist_id: params[:artist_id], query: params[:query], open_tasks: params[:open_tasks], sort_order: params[:sort_order] }, remote: true %>
+          </li>
+        <% end %>
+      <% end %>
+      <% if end_page < items.total_pages %>
+        <li class="page-item disabled">
+          <span class="page-link">...</span>
+        </li>
+        <li class="page-item page-link">
+          <%= link_to items.total_pages, params: { page: items.total_pages, artist_id: params[:artist_id], query: params[:query], open_tasks: params[:open_tasks], sort_order: params[:sort_order] }, remote: true %>
+        </li>
+      <% end %>
+    <% end %>
+
+    <% if items.next_page %>
+      <li class="page-item page-link">
+        <%= link_to_next_page items, "Nächste", params: { artist_id: params[:artist_id], query: params[:query], open_tasks: params[:open_tasks], sort_order: params[:sort_order]}, remote: true %>
+      </li>
+    <% else %>
+      <li class="page-item disabled">
+        <span class="page-link">Nächste</span>
+      </li>
+    <% end %>
+
+    <% if items.total_pages > 1 %>
+      <li class="page-item btn btn-warning">
+        <%= link_to 'Druckansicht', params: { show_all: true, artist_id: params[:artist_id], query: params[:query], open_tasks: params[:open_tasks], sort_order: params[:sort_order] }, remote: true %>
+      </li>
+    <% end %>
+  </ul>
+  <% if items.total_pages > 1 %>
+    <p class="text-center">Seite <%= items.current_page %> von <%= items.total_pages %></p>
+  <% end %>
+</nav>
