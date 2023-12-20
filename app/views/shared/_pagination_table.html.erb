@@ -1,0 +1,3 @@
+<%= render partial: 'shared/table', locals: { items: items } %>
+
+<%= render partial: 'shared/pagination', locals: { items: items } unless params[:show_all] %>

@@ -7,13 +7,19 @@ class TasksController < ApplicationController
       @tasks = @item.tasks
     else
       @tasks = Task.all
-      session[:all_tasks] = true
     end
   end
 
   def show
-    if session[:all_tasks]
+    referer_path = URI(request.referer).path if request.referer
+
+    case referer_path
+    when /\A\/lists/
+      @index_url = referer_path
+    when /\A\/tasks/
       @index_url = tasks_path
+    when /\A\/\z|\A\/items/
+      @index_url = items_path
     else
       @index_url = item_path(@task.item)
     end
