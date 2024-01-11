@@ -15,17 +15,14 @@
   </div>
 
   <%= link_to edit_item_task_path(@task), class: "btn btn-warning" do %>
-    <!-- Add an icon for the "Bearbeiten" button (e.g., pencil) -->
     <i class="fas fa-pencil-alt"></i> Bearbeiten
   <% end %>
 
   <%= link_to item_task_path(@task), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Bist du sicher?" }, class: "btn btn-danger" do %>
-    <!-- Add an icon for the "Löschen" button (e.g., trashcan) -->
     <i class="fas fa-trash-alt"></i> Löschen
   <% end %>
 
   <%= link_to @index_url, class: "btn btn-primary" do %>
-    <!-- Add an icon for the "Zurück" button (e.g., arrow-left) -->
     <i class="fas fa-arrow-left"></i> Zurück
   <% end %>
 </div>
