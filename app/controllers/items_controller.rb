@@ -23,12 +23,12 @@ class ItemsController < ApplicationController
     item_storage = ItemStorage.all.first
     @item_ids = item_storage.item_ids
     @index_url = item_storage.url
+    return unless @item_ids.include? @item.id
+
     # Find the index of the current item in the array
     current_index = @item_ids.index(@item.id)
 
     # Determine the previous and next item IDs
-    return unless @item_ids.include? current_index
-
     previous_item_id = @item_ids[current_index - 1] if current_index > 0
     next_item_id = @item_ids[current_index + 1] if current_index < @item_ids.length - 1
 
