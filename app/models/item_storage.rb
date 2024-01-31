@@ -1,0 +1,2 @@
+class ItemStorage < ApplicationRecord
+end

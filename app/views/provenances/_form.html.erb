@@ -1,5 +1,7 @@
 <%= simple_form_for [item, provenance], multipart: true do |f| %>
   <%= f.input :text, label: 'Provenienz' %>
   <%= f.input :source, label: 'Quelle' %>
-  <%= f.button :submit, class: "btn btn-primary", value: "Speichern" %>
+  <%= content_tag :button, class: "btn btn-primary", type: "submit" do %>
+    <i class="fas fa-save"></i> Speichern
+  <% end %>
 <% end %>

@@ -1,0 +1,36 @@
+.pagination {
+  &.justify-content-center {
+    .page-item {
+      &.disabled {
+        .page-link {
+          color: $gray-600; // Adjust color for disabled pages
+          background-color: $white; // Adjust background color for disabled pages
+          border-color: $gray-600; // Adjust border color for disabled pages
+          cursor: not-allowed; // Change cursor for disabled pages
+        }
+      }
+
+      &.active {
+        .page-link {
+          color: $white; // Adjust color for active page
+          background-color: $primary; // Adjust background color for active page
+          border-color: $primary; // Adjust border color for active page
+        }
+      }
+
+      .page-link {
+        color: $primary; // Adjust color for non-active pages
+        background-color: $white; // Adjust background color for non-active pages
+        border: 1px solid $gray-300; // Adjust border for non-active pages
+        border-radius: $border-radius; // Adjust border radius
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+
+        &:hover {
+          color: $white; // Adjust color on hover
+          background-color: $primary; // Adjust background color on hover
+          border-color: $primary; // Adjust border color on hover
+        }
+      }
+    }
+  }
+}

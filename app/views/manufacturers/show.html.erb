@@ -3,7 +3,15 @@
 
   <p>Ort: <%= @manufacturer.location %></p>
 
-  <%= link_to 'Bearbeiten', edit_manufacturer_path(@manufacturer), class: "btn btn-warning" %>
-  <%= link_to 'Löschen', manufacturer_path(@manufacturer), data: {turbo_method: :delete, turbo_confirm: "Bist du sicher?"}, class: "btn btn-danger" %>
-  <%= link_to "Zurück", request.referrer || root_path, class: "btn btn-primary" %>
+  <%= link_to edit_manufacturer_path(@manufacturer), class: "btn btn-warning" do %>
+    <i class="fas fa-edit"></i> Bearbeiten
+  <% end %>
+
+  <%= link_to manufacturer_path(@manufacturer), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Bist du sicher?" }, class: "btn btn-danger" do %>
+    <i class="fas fa-trash-alt"></i> Löschen
+  <% end %>
+
+  <%= link_to @index_url, class: "btn btn-primary" do %>
+    <i class="fas fa-arrow-left"></i> Zurück
+  <% end %>
 </div>

@@ -1,7 +1,10 @@
 <div class="container mt-4">
-  <h1>Wähle HTML-Datei zum upload aus:</h1>
-  <%= form_tag import_path, multipart: true do %>
-    <%= file_field_tag :import_file %>
-    <%= submit_tag "Upload File", class: "btn btn-primary" %>
+  <h1 class="mb-4">Wähle HTML-Datei zum Upload aus:</h1>
+
+  <%= form_tag import_path, multipart: true, class: "mb-4" do %>
+    <div class="input-group">
+      <%= file_field_tag :import_file, class: "form-control" %>
+      <button type="submit" class="btn btn-primary">Upload File</button>
+    </div>
   <% end %>
 </div>
