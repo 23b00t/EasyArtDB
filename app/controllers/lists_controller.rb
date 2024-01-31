@@ -5,7 +5,20 @@ class ListsController < ApplicationController
     @lists = List.all
   end
 
-  def show; end
+  def show
+    @list_items = ItemsFilterService.new(@list.items, params).filter_and_sort
+
+    item_storage = ItemStorage.first_or_create
+    item_storage.update(item_ids: @list_items.map(&:id), url: request.original_url)
+
+    @list_items = Kaminari.paginate_array(@list_items).page(params[:page]).per(20) unless params[:show_all]
+
+    respond_to do |format|
+      format.html
+      format.text { render "shared/_pagination_table", formats: [:html], locals: { items: @list_items } }
+    end
+  end
+
 
   def new
     @list = List.new

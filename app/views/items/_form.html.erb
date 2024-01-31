@@ -5,7 +5,7 @@
       <%= f.select :artist_id, options_for_select(Artist.all.map { |a| [a.full_name, a.id] }.unshift(''), selected: @item.artist_id), { }, { data: { controller: "tom-select" } } %>
 
       <button type="button" class="btn btn-primary mt-2 mb-2" data-bs-toggle="modal" data-bs-target="#artistModal">
-        Künstler hinzufügen
+        <i class="fas fa-plus"></i> Künstler hinzufügen
       </button>
     </div>
     <div class="col-6">
@@ -13,19 +13,21 @@
       <%= f.select :manufacturer_id, options_for_select(Manufacturer.all.map { |a| [a.name, a.id] }.unshift(''), selected: @item.manufacturer_id), {}, { data: { controller: "tom-select" } } %>
 
       <button type="button" class="btn btn-primary mt-2 mb-2" data-bs-toggle="modal" data-bs-target="#manufacturerModal">
-        Hersteller hinzufügen
+        <i class="fas fa-plus"></i> Hersteller hinzufügen
       </button>
     </div>
   </div>
-  <%= f.input :incomplete, label: "Datensatz unvollständig?" %>
+  <%#= f.input :incomplete, label: "Datensatz unvollständig?" %>
   <%= f.input :titel, label: 'Titel' %>
   <%= f.input :size, label: 'Größe' %>
   <%= f.input :material, label: 'Material' %>
   <%= f.input :made_at, label: 'Hergestellt am' %>
   <%= f.input :edition, label: 'Edition' %>
   <%= f.input :photos, as: :file, input_html: { multiple: true } %>
-  <%= f.button :submit, class: "btn btn-primary" %>
-<% end %>
+  <%= content_tag :button, class: "btn btn-primary", type: "submit" do %>
+      <i class="fas fa-save"></i> Speichern
+    <% end %>
+  <% end %>
 
 <%= render partial: 'artists/modal' %>
 <%= render partial: 'manufacturers/modal' %>

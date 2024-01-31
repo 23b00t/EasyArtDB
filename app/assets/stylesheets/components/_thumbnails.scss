@@ -1,0 +1,40 @@
+/* Add these styles to your existing stylesheet or create a new one */
+
+.thumbnail-link {
+  position: relative;
+  display: block;
+}
+
+.thumbnail-img {
+  max-width: 100%;
+  height: auto;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.thumbnail-link:hover .overlay {
+  opacity: 1;
+}
+
+// .plus-icon {
+//   position: absolute;
+//   bottom: 5%; /* Adjust the bottom percentage as needed */
+//   right: 5%; /* Adjust the right percentage as needed */
+//   transform: translate(50%, 50%);
+//   font-size: 24px;
+//   color: #000;
+// }

@@ -6,7 +6,23 @@ class ArtistsController < ApplicationController
     @artists = Artist.all.sort_by { |artist| artist.last_name.to_s }
   end
 
-  def show; end
+  def show
+    referer_path = URI(request.referer).path if request.referer
+
+    item_storage = ItemStorage.all.first
+    items_index_url = item_storage.url
+
+    case referer_path
+    when /\A\/lists/
+      @index_url = referer_path
+    when /\A\/artists/
+      @index_url = artists_path
+    when /\A\/items\/\d+\z/
+      @index_url = referer_path
+    when /\A\/\z|\A\/items/
+      @index_url = items_index_url
+    end
+  end
 
   def new
     @artist = Artist.new

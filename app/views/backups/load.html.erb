@@ -1,0 +1,17 @@
+<div class="container mt-4">
+  <h1 class="mb-4">Von Sicherungskopie wiederherstellen</h1>
+
+  <%= form_with(url: restore_backups_path, method: :post, local: true, multipart: true, class: "mb-4") do |form| %>
+    <div class="mb-3">
+      <label for="backup_file" class="form-label">Wähle eine .sql Datei zum Wiederherstellen:</label>
+      <%= form.text_field :backup_file, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <label for="activestorage_backup" class="form-label">Wähle einen ActiveStorage Ordner:</label>
+      <%= form.text_field :activestorage_backup, class: "form-control", placeholder: "z.B. activestorage_backups/20231129115057_backup" %>
+    </div>
+
+    <%= form.submit "Datenbank wiederherstellen", class: "btn btn-primary" %>
+  <% end %>
+</div>

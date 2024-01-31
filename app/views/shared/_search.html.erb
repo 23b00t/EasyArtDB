@@ -1,0 +1,44 @@
+<%= form_with url: search_path, method: :get, html: { data: { columns_filter_target: "form" } } do |f| %>
+  <div class="mb-3">
+    <%= f.select :artist_id, options_for_select([["Nach Künstler filtern", ""]] + Artist.all.map { |a| [a.full_name, a.id] }.unshift(''), selected: params[:artist_id]), { }, { data: { controller: "tom-select", action: "change->columns-filter#submitForm" } } %>
+  </div>
+
+  <div class="mb-3">
+    <%= text_field_tag :query, params[:query], data: { columns_filter_target: "input", action: "keyup->columns-filter#update" }, class: 'input search-box', placeholder: "Volltextsuche", style: "width: 100%" %>
+  </div>
+
+  <!-- Deactivated function
+  <div class="mb-3">
+    <%= f.select :incomplete, options_for_select([['Nur unvollständig Datensätze', ''], ['Ja', 'true']], selected: params[:incomplete]), {} %>
+  </div>
+  -->
+
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <div class="form-check">
+        <%= check_box_tag :open_tasks, 'false', params[:open_tasks] == 'false', class: 'form-check-input' %>
+        <%= label_tag 'open_tasks', 'Nur offene Aufgaben anzeigen', class: 'form-check-label' %>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="d-flex align-items-center justify-content-end">
+        <p class="mb-0 me-3">Sortieren nach:</p>
+        <div class="btn-group" data-toggle="buttons">
+          <label class="btn btn-primary <%= 'active' if params[:sort_order].nil? || params[:sort_order] == 'last_name_first' %>">
+            <input type="radio" name="sort_order" value="last_name_first" <%= 'checked' if params[:sort_order].nil? || params[:sort_order] == 'last_name_first' %>> Name
+          </label>
+          <label class="btn btn-primary <%= 'active' if params[:sort_order] == 'made_at_first' %>">
+            <input type="radio" name="sort_order" value="made_at_first" <%= 'checked' if params[:sort_order] == 'made_at_first' %>> Jahr
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.button "<i class='fas fa-filter'></i> Filter anwenden".html_safe, type: "button", class: 'btn btn-primary', data: { action: "click->columns-filter#submitForm" } %>
+    <button type="button" data-action="click->columns-filter#resetForm" class="btn btn-primary">
+      <i class="fas fa-undo"></i> Zurücksetzen
+    </button>
+  </div>
+<% end %>

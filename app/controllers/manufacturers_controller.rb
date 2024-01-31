@@ -5,7 +5,23 @@ class ManufacturersController < ApplicationController
     @manufacturers = Manufacturer.all
   end
 
-  def show; end
+  def show
+    referer_path = URI(request.referer).path if request.referer
+
+    item_storage = ItemStorage.all.first
+    items_index_url = item_storage.url
+
+    case referer_path
+    when /\A\/lists/
+      @index_url = referer_path
+    when /\A\/manufacturers/
+      @index_url = manufacturers_path
+    when /\A\/items\/\d+\z/
+      @index_url = referer_path
+    when /\A\/\z|\A\/items/
+      @index_url = items_index_url
+    end
+  end
 
   def new
     @manufacturer = Manufacturer.new

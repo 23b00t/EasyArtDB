@@ -22,9 +22,15 @@ Rails.application.routes.draw do
       delete 'bookmarks', to: 'bookmarks#destroy'
     end
   end
-  # resources :bookmarks, only: :destroy
 
   # import data
   get 'import/new'
   post 'import', to: 'import#create'
+
+  # backup db
+  resources :backups, only: [:new] do
+    get 'load', on: :collection
+    post 'save', on: :collection
+    post 'restore', on: :collection
+  end
 end

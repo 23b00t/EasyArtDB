@@ -4,9 +4,6 @@
 
 import { application } from "./application"
 
-import BookmarkController from "./bookmark_controller"
-application.register("bookmark", BookmarkController)
-
 import CheckboxController from "./checkbox_controller"
 application.register("checkbox", CheckboxController)
 
@@ -16,8 +13,8 @@ application.register("columns-filter", ColumnsFilterController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
-import PaginationController from "./pagination_controller"
-application.register("pagination", PaginationController)
+import PrintController from "./print_controller"
+application.register("print", PrintController)
 
 import TomSelectController from "./tom_select_controller"
 application.register("tom-select", TomSelectController)

@@ -3,15 +3,17 @@
 
   <% @lists.each do |list| %>
     <div class="card mb-4">
-      <div class="card-header card-title">
+      <div class="card-header card-title d-flex justify-content-between">
         <%= link_to list.name, list_path(list), class: "text-decoration-none" %>
         <%= link_to list_path(list),
-            data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}  do %>
-              <i class="fa-regular fa-trash-can"></i>
+            data: {turbo_method: :delete, turbo_confirm: "Bist du sicher?"}  do %>
+              <i class="fa-regular fa-trash-can text-danger"></i>
         <% end %>
       </div>
     </div>
   <% end %>
 
-  <%= link_to 'Liste erstellen', new_list_path %>
+  <%= link_to new_list_path, class: "btn btn-primary m-2" do %>
+    <i class="fas fa-list"></i> Liste erstellen
+  <% end %>
 </div>
