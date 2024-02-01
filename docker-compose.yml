@@ -14,12 +14,18 @@ services:
       - "3000:3000"
     depends_on:
       - db
+    env_file:
+      - .env.production
     environment:
       RAILS_ENV: production
+      SECRET_KEY_BASE: <%= ENV['SECRET_KEY_BASE'] %>
 
   db:
     image: postgres:13
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env.production
+
 volumes:
   postgres_data:
