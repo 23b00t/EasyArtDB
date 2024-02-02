@@ -13,7 +13,11 @@
               <% if item.photos.first %>
                 <%= image_tag item.photos.first.url, width: 40, height: 40, class: "mr-3"  %>
               <% else %>
-                <%= image_tag "ring.jpg", width: 40, height: 40, class: "mr-3" %>
+                <%= image_tag asset_path('placeholder.png'),
+                              width: 40,
+                              height: 40,
+                              class: "mr-3",
+                              style: "filter: grayscale(100%); opacity: 0.7; background-color: #d3d3d3;" %>
               <% end %>
               <span class="font-weight-bold"><%= item.titel %></span>
               <span class=""><%= item.category %></span>
