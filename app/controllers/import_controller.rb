@@ -5,6 +5,8 @@ require 'stringio'
 class ImportController < ApplicationController
   def create
     file = params[:import_file]
+    return if file.nil?
+
     doc = Nokogiri::XML(file.read)
 
     rows = doc.css('tr')
