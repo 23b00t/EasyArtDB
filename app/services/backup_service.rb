@@ -1,8 +1,9 @@
 require 'dotenv'
 
 class BackupService
-  ENV['PGPASSWORD'] = Rails.application.credentials.production[:database][:password]
-
+  # ENV['PGPASSWORD'] = Rails.application.credentials.production[:database][:password]
+  ENV['PGPASSWORD'] = "password"
+  
   def self.backup_db
     backup_dir = 'db_backups'
     FileUtils.mkdir_p(backup_dir) unless File.directory?(backup_dir)
