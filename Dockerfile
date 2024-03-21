@@ -1,5 +1,7 @@
 # Pre-Build Dependencies Stage
 FROM ruby:3.1.2 AS dependencies
+RUN gem install bundler:2.4.6
+
 WORKDIR /app
 COPY Gemfile Gemfile.lock ./
 RUN bundle config --global frozen 1
