@@ -1,8 +1,4 @@
-require 'dotenv'
-
 class BackupService
-  ENV['PGPASSWORD'] = Rails.application.credentials.database.password
-
   def self.backup_db
     backup_dir = 'db_backups'
     FileUtils.mkdir_p(backup_dir) unless File.directory?(backup_dir)
@@ -30,8 +26,6 @@ class BackupService
     command = "cp -R activestorage_backups/#{source_dir}/* storage/"
     execute_command(command, "Active Storage restoration")
   end
-
-  private
 
   def self.execute_command(command, operation)
     system(command, exception: true)
