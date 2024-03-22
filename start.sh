@@ -8,7 +8,7 @@ export DOCKER_HOST=$(limactl list docker --format 'unix://{{.Dir}}/sock/docker.s
 
 docker-compose up -d
 
-google-chrome --incognito --disable-pgu --app=http://localhost:3000
+google-chrome --incognito --disable-gpu --app=http://localhost:3000
 
 docker-compose down
 
