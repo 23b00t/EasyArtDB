@@ -8,9 +8,14 @@
     visibility: visible !important;
   }
 
-  .table-to-print {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
+   .table-to-print .btn,
+   .table-to-print .fas {
+     visibility: hidden !important;
+   }
+
+  // .table-to-print {
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  // }
 }

@@ -1,5 +1,6 @@
 class ManufacturersController < ApplicationController
   before_action :set_manufacturer, only: %i[show edit update destroy]
+  before_action :set_active_storage_base_url, only: %i[show]
 
   def index
     @manufacturers = Manufacturer.all
@@ -59,5 +60,9 @@ class ManufacturersController < ApplicationController
 
   def set_manufacturer
     @manufacturer = Manufacturer.find(params[:id])
+  end
+
+  def set_active_storage_base_url
+    ActiveStorage::Current.host = request.base_url
   end
 end

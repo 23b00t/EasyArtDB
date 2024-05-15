@@ -1,13 +1,15 @@
 <div class="container">
-  <%= render partial: 'main_card' %>
+  <div class="table-to-print" data-print-target="table">
+    <%= render partial: 'main_card' %>
 
-  <%= render partial: 'tasks/card' %>
+    <%= render partial: 'tasks/card' %>
 
-  <%= render partial: 'comments/card' %>
+    <%= render partial: 'comments/card' %>
 
-  <%= render partial: 'references/card' %>
+    <%= render partial: 'references/card' %>
 
-  <%= render partial: 'provenances/card' %>
+    <%= render partial: 'provenances/card' %>
+  </div>
 
   <%= render partial: 'footer' %>
 </div>
