@@ -44,14 +44,18 @@
             <% end %>
             </td>
           <% end %>
-          <td data-columns-filter-target="artist"><%= link_to "#{item.artist.last_name}, #{item.artist.first_name} (#{item.artist.birthday} - #{item.artist.deathday unless item.artist.deathday.nil?})", artist_path(item.artist) unless item.artist.nil? %></td>
+          <td data-columns-filter-target="artist">
+            <%= link_to "#{item.artist.last_name}, #{item.artist.first_name} (#{item.artist.birthday} - #{item.artist.deathday unless item.artist.deathday.nil?})", artist_path(item.artist) unless item.artist.nil? %>
+          </td>
           <td data-columns-filter-target="category"><%= item.category %></td>
           <td class="d-none" data-columns-filter-target="titel"><%= item.titel %></td>
           <td data-columns-filter-target="year"><%= item.made_at %></td>
           <td class="d-none" data-columns-filter-target="material"><%= item.material %></td>
           <td class="d-none" data-columns-filter-target="size"><%= item.size %></td>
           <td class="d-none" data-columns-filter-target="provenance"><%= item.provenances.map { |e| "#{e.text}: #{e.source}" }.join('\n') %></td>
-          <td class="d-none" data-columns-filter-target="manufacturer"><%= link_to "#{item.manufacturer.name}", manufacturer_path(item.manufacturer) unless item.manufacturer.nil? %></td>
+          <td class="d-none" data-columns-filter-target="manufacturer">
+            <%= link_to "#{item.manufacturer.name}, #{item.manufacturer.location}", manufacturer_path(item.manufacturer) unless item.manufacturer.nil? %>
+          </td>
           <td data-columns-filter-target="edition"><%= item.edition %></td>
           <td class="d-none" data-columns-filter-target="comments"><%= item.comments.map(&:text).join('\n') %></td>
           <td class="d-none" data-columns-filter-target="references"><%= item.references.map(&:text).join('\n') %></td>
