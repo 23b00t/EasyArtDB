@@ -29,7 +29,7 @@ class ItemsController < ApplicationController
     current_index = @item_ids.index(@item.id)
 
     # Determine the previous and next item IDs
-    previous_item_id = @item_ids[current_index - 1] if current_index > 0
+    previous_item_id = @item_ids[current_index - 1] if current_index.positive?
     next_item_id = @item_ids[current_index + 1] if current_index < @item_ids.length - 1
 
     # Pass these values to the view
