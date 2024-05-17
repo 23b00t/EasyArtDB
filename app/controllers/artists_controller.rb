@@ -13,13 +13,13 @@ class ArtistsController < ApplicationController
     items_index_url = item_storage.url
 
     case referer_path
-    when /\A\/lists/
+    when %r{\A/lists}
       @index_url = referer_path
-    when /\A\/artists/
+    when %r{\A/artists}
       @index_url = artists_path
-    when /\A\/items\/\d+\z/
+    when %r{\A/items/\d+\z}
       @index_url = referer_path
-    when /\A\/\z|\A\/items/
+    when %r{\A/\z|\A/items}
       @index_url = items_index_url
     end
   end

@@ -2,7 +2,7 @@ class BookmarksController < ApplicationController
   before_action :set_list, :set_items, :init_error_handling
 
   def create
-      @item_ids.each do |item|
+    @item_ids.each do |item|
       next if Bookmark.find_by(item_id: item, list_id: @list.id)
 
       @bookmark = Bookmark.new(item_id: item, list_id: @list.id)
@@ -18,7 +18,7 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
-      @item_ids.each do |item|
+    @item_ids.each do |item|
       @bookmark = Bookmark.where(item_id: item, list_id: @list.id)
 
       if @bookmark.destroy(@bookmark.ids)
@@ -54,6 +54,7 @@ class BookmarksController < ApplicationController
   end
 
   def init_error_handling
-    @success_responses, @error_responses = [], []
+    @success_responses = []
+    @error_responses = []
   end
 end
