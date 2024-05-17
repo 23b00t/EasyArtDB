@@ -35,5 +35,5 @@ class Item < ApplicationRecord
 
   # deactivated feature
   # pg_search_scope :incomplete_data,
-                  # against: :incomplete
+  # against: :incomplete
 end

@@ -19,7 +19,6 @@ class ListsController < ApplicationController
     end
   end
 
-
   def new
     @list = List.new
   end
