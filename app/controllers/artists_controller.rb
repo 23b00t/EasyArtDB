@@ -29,9 +29,14 @@ class ArtistsController < ApplicationController
   end
 
   def create
+    referer_path = URI(request.referer).path if request.referer
     @artist = Artist.new(artist_params)
     if @artist.save
-      redirect_to request.referer.match?(%r{/items/new$}) ? new_item_path : artist_path(@artist)
+      if referer_path.match?(%r{/items})
+        redirect_to referer_path
+      else
+        redirect_to artist_path(@artist)
+      end
     else
       render :new, status: :unprocessable_entity
     end

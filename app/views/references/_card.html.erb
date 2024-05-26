@@ -4,7 +4,7 @@
     <ul class="list-group">
       <% @item.references.each do |reference| %>
         <li class="list-group-item">
-          <%= reference.text %>
+          <%= simple_format(reference.text) %>
           <%= link_to edit_item_reference_path(@item, reference), class: "btn btn-warning btn-sm float-end" do %>
             <i class="fas fa-pencil-alt"></i> Ändern
           <% end %>

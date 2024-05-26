@@ -30,8 +30,13 @@ class ManufacturersController < ApplicationController
 
   def create
     @manufacturer = Manufacturer.new(manufacturer_params)
+    referer_path = URI(request.referer).path if request.referer
     if @manufacturer.save
-      redirect_to request.referer.match?(%r{/items/new$}) ? new_item_path : manufacturer_path(@manufacturer)
+      if referer_path.match?(%r{/items})
+        redirect_to referer_path
+      else
+        redirect_to manufacturer_path(@manufacturer)
+      end
     else
       render :new, status: :unprocessable_entity
     end
