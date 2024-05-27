@@ -1,24 +1,23 @@
 class ManufacturersController < ApplicationController
   before_action :set_manufacturer, only: %i[show edit update destroy]
   before_action :set_active_storage_base_url, only: %i[show]
+  before_action :set_referer_path, only: %i[show create]
 
   def index
     @manufacturers = Manufacturer.all
   end
 
   def show
-    referer_path = URI(request.referer).path if request.referer
+    # @referer_path = URI(request.referer).path if request.referer
 
     item_storage = ItemStorage.all.first
     items_index_url = item_storage.url
 
-    case referer_path
-    when %r{\A/lists}
-      @index_url = referer_path
+    case @referer_path
+    when %r{\A/lists} || %r{\A/items/\d+\z}
+      @index_url = @referer_path
     when %r{\A/manufacturers}
       @index_url = manufacturers_path
-    when %r{\A/items/\d+\z}
-      @index_url = referer_path
     when %r{\A/\z|\A/items}
       @index_url = items_index_url
     end
@@ -30,10 +29,9 @@ class ManufacturersController < ApplicationController
 
   def create
     @manufacturer = Manufacturer.new(manufacturer_params)
-    referer_path = URI(request.referer).path if request.referer
     if @manufacturer.save
-      if referer_path.match?(%r{/items})
-        redirect_to referer_path
+      if @referer_path.match?(%r{/items})
+        redirect_to @referer_path
       else
         redirect_to manufacturer_path(@manufacturer)
       end
@@ -69,5 +67,9 @@ class ManufacturersController < ApplicationController
 
   def set_active_storage_base_url
     ActiveStorage::Current.host = request.base_url
+  end
+
+  def set_referer_path
+    @referer_path = URI(request.referer).path if request.referer
   end
 end
