@@ -4,7 +4,8 @@
     <ul class="list-group">
       <% @item.comments.each do |comment| %>
         <li class="list-group-item">
-          <%= comment.text %>
+          <!-- <%= comment.text %> -->
+          <%= simple_format(comment.text) %>
           <%= link_to edit_item_comment_path(@item, comment), class: "btn btn-warning btn-sm float-end" do %>
             <i class="fas fa-pencil-alt"></i> Ändern
           <% end %>
