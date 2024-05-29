@@ -8,8 +8,6 @@ class ManufacturersController < ApplicationController
   end
 
   def show
-    # @referer_path = URI(request.referer).path if request.referer
-
     item_storage = ItemStorage.all.first
     items_index_url = item_storage.url
 

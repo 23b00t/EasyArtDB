@@ -15,7 +15,7 @@ class ProvenancesController < ApplicationController
 
   def update
     if @provenance.update(provenance_params)
-      redirect_to @item, notice: 'Provenienz erfolgreich aktuallisiert'
+      redirect_to @item, notice: 'Provenienz erfolgreich aktualisiert'
     else
       render :edit, alert: 'Es ist etwas schief gelaufen'
     end

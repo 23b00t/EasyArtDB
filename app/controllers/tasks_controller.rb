@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
   before_action :set_item, only: %i[index new create edit]
+  before_action :set_items_index_url, only: %i[show destroy]
 
   def index
     if params[:item_id]
@@ -12,9 +13,8 @@ class TasksController < ApplicationController
 
   def show
     referer_path = URI(request.referer).path if request.referer
-
-    item_storage = ItemStorage.all.first
-    items_index_url = item_storage.url
+    # use session for decission in #destroy
+    session[:referer] = referer_path
 
     case referer_path
     when %r{\A/lists}
@@ -24,7 +24,7 @@ class TasksController < ApplicationController
     when %r{\A/items/\d+\z}
       @index_url = item_path(@task.item)
     when %r{\A/\z|\A/items}
-      @index_url = items_index_url
+      @index_url = @items_index_url
     end
   end
 
@@ -53,7 +53,11 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to item_path(@task.item), notice: 'To-Do gelöscht'
+    if session[:referer]&.match?(%r{\A/items/\d+\z}) || session[:referer].nil?
+      redirect_to item_path(@task.item), notice: 'To-Do gelöscht'
+    else
+      redirect_to @items_index_url, notice: 'To-Do gelöscht'
+    end
   end
 
   private
@@ -69,5 +73,10 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:titel, :content, :done)
+  end
+
+  def set_items_index_url
+    item_storage = ItemStorage.all.first
+    @items_index_url = item_storage.url
   end
 end
