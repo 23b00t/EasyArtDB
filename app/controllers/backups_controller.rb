@@ -3,7 +3,7 @@ class BackupsController < ApplicationController
     BackupService.backup_db
     BackupService.backup_activestorage
 
-    flash[:notice] = "Database and Active Storage restoration completed successfully."
+    flash[:notice] = "Datenbank erfolgreich gesichert!"
   rescue StandardError => e
     flash[:alert] = "Error: #{e.message}"
   ensure
