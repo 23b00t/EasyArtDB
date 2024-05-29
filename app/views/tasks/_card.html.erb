@@ -6,7 +6,12 @@
         <li class="list-group-item">
           <%= link_to "#{task.titel}", item_task_path(@item, task) %>
           <i class="fa-regular <%= task.done ? 'fa-square-check' : 'fa-square' %>"></i>
+          <%= link_to item_task_path(@item, task), data: { turbo_method: :delete, turbo_confirm: "Bist du sicher?" } do %>
+            <i class="fas fa-regular fa-trash-can text-danger"></i>
+          <% end %>
         </li>
+
+
       <% end %>
     </ul>
     <%= link_to new_item_task_path(@item), class: "btn btn-primary mt-3" do %>
