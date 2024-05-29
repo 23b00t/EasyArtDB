@@ -6,7 +6,7 @@ class ReferencesController < ApplicationController
     @reference = @item.references.build(reference_params)
 
     if @reference.save
-      redirect_to @item, notice: 'Reference was successfully created.'
+      redirect_to @item, notice: 'Literatur erfolgreich hinzugefügt'
     else
       render :new
     end
@@ -16,7 +16,7 @@ class ReferencesController < ApplicationController
 
   def update
     if @reference.update(reference_params)
-      redirect_to @item, notice: 'Reference was successfully updated.'
+      redirect_to @item, notice: 'Literatur erfolgreich aktualisiert'
     else
       render :edit
     end
@@ -24,7 +24,7 @@ class ReferencesController < ApplicationController
 
   def destroy
     @reference.destroy
-    redirect_to @item, notice: 'Reference was successfully destroyed.'
+    redirect_to @item, notice: 'Literatur erfolgreich gelöscht'
   end
 
   private
