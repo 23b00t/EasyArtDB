@@ -1,3 +1,4 @@
+require 'English'
 class BackupService
   def self.backup_db
     backup_dir = 'db_backups'
@@ -30,7 +31,7 @@ class BackupService
   def self.execute_command(command, operation)
     system(command, exception: true)
 
-    if $?.success?
+    if $CHILD_STATUS.success?
       Rails.logger.info("#{operation} completed successfully.")
     else
       Rails.logger.error("#{operation} failed. Check logs for details.")
