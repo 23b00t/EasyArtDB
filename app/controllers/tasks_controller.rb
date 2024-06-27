@@ -45,7 +45,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to item_task_path(@task.item), notice: 'To-Do aktuallisiert'
+      redirect_to item_task_path(@task.item), notice: 'To-Do aktualisiert'
     else
       render :edit
     end

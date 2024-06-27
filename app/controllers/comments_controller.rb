@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update(comment_params)
-      redirect_to @item, notice: 'Kommentar erfolgreich aktuallisiert'
+      redirect_to @item, notice: 'Kommentar erfolgreich aktualisiert'
     else
       render :edit, alert: 'Es ist etwas schief gelaufen'
     end
