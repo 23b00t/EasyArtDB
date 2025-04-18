@@ -2,7 +2,6 @@ class PhotosController < ApplicationController
   before_action :set_item
 
   def create
-    Rails.logger.debug 'hallo create'
     @item.photos.attach(params[:photo][:image])
     redirect_to item_path(@item), notice: 'Foto erfolgreich hinzugefügt'
   end
