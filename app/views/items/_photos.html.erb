@@ -5,8 +5,12 @@
       <div class="carousel-item <%= 'active' if index.zero? %>">
         <div class="d-flex flex-column">
           <div class="row">
-            <div class="col-12">
-              <%= image_tag(photo, class: "img-fluid mx-auto d-block", style: "height: 480px;") %>
+            <div class="col-12" style="height: 480px; overflow: hidden;">
+              <%= image_tag(
+                photo,
+                class: "img-fluid mx-auto d-block",
+                style: "object-fit: contain; width: 100%; height: 100%;",
+              ) %>
             </div>
           </div>
           <div class="photo-actions mx-auto">
@@ -19,11 +23,21 @@
     <% end %>
   </div>
   <% unless @item.photos.length == 1 %>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselControls"
+      data-bs-slide="prev"
+    >
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselControls" data-bs-slide="next">
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselControls"
+      data-bs-slide="next"
+    >
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
