@@ -22,46 +22,68 @@
     <tbody>
       <% items.each_with_index do |item, index| %>
         <tr>
-          <td class="d-none" data-columns-filter-target="select"><label><input type="checkbox" name="<%= item.id %>" data-columns-filter-target="itemCheckboxes"></label></td>
+          <td class="d-none" data-columns-filter-target="select"><label><input
+                type="checkbox"
+                name="<%= item.id %>"
+                data-columns-filter-target="itemCheckboxes"
+              ></label></td>
           <% if item.photos.any? %>
             <td data-columns-filter-target="foto">
               <%= link_to item_path(item), class: 'thumbnail-link' do %>
-                <%= image_tag Rails.application.routes.url_helpers.url_for(item.photos.first), class: 'thumbnail-img', width: 80, height: 80 %>
+                <%= image_tag Rails.application.routes.url_helpers.url_for(item.photos.first),
+                class: "thumbnail-img",
+                width: 80,
+                height: 80 %>
                 <% if item.photos.count > 1 %>
                   <div class="overlay">
-                    + <%= item.photos.count - 1 %> weitere
+                    +
+                    <%= item.photos.count - 1 %>
+                    weitere
                   </div>
                 <% end %>
               <% end %>
             </td>
           <% else %>
             <td data-columns-filter-target="foto"><%= link_to item_path(item) do %>
-              <%= image_tag asset_path('placeholder.png'),
-                            width: 80,
-                            height: 80,
-                            class: "mr-3",
-                            style: "filter: grayscale(100%); opacity: 0.7; background-color: #d3d3d3;" %>
-            <% end %>
+                <%= image_tag asset_path("placeholder.png"),
+                width: 80,
+                height: 80,
+                class: "mr-3",
+                style: "filter: grayscale(100%); opacity: 0.7; background-color: #d3d3d3;" %>
+              <% end %>
             </td>
           <% end %>
           <td data-columns-filter-target="artist">
-            <%= link_to "#{item.artist.last_name}, #{item.artist.first_name} (#{item.artist.birthday} - #{item.artist.deathday unless item.artist.deathday.nil?})", artist_path(item.artist) unless item.artist.nil? %>
+            <%= unless item.artist.nil?
+              link_to "#{item.artist.last_name}, #{item.artist.first_name} (#{item.artist.birthday} - #{item.artist.deathday unless item.artist.deathday.nil?})",
+              artist_path(item.artist)
+            end %>
           </td>
           <td data-columns-filter-target="category"><%= item.category %></td>
           <td class="d-none" data-columns-filter-target="titel"><%= item.titel %></td>
           <td data-columns-filter-target="year"><%= item.made_at %></td>
           <td class="d-none" data-columns-filter-target="material"><%= item.material %></td>
           <td class="d-none" data-columns-filter-target="size"><%= item.size %></td>
-          <td class="d-none" data-columns-filter-target="provenance"><%= item.provenances.map { |e| "#{e.text}: #{e.source}" }.join('\n') %></td>
+          <td class="d-none" data-columns-filter-target="provenance">
+            <%= simple_format(item.provenances.map { |e| "#{e.text}: #{e.source}" }.join("\n")) %>
+          </td>
           <td class="d-none" data-columns-filter-target="manufacturer">
-            <%= link_to "#{item.manufacturer.name}, #{item.manufacturer.location}", manufacturer_path(item.manufacturer) unless item.manufacturer.nil? %>
+            <%= unless item.manufacturer.nil?
+              link_to "#{item.manufacturer.name}, #{item.manufacturer.location}",
+              manufacturer_path(item.manufacturer)
+            end %>
           </td>
           <td data-columns-filter-target="edition"><%= item.edition %></td>
-          <td class="d-none" data-columns-filter-target="comments"><%= item.comments.map(&:text).join('\n') %></td>
-          <td class="d-none" data-columns-filter-target="references"><%= item.references.map(&:text).join('\n') %></td>
+          <td class="d-none" data-columns-filter-target="comments">
+            <%= simple_format(item.comments.map(&:text).join("\n")) %>
+          </td>
+          <td class="d-none" data-columns-filter-target="references">
+            <%= simple_format(item.references.map(&:text).join("\n")) %>
+          </td>
           <% item.tasks.each do |task| %>
             <% next if task.done %>
-            <td data-columns-filter-target="tasks"><%= link_to task.titel, item_task_path(item, task) %> </td>
+            <td data-columns-filter-target="tasks"><%= link_to task.titel, item_task_path(item, task) %>
+            </td>
           <% end %>
         </tr>
       <% end %>
