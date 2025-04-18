@@ -4,32 +4,16 @@ class TasksController < ApplicationController
   before_action :set_items_index_url, only: %i[show destroy]
 
   def index
-    if params[:item_id]
-      @tasks = @item.tasks
-    else
-      @tasks = Task.all
-    end
+    @tasks = params[:item_id] ? @item.tasks : Task.all
   end
 
   def show
-    referer_path = URI(request.referer).path if request.referer
-    # use session for decission in #destroy
-    session[:referer] = referer_path
-
-    case referer_path
-    when %r{\A/lists}
-      @index_url = referer_path
-    when %r{\A/tasks}
-      @index_url = tasks_path
-    when %r{\A/items/\d+\z}
-      @index_url = item_path(@task.item)
-    when %r{\A/\z|\A/items}
-      @index_url = @items_index_url
-    end
+    find_path_for_back_button
   end
 
   def new
     @task = @item.tasks.build
+    find_path_for_back_button
   end
 
   def create
@@ -41,7 +25,9 @@ class TasksController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    find_path_for_back_button
+  end
 
   def update
     if @task.update(task_params)
@@ -78,5 +64,22 @@ class TasksController < ApplicationController
   def set_items_index_url
     item_storage = ItemStorage.all.first
     @items_index_url = item_storage.url
+  end
+
+  def find_path_for_back_button
+    referer_path = URI(request.referer).path if request.referer
+    # use session for decission in #destroy
+    session[:referer] = referer_path
+
+    case referer_path
+    when %r{\A/lists}
+      @index_url = referer_path
+    when %r{\A/tasks}
+      @index_url = tasks_path
+    when %r{\A/items/\d+\z}
+      @index_url = item_path(@task.item)
+    when %r{\A/\z|\A/items}
+      @index_url = @items_index_url
+    end
   end
 end
