@@ -4,16 +4,17 @@ RUN gem install bundler:2.4.6
 
 WORKDIR /app
 COPY Gemfile Gemfile.lock ./
-RUN bundle config --global frozen 1
-RUN bundle install
+RUN bundle config set without 'development test' && \
+  bundle config --global frozen 1 && \
+  bundle install
 
 # Install required dependencies
 RUN apt-get update && apt-get install -y \
-    apt-utils \
-    ca-certificates \
-    curl \
-    gnupg \
-    postgresql-client\
+  apt-utils \
+  ca-certificates \
+  curl \
+  gnupg \
+  postgresql-client\
   && rm -rf /var/lib/apt/lists/*
 
 # Download and import the Nodesource GPG key
