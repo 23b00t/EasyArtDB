@@ -86,3 +86,6 @@ gem 'pg_search'
 
 # JS runtime
 gem 'mini_racer'
+
+# To fix broken images
+gem 'mini_magick'

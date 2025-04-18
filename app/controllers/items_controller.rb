@@ -15,7 +15,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.text { render "shared/_pagination_table", formats: [:html], locals: { items: @items } }
+      format.text { render 'shared/_pagination_table', formats: [:html], locals: { items: @items } }
     end
   end
 
@@ -44,7 +44,7 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     if @item.save
-      @item.photos.attach(params[:item][:photos])
+      handle_uploaded_photos
       redirect_to item_path(@item)
     else
       render :new, status: :unprocessable_entity
@@ -55,12 +55,7 @@ class ItemsController < ApplicationController
 
   def update
     if @item.update(item_params)
-      if params[:item][:photos].present?
-        params[:item][:photos].each do |photo|
-          @item.photos.attach(photo)
-        end
-      end
-
+      handle_uploaded_photos
       redirect_to item_path(@item)
     else
       render :edit, status: :unprocessable_entity
@@ -89,5 +84,28 @@ class ItemsController < ApplicationController
 
   def set_active_storage_base_url
     ActiveStorage::Current.host = request.base_url
+  end
+
+  def repair_photo(photo)
+    image = MiniMagick::Image.read(photo.tempfile)
+    image.strip # remove all EXIF metadata
+    image.format('jpg') # rewrite as clean JPEG
+    image.write(photo.tempfile.path)
+
+    @item.photos.attach(
+      io: File.open(photo.tempfile.path),
+      filename: photo.original_filename,
+      content_type: photo.content_type
+    )
+  end
+
+  def handle_uploaded_photos
+    return unless params[:item][:photos].present?
+
+    params[:item][:photos].each do |photo|
+      next unless photo.respond_to?(:tempfile) # skip invalid entries
+
+      params[:repair] == 'true' ? repair_photo(photo) : @item.photos.attach(photo)
+    end
   end
 end

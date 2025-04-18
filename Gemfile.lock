@@ -344,6 +344,7 @@ DEPENDENCIES
   jbuilder
   jsbundling-rails
   kaminari
+  mini_magick
   mini_racer
   pg (~> 1.1)
   pg_search
