@@ -20,6 +20,14 @@
      display: none !important;
    }
 
+  .card, tr {
+    page-break-inside: avoid;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
   // .table-to-print {
   //   position: absolute;
   //   top: 0;
