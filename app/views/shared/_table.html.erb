@@ -59,11 +59,11 @@
               artist_path(item.artist)
             end %>
           </td>
-          <td data-columns-filter-target="category"><%= item.category %></td>
-          <td class="d-none" data-columns-filter-target="titel"><%= item.titel %></td>
-          <td data-columns-filter-target="year"><%= item.made_at %></td>
-          <td class="d-none" data-columns-filter-target="material"><%= item.material %></td>
-          <td class="d-none" data-columns-filter-target="size"><%= item.size %></td>
+          <td data-columns-filter-target="category"><%= simple_format(item.category) %></td>
+          <td class="d-none" data-columns-filter-target="titel"><%= simple_format(item.titel) %></td>
+          <td data-columns-filter-target="year"><%= simple_format(item.made_at) %></td>
+          <td class="d-none" data-columns-filter-target="material"><%= simple_format(item.material) %></td>
+          <td class="d-none" data-columns-filter-target="size"><%= simple_format(item.size) %></td>
           <td class="d-none" data-columns-filter-target="provenance">
             <%= simple_format(item.provenances.map { |e| "#{e.text}: #{e.source}" }.join("\n")) %>
           </td>
@@ -82,7 +82,7 @@
           </td>
           <% item.tasks.each do |task| %>
             <% next if task.done %>
-            <td data-columns-filter-target="tasks"><%= link_to task.titel, item_task_path(item, task) %>
+            <td data-columns-filter-target="tasks"><%= link_to simple_format(task.titel), item_task_path(item, task) %>
             </td>
           <% end %>
         </tr>

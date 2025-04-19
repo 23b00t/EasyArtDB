@@ -4,7 +4,15 @@ body {
 
 a {
   text-decoration: none;
-  color: blue;
+  color: black;
+  display: inline-block;
+  transition: transform 0.05s ease-out;
+}
+
+a:hover:not(.dropdown-item) {
+  text-decoration: none;
+  color: #0a0a0a;
+  transform: scale(1.03);
 }
 
 .btn {
@@ -25,4 +33,20 @@ a {
 
 .btn-warning {
   border-color: #ffc107; /* Red border for danger buttons */
+}
+
+.btn-primary:hover {
+  border-color: #3399ff; /* Slightly lighter blue */
+  background-color: rgba(0, 123, 255, 0.05);
+  color: black;
+}
+
+.btn-danger:hover {
+  border-color: #e5535f; /* Slightly lighter red */
+  background-color: rgba(220, 53, 69, 0.05);
+}
+
+.btn-warning:hover {
+  border-color: #ffcd39; /* Slightly lighter yellow */
+  background-color: rgba(255, 193, 7, 0.05);
 }
