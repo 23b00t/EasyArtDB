@@ -13,6 +13,13 @@
      visibility: hidden !important;
    }
 
+   // After just hiding them (the buttons of the carousel in items/show),
+   // there was a grey box left. Now complety remove the icons.
+   .carousel-control-next-icon,
+   .carousel-control-prev-icon {
+     display: none !important;
+   }
+
   // .table-to-print {
   //   position: absolute;
   //   top: 0;
