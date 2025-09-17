@@ -4,8 +4,8 @@ class ItemsController < ApplicationController
 
   def index
     @items = ItemsFilterService.new(Item.with_attached_photos
-                 .joins('INNER JOIN artists AS artist_alias ON artist_alias.id = items.artist_id')
-                 .includes(:manufacturer, :comments, :references, :tasks), params).filter_and_sort
+                  .joins('INNER JOIN artists AS artist_alias ON artist_alias.id = items.artist_id')
+                  .includes(:manufacturer, :comments, :references, :tasks), params).filter_and_sort
 
     item_storage = ItemStorage.first_or_create
     item_storage.update(item_ids: @items.map(&:id), url: request.original_url)
